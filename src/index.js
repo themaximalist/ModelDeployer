@@ -3,8 +3,6 @@ import * as controllers from "./controllers/index.js"
 import Envtools from "./services/Envtools.js"
 import "./models/index.js"
 
-console.log(controllers);
-
 
 const hummingbird = new Hummingbird();
 
@@ -18,6 +16,6 @@ hummingbird.get("/history", "history");
 hummingbird.post("/api/v1/chat", controllers.api.chat);
 
 hummingbird.mount("/models", controllers.models);
-hummingbird.mount("/users", controllers.users);
+// hummingbird.mount("/users", controllers.users);
 
 await hummingbird.start();
