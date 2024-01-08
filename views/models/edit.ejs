@@ -1,6 +1,8 @@
 <%- include('../partials/page_header', { title: "Add Model"}) -%>
 
 <form method="POST" hx-post="<%= action %>" hx-target="#container" hx-swap="innerHTML" action="<%= action %>" class="flex flex-col max-w-md w-full space-y-4">
+    <input type="hidden" name="id" value="<%= model.id %>" />
+
     <label>
         <div>Model</div>
         <input type="text" name="model" value="<%= model.model %>" class="w-full" />

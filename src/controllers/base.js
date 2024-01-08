@@ -1,7 +1,7 @@
 export default class BaseController {
     constructor(path) {
         this.path = path;
-        this.defaultWhere = {};
+        this.defaultWhere = { where: { active: true } };
     }
 
     get route() {
@@ -12,8 +12,18 @@ export default class BaseController {
     add(req, res) {
         res.render(`${this.namespace}/edit`, {
             [this.object]: this.model.build(),
-            action: `/${this.namespace}/new`,
+            action: `${this.route}/add`,
         });
+    }
+
+    async add_handler(req, res) {
+        try {
+            const object = await this.manager.add(req.body);
+            res.flash("success", `Successfully added ${this.object}`);
+            res.redirect(`${this.route}/${object.id}/`);
+        } catch (e) {
+            return res.render(`${this.namespace}/edit`, { model: req.body, error: e.message, action: `${this.route}/add` });
+        }
     }
 
     async index(req, res) {
@@ -28,6 +38,29 @@ export default class BaseController {
         });
     }
 
+    async edit(req, res) {
+        res.render(`${this.namespace}/edit`, {
+            [this.object]: await this.model.findByPk(req.params.id),
+            action: `${this.route}/${req.params.id}/edit`
+        });
+    }
+
+    async edit_handler(req, res) {
+        try {
+            const object = await this.manager.edit(req.body);
+            res.flash("success", `Successfully edited ${this.object}`);
+            res.redirect(`${this.route}/${object.id}/`);
+        } catch (e) {
+            return res.render(`${this.namespace}/edit`, { model: req.body, error: e.message, action: `${this.route}/edit` });
+        }
+    }
+
+    async remove_handler(req, res) {
+        const model = await this.model.findByPk(req.params.id);
+        await model.update({ active: false });
+        res.flash("success", `Successfully deleted ${this.object}`);
+        res.redirect(`/models`);
+    }
 
     mount(get, post) {
         // (c)reate
@@ -38,7 +71,11 @@ export default class BaseController {
         get(`${this.route}/:id/`, this.show.bind(this));
 
         // (u)pdate
+        post(`${this.route}/add`, this.add_handler.bind(this));
+        get(`${this.route}/:id/edit`, this.edit.bind(this));
+        post(`${this.route}/:id/edit`, this.edit_handler.bind(this));
 
         // (d)elete
+        post(`${this.route}/:id/remove`, this.remove_handler.bind(this));
     }
 }
