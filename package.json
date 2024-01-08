@@ -1,7 +1,7 @@
 {
     "name": "hummingbird-starter",
     "version": "0.0.1",
-    "description": "Hummingbird Starter",
+    "description": "Deploy and Manage AI Models",
     "type": "module",
     "main": "src/index.js",
     "scripts": {
@@ -17,10 +17,12 @@
         "watch:css": "npx tailwindcss -i ./src/app.css -o ./public/app.css --watch"
     },
     "keywords": [
-        "web",
-        "app",
-        "framework",
-        "boilerplate"
+        "ai",
+        "llm",
+        "llama",
+        "gpt-4",
+        "deploy",
+        "models"
     ],
     "author": "The Maximalist",
     "license": "MIT",
