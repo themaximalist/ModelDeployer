@@ -11,7 +11,9 @@ hummingbird.get("/", "index");
 hummingbird.get("/history", "history");
 hummingbird.get("/models", controllers.models.index);
 hummingbird.get("/models/new", controllers.models.edit);
-hummingbird.post("/models/new", controllers.models.update);
 hummingbird.get("/models/:id", controllers.models.show);
+hummingbird.post("/models/:id/remove", controllers.models.remove);
+hummingbird.post("/models/new", controllers.models.update);
+hummingbird.post("/api/v1/chat", controllers.api.chat);
 
 await hummingbird.start();

@@ -48,7 +48,7 @@
         </div>
     </div>
 
-    <form action="/models/<%= model.id %>/remove" method="POST">
+    <form hx-post="/models/<%= model.id %>/remove" action="/models/<%= model.id %>/remove" method="POST">
         <button type="submit" class="border border-red-500 uppercase tracking-wider p-1 text-xs text-red-800" onclick="return confirm('Are you sure you want to delete this model?')">Delete</button>
     </form>
 </div>

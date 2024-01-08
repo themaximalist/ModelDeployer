@@ -1,0 +1,12 @@
+extract to hummingbird-starter
+* flash
+* htmx
+* page_header/footer
+* managers
+* services
+
+tests
+
+finish model deployer
+* API keys
+* history/logging
