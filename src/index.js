@@ -1,19 +1,14 @@
 import Hummingbird from "@themaximalist/hummingbird.js"
+import * as controllers from "./controllers/index.js"
+import "./models/index.js"
 
 const hummingbird = new Hummingbird();
-import "./models/index.js"
 
 // shorter: hummingbird.get("/", "index");
 
 let clicked = 0;
 
-hummingbird.get("/", (req, res) => {
-    res.render("index", { clicked });
-});
-
-hummingbird.post("/clicked", (req, res) => {
-    clicked += 1;
-    res.render("partials/clicked", { clicked });
-});
+hummingbird.get("/", controllers.get);
+hummingbird.post("/click", controllers.click);
 
 await hummingbird.start();
