@@ -1,7 +1,21 @@
-<%- include("partials/page_header", { title: "Model Deployer"}) %>
+<%- include("partials/page_header", { title: "Model Deployer", subtitle: "Deploy production AI models"}) %>
 <div class="">
-    <div>
-        Welcome to Model Deployer, the fastest way to deploy production AI models in your app.
+
+    <div class="prose-xl">
+        <p>
+            Model Deployer is the fastest way to deploy local and remote AI models in your app.
+        </p>
+        <ul class="list-disc">
+            <li>A single interface for all local and remote models</li>
+            <li>Works with OpenAI, Anthropic and Llamafile</li>
+            <li>Rate-limit users</li>
+            <li>Offer free faucet, user-provided API keys, credits, monthly subscriptions</li>
+            <li>View usage history for each user</li>
+            <li>Prevent private keys from leaking in app</li>
+        </ul>
+        <p>
+            <a href="/users/signup" class="font-bold text-blue-600">Start Deploying</a>
+        </p>
     </div>
 </div>
 <%- include("partials/page_footer") %>

@@ -4,18 +4,26 @@
 
 <div class="w-full max-w-5xl mx-auto min-h-screen pb-20 flex flex-col">
     <div class="uppercase text-xs flex gap-4 py-2 text-gray-400">
-        <a href="/" class="font-bold hover:text-gray-700">Model Deployer</a>
-        <a href="/history" class="hover:text-gray-700">History</a>
-        <a href="/models" class="hover:text-gray-700">Models</a>
-        <% if (!!locals.user_id) { %>
-        <a href="/users/logout" class="hover:text-gray-700">Logout</a>
+        <a href="/" class="hover:text-gray-700">Model Deployer</a>
+        <% if (locals.user_email) { %>
+            <a href="/models" class="hover:text-gray-700">Models</a>
+            <a href="/history" class="hover:text-gray-700">History</a>
+            <div class="grow"></div>
+            <a href="/users/profile" class="hover:text-gray-700"><%= locals.user_email %></a>
         <% } else { %>
-        <a href="/users/signup" class="hover:text-gray-700">Signup</a>
+            <div class="grow"></div>
+            <a href="/users/signup" class="hover:text-gray-700">Sign up</a>
         <% } %>
     </div>
 
     <div class="flex flex-col py-8 gap-2">
-        <h1 class="text-2xl leading-none uppercase"><%= typeof title === "string" ? title : "Model Deployer" %></h1>
+        <% if (locals.title) { %>
+            <h1 class="text-2xl leading-none uppercase"><%= locals.title %></h1>
+        <% } %>
+
+        <% if (locals.subtitle) { %>
+            <h2 class="text-sm leading-none uppercase text-gray-500"><%= locals.subtitle %></h2>
+        <% } %>
     </div>
 
     <div class="border-2 border-gray-100 w-full rounded-lg shadow-sm bg-white grow p-8 flex flex-col">
