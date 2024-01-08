@@ -1,8 +1,7 @@
 import Sequelize from "sequelize";
 const DataTypes = Sequelize.DataTypes;
 
-// TODO: does this make a single connection point for all projects?
-import Hummingbird from "@themaximalist/hummingbird.js"
+import sequelize from "../sequelize.js";
 
 export default class Model extends Sequelize.Model {
 }
@@ -37,4 +36,4 @@ Model.init({
         allowNull: false,
         defaultValue: true,
     },
-}, { sequelize: Hummingbird.sequelize });
+}, { sequelize });

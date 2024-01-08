@@ -1,3 +1,5 @@
     </div>
 
-<%- include('../partials/footer') -%>
+<% if (!locals.htmx) { %>
+    <%- include('../partials/footer') -%>
+<% } %>

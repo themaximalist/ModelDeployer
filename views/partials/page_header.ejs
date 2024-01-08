@@ -1,15 +1,16 @@
-<%- include('../partials/header') -%>
+<% if (!locals.htmx) { %>
+    <%- include('../partials/header') -%>
+<% } %>
 
-<div class="flex flex-col py-8 gap-2">
-    <h1 class="text-2xl leading-none uppercase"><%= typeof title === "string" ? title : "Model Deployer" %></h1>
-</div>
-<div class="border-2 border-gray-100 w-full rounded-lg shadow-sm bg-white grow p-8 flex flex-col">
-    <% if (locals.success) { %>
-    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-8" role="alert">
-        <strong class="font-bold">Success</strong>
-        <span class="block sm:inline"><%= locals.success %></span>
+<div class="w-full max-w-5xl mx-auto min-h-screen pb-20 flex flex-col">
+    <div class="uppercase text-xs flex gap-4 py-2 text-gray-400">
+        <strong>Model Deployer</strong>
+        <a href="/history" class="hover:text-gray-700">History</a>
+        <a href="/models" class="hover:text-gray-700">Models</a>
     </div>
-    <script>
-        history.pushState(null, null, "?");
-    </script>
-    <% } %>
+
+    <div class="flex flex-col py-8 gap-2">
+        <h1 class="text-2xl leading-none uppercase"><%= typeof title === "string" ? title : "Model Deployer" %></h1>
+    </div>
+
+    <div class="border-2 border-gray-100 w-full rounded-lg shadow-sm bg-white grow p-8 flex flex-col">
