@@ -4,6 +4,7 @@ import LLM from "@themaximalist/llm.js"
 // largely a duplicate of the other three modules, this works with modeldeployer which in turn works with llm.js
 
 // TODO: setup test models for each of the three services
+// TODO:  - put good limits (max_tokens, temperature=0) on each of the models for testing
 // TODO: conver the tests below to use the test models
 
 describe("modeldeployer", function () {

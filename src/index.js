@@ -1,6 +1,6 @@
 import Hummingbird from "@themaximalist/hummingbird.js"
 import * as controllers from "./controllers/index.js"
-import Envtools from "./envtools.js"
+import Envtools from "./services/Envtools.js"
 import "./models/index.js"
 
 const hummingbird = new Hummingbird();

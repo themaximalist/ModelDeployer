@@ -1,4 +1,4 @@
-import Envtools from "../envtools.js";
+import Envtools from "../services/Envtools.js";
 import Model from "../models/model.js";
 
 import LLM from "@themaximalist/llm.js";
