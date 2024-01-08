@@ -1,11 +1,4 @@
 <form method="POST" hx-post="<%= action %>" hx-target="#container" hx-swap="innerHTML" action="<%= action %>" class="flex flex-col max-w-md w-full space-y-4">
-    <% if (locals.error) { %>
-    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
-        <strong class="font-bold">Error</strong>
-        <span class="block sm:inline"><%= locals.error %></span>
-    </div>
-    <% } %>
-
     <label>
         <div>Model</div>
         <input type="text" name="model" value="<%= model.model %>" class="w-full" />

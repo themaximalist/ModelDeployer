@@ -26,7 +26,7 @@
                 <td class="p-2"><%= locals.Envtools.fromJSON(model.options) %></td>
                 <td class="p-2"><%= Object.keys(model.secrets).join(", ") %></td>
                 <td class="p-2">
-                    <a href="/models/<%= model.id %>" class="border border-purple-500 uppercase tracking-wider p-1 text-xs text-purple-800">Show</a>
+                    <a href="/models/<%= model.id %>" class="button purple">Show</a>
                 </td>
             </tr>
             <% } %>

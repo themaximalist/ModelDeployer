@@ -3,17 +3,21 @@ import * as controllers from "./controllers/index.js"
 import Envtools from "./services/Envtools.js"
 import "./models/index.js"
 
+console.log(controllers);
+
+
 const hummingbird = new Hummingbird();
 
 hummingbird.app.locals.Envtools = Envtools;
 
 hummingbird.get("/", "index");
+// hummingbird.get("/users/signup", "users/signup");
+// hummingbird.post("/users/signup", controllers.users.signup);
+// hummingbird.get("/users/login", controllers.users.login);
 hummingbird.get("/history", "history");
-hummingbird.get("/models", controllers.models.index);
-hummingbird.get("/models/new", controllers.models.edit);
-hummingbird.get("/models/:id", controllers.models.show);
-hummingbird.post("/models/:id/remove", controllers.models.remove);
-hummingbird.post("/models/new", controllers.models.update);
 hummingbird.post("/api/v1/chat", controllers.api.chat);
+
+hummingbird.mount("/models", controllers.models);
+hummingbird.mount("/users", controllers.users);
 
 await hummingbird.start();
