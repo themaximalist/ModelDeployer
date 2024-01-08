@@ -1,0 +1,42 @@
+<%- include('../partials/page_header', { title: "Models"}) -%>
+
+<div class="w-full flex flex-col gap-8">
+    <div class="flex">
+        <a href="/models/new" class="flex items-center gap-1 bg-purple-500 hover:bg-purple-600 text-white p-2 px-3 rounded-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+            </svg>
+            Add Model</a>
+    </div>
+    <div class="">
+        <table class="w-full">
+            <tr>
+                <th class="text-left p-2">Endpoint</th>
+                <th class="text-left p-2">Service</th>
+                <th class="text-left p-2">Model</th>
+                <th class="text-left p-2">Options</th>
+                <th class="text-left p-2">Secrets</th>
+                <th class="text-left p-2">Actions</th>
+            </tr>
+            <% for (let model of models) { -%>
+            <tr>
+                <td class="p-2"><%= model.id.split("-")[0] %></td>
+                <td class="p-2"><a href="/models/<%= model.id %>"><%= model.service %></a></td>
+                <td class="p-2"><%= model.model %></td>
+                <td class="p-2"><%= locals.Envtools.fromJSON(model.options) %></td>
+                <td class="p-2"><%= Object.keys(model.secrets).join(", ") %></td>
+                <td class="p-2">
+                    <a href="/models/<%= model.id %>" class="border border-purple-500 uppercase tracking-wider p-1 text-xs text-purple-800">Show</a>
+                </td>
+            </tr>
+            <% } %>
+            <% if (models.length === 0) { %>
+            <tr>
+                <td colspan="5" class="p-2 text-center">No models found</td>
+            </tr>
+            <% } %>
+        </table>
+    </div>
+</div>
+
+<%- include('../partials/page_footer') -%>

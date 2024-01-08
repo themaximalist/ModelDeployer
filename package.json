@@ -1,5 +1,5 @@
 {
-    "name": "hummingbird-starter",
+    "name": "@themaximalist/modeldeployer",
     "version": "0.0.1",
     "description": "Deploy and Manage AI Models",
     "type": "module",

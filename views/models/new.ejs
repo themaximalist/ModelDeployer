@@ -1,0 +1,47 @@
+<%- include('../partials/page_header', { title: "Add Model"}) -%>
+
+<form method="POST" action="/models/new" class="flex flex-col max-w-md w-full space-y-4">
+    <% if (locals.error) { %>
+    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+        <strong class="font-bold">Error</strong>
+        <span class="block sm:inline"><%= locals.error %></span>
+    </div>
+    <% } %>
+
+    <label>
+        <div>Model</div>
+        <input type="text" name="model" value="<%= model.model %>" class="w-full" />
+
+        <div class="text-sm text-gray-400">
+            llamafile, gpt-*, claude-*
+        </div>
+    </label>
+
+    <label>
+        <div>
+            Secrets
+        </div>
+        <textarea name="secrets" class="w-full"><%= locals.Envtools.fromJSON(model.secrets) %></textarea>
+        <div class="text-sm text-gray-400">
+            KEY1=VALUE1<br />
+            KEY2=VALUE2<br />
+            ...
+        </div>
+    </label>
+
+    <label>
+        <div>
+            Options
+        </div>
+        <textarea name="options" class="w-full"><%= locals.Envtools.fromJSON(model.options) %></textarea>
+        <div class="text-sm text-gray-400">
+            KEY1=VALUE1<br />
+            KEY2=VALUE2<br />
+            ...
+        </div>
+    </label>
+
+    <button type="submit" class="w-full bg-purple-700 hover:bg-purple-800 text-white p-3">Save</button>
+</form>
+
+<%- include('../partials/page_footer') -%>
