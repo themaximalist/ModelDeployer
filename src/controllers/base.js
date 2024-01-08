@@ -2,6 +2,7 @@ export default class BaseController {
     constructor(path) {
         this.path = path;
         this.defaultWhere = { where: { active: true } };
+        this.redirects = {};
     }
 
     get route() {
@@ -20,9 +21,13 @@ export default class BaseController {
         try {
             const object = await this.manager.add(req.body);
             res.flash("success", `Successfully added ${this.object}`);
-            res.redirect(`${this.route}/${object.id}/`);
+            res.redirect(this.redirects.add || `${this.route}/${object.id}/`);
         } catch (e) {
-            return res.render(`${this.namespace}/edit`, { model: req.body, error: e.message, action: `${this.route}/add` });
+            return res.render(`${this.namespace}/edit`, {
+                [this.object]: req.body,
+                error: e.message,
+                action: `${this.route}/add`
+            });
         }
     }
 
@@ -51,15 +56,19 @@ export default class BaseController {
             res.flash("success", `Successfully edited ${this.object}`);
             res.redirect(`${this.route}/${object.id}/`);
         } catch (e) {
-            return res.render(`${this.namespace}/edit`, { model: req.body, error: e.message, action: `${this.route}/edit` });
+            return res.render(`${this.namespace}/edit`, {
+                [this.object]: req.body,
+                error: e.message,
+                action: `${this.route}/edit`
+            });
         }
     }
 
     async remove_handler(req, res) {
-        const model = await this.model.findByPk(req.params.id);
-        await model.update({ active: false });
+        const obj = await this.model.findByPk(req.params.id);
+        await obj.update({ active: false });
         res.flash("success", `Successfully deleted ${this.object}`);
-        res.redirect(`/models`);
+        res.redirect(this.route);
     }
 
     mount(get, post) {

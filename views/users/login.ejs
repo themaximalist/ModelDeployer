@@ -1,0 +1,21 @@
+<%- include("../partials/page_header", {title: "Login"}) %>
+
+<div class="flex flex-col gap-8">
+    <p>Login to Model Deployer with your account below. If you don't have an account <a href="/users/signup">Sign Up</a>.</p>
+
+    <form method="POST" hx-post="<%= action %>" hx-target="#container" hx-swap="innerHTML" action="<%= action %>" class="flex flex-col max-w-md w-full space-y-4">
+        <label>
+            <div>Email</div>
+            <input type="email" name="email" value="<%= user.email %>" class="w-full" />
+        </label>
+
+        <label>
+            <div>Password</div>
+            <input type="password" name="password" value="" class="w-full" />
+        </label>
+
+        <button type="submit" class="w-full bg-purple-700 hover:bg-purple-800 text-white p-3">Login</button>
+    </form>
+</div>
+
+<%- include("../partials/page_footer") %>

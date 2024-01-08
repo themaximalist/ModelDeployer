@@ -1,12 +1,11 @@
-import Envtools from "../services/Envtools.js";
-import Model from "../models/model.js";
+import Envtools from "../services/Envtools.js"
+import Model from "../models/model.js"
 
-import LLM from "@themaximalist/llm.js";
+import LLM from "@themaximalist/llm.js"
 
-class Manager {
-}
+import BaseManager from "./base.js"
 
-export default class Models extends Manager {
+export default class Models extends BaseManager {
     static async edit(data) {
         if (!data.id) throw new Error("No ID provided");
 

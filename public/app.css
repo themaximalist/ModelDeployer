@@ -1052,6 +1052,7 @@ select {
   letter-spacing: 0.05em;
   --tw-text-opacity: 1;
   color: rgb(30 64 175 / var(--tw-text-opacity));
+  text-decoration-line: none;
 }
 
 .button:hover {
@@ -1094,6 +1095,10 @@ select {
     --tw-text-opacity: 1;
     color: rgb(255 255 255 / var(--tw-text-opacity));
   }
+}
+
+a {
+  text-decoration-line: underline;
 }
 
 .hover\:bg-purple-600:hover {
