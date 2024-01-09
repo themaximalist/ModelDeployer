@@ -10,8 +10,7 @@ export default class APIKeys extends BaseManager {
         this.Reference = Model;
     }
 
-    async update(model, req) {
-        const data = req.body;
+    async update(model, data) {
         model.ModelId = data.ModelId;
         model.options = data.options;
         return await model.save();

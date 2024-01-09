@@ -19,7 +19,7 @@ export default class BaseController {
 
     async add_handler(req, res) {
         try {
-            const object = await this.manager.add(req);
+            const object = await this.manager.add(req.body, req.session.user_id);
             res.flash("success", `Successfully added ${this.object}`);
             res.redirect(this.redirects.add || `${this.route}/${object.id}/`);
         } catch (e) {
@@ -34,14 +34,14 @@ export default class BaseController {
 
     async index(req, res) {
         res.render(`${this.namespace}/index`, {
-            [this.namespace]: await this.manager.findAll(req),
+            [this.namespace]: await this.manager.findAll(req.session.user_id),
         });
     };
 
     async show(req, res) {
         try {
             res.render(`${this.namespace}/show`, {
-                [this.object]: await this.manager.find(req),
+                [this.object]: await this.manager.find(req.params.id, req.session.user_id),
             });
         } catch (e) {
             res.flash("error", "Cannot find model");
@@ -52,7 +52,7 @@ export default class BaseController {
     async edit(req, res) {
         try {
             res.render(`${this.namespace}/edit`, {
-                [this.object]: await this.manager.find(req),
+                [this.object]: await this.manager.find(req.params.id, req.session.user_id),
                 action: `${this.route}/${req.params.id}/edit`
             });
         } catch (e) {
@@ -63,7 +63,7 @@ export default class BaseController {
 
     async edit_handler(req, res) {
         try {
-            const object = await this.manager.edit(req);
+            const object = await this.manager.edit(req.body, req.session.user_id);
             res.flash("success", `Successfully edited ${this.object}`);
             res.redirect(`${this.route}/${object.id}/`);
         } catch (e) {
@@ -76,7 +76,7 @@ export default class BaseController {
     }
 
     async remove_handler(req, res) {
-        const obj = await this.manager.find(req);
+        const obj = await this.manager.find(req.params.id, req.session.user_id);
         await obj.update({ active: false });
         res.flash("success", `Successfully deleted ${this.object}`);
         res.redirect(this.route);

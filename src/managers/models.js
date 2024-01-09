@@ -11,8 +11,7 @@ export default class Models extends BaseManager {
         this.Model = Model;
     }
 
-    async update(model, req) {
-        const data = req.body;
+    async update(model, data) {
         model.model = data.model;
         model.secrets = Envtools.toJSON(data.secrets);
         model.options = Envtools.toJSON(data.options);

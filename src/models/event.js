@@ -1,5 +1,6 @@
 import Sequelize from "sequelize";
 const DataTypes = Sequelize.DataTypes;
+import User from "./user.js";
 import Model from "./model.js";
 import APIKey from "./apikey.js";
 
@@ -42,6 +43,9 @@ Event.init({
 
 Event.belongsTo(Model, { foreignKey: { allowNull: false }, onDelete: 'CASCADE' })
 Model.hasMany(Event, { foreignKey: { allowNull: false }, onDelete: 'CASCADE' })
+
+Event.belongsTo(User, { foreignKey: { allowNull: false }, onDelete: 'CASCADE' })
+User.hasMany(Event, { foreignKey: { allowNull: false }, onDelete: 'CASCADE' })
 
 Event.belongsTo(APIKey, { foreignKey: { allowNull: false }, onDelete: 'CASCADE' })
 APIKey.hasMany(Event, { foreignKey: { allowNull: false }, onDelete: 'CASCADE' })

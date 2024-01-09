@@ -9,18 +9,16 @@ export default class BaseManager {
         this.defaultWhere = { where: { active: true } };
     }
 
-    async find(req) {
-        const UserId = req.session.user_id;
-
+    async find(id, UserId) {
+        if (!id) throw new Error("No param ID provided");
         if (!UserId) throw new Error("No user ID provided");
-        if (!req.params.id) throw new Error("No param ID provided");
 
         const where = JSON.parse(JSON.stringify(this.defaultWhere));
-        where.where.id = req.params.id;
+        where.where.id = id;
         if (this.Reference) {
             where.include = { model: this.Reference, where: { UserId } };
         } else {
-            where.where.UserId = req.session.user_id;
+            where.where.UserId = UserId;
         }
 
         const obj = await this.Model.findOne(where);
@@ -28,8 +26,7 @@ export default class BaseManager {
         return obj;
     }
 
-    async findAll(req) {
-        const UserId = req.session.user_id;
+    async findAll(UserId) {
         const where = JSON.parse(JSON.stringify(this.defaultWhere));
         if (this.Reference) {
             where.include = { model: this.Reference, where: { UserId } };
@@ -39,19 +36,19 @@ export default class BaseManager {
         return await this.Model.findAll(where);
     }
 
-    async edit(req) {
-        if (!req.body.id) throw new Error("No ID provided");
-        const model = await this.find(req);
-        return await this.update(model, req);
+    async edit(data, UserId) {
+        if (!data.id) throw new Error("No ID provided");
+        const model = await this.find(data.id, UserId);
+        return await this.update(model, data);
     }
 
-    async add(req) {
-        if (!req.session.user_id) throw new Error("No user ID provided");
+    async add(data, UserId) {
+        if (!UserId) throw new Error("No user ID provided");
 
         const model = this.Model.build();
-        model.UserId = req.session.user_id;
+        model.UserId = UserId;
 
-        return await this.update(model, req);
+        return await this.update(model, data);
     }
 
     static async update(model, req) {

@@ -9,8 +9,7 @@ export default class Events extends BaseManager {
         this.Reference = Model;
     }
 
-    async update(model, req) {
-        const data = req.body;
+    async update(model, data) {
         console.log("MODEL", model, data);
         throw "BLAMO";
         // return await model.save();
