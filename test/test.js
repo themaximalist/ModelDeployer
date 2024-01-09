@@ -1,21 +1,30 @@
 import assert from "assert";
 import LLM from "@themaximalist/llm.js"
+import { setupDatabase, teardownDatabase } from "./utils.js";
 
 // largely a duplicate of the other three modules, this works with modeldeployer which in turn works with llm.js
-
-// TODO: api key
-// TODO: create models dynamically for each of the three services
-// TODO: setup test models for each of the three services
-// TODO:  - put good limits (max_tokens, temperature=0) on each of the models for testing
-// TODO: conver the tests below to use the test models
 
 describe("modeldeployer", function () {
     this.timeout(10000);
     this.slow(5000);
 
     describe.only("modeldeployer", function () {
-        const apikey = "941caf17-812f-443b-a45e-f3541536d22f";
-        const model = `modeldeployer/16bdd1a8-0747-4cf3-977a-717b0b84737c`;
+        let user, model, apikey;
+
+        this.beforeAll(async function () {
+            const setup = await setupDatabase();
+            user = setup.user;
+            model = `modeldeployer/${setup.model.model}`;
+            apikey = setup.apikey.id;
+
+            assert(user);
+            assert(model);
+            assert(apikey);
+        });
+
+        this.afterAll(async function () {
+            await teardownDatabase();
+        });
 
         it("invalid api key", async function () {
             try {

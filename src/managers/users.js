@@ -10,7 +10,7 @@ export default class Users extends BaseManager {
     }
 
     async add(data) {
-        return await Users.update(User.build(), data);
+        return await this.update(User.build(), data);
     }
 
     async update(user, data) {
@@ -25,7 +25,7 @@ export default class Users extends BaseManager {
     }
 
     async login(data) {
-        const user = await User.findOne({ where: { email: data.email } });
+        const user = await this.model.findOne({ where: { email: data.email } });
         if (!user) { throw new Error("Error logging in") }
 
         const isValid = await bcrypt.compare(
