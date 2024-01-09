@@ -13,14 +13,15 @@
             </tr>
             <% for (let event of events) { -%>
             <tr>
-                <td class="p-2"><%= event.id.split("-")[0] %></td>
-                <td class="p-2"><%= event.response_data %></td>
-                <td class="p-2"><%# model.model %></td>
-                <td class="p-2"><%# locals.Envtools.fromJSON(model.options) %></td>
+                <td class="p-2"><%= event.APIKeyId %></td>
+                <td class="p-2"><%= event.messages[0].content.substr(0, 70) %>...</td>
+                <td class="p-2"><%= event.response_data.substr(0, 70) %>...</td>
+                <td class="p-2"><%= event.response_code %></td>
+                <td class="p-2"><%= event.Model.model %></td>
+                <td class="p-2"><%= event.Model.service %></td>
+                <td class="p-2"><%= locals.Envtools.fromJSON(event.options) %></td>
                 <td class="p-2"><%# Object.keys(model.secrets).join(", ") %></td>
                 <td class="p-2">
-                    <a href="/admin/history/<%# model.id %>" class="button">Logs</a>
-                    <a href="/admin/models/<%# model.id %>" class="button purple">Show</a>
                 </td>
             </tr>
             <% } %>

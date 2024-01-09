@@ -5,7 +5,12 @@ import Chat from "../services/Chat.js";
 
 export async function chat(req, res) {
     try {
-        const data = await Chat(req.body, req.session.apikey_model_id);
+        const session = {
+            apikey: req.session.apikey,
+            apikey_model_id: req.session.apikey_model_id,
+        };
+
+        const data = await Chat(req.body, session);
 
         if (typeof data === "string") {
             return res.json({ ok: true, data });
