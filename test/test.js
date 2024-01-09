@@ -13,7 +13,7 @@ describe("modeldeployer", function () {
     this.timeout(10000);
     this.slow(5000);
 
-    describe("modeldeployer", function () {
+    describe.only("modeldeployer", function () {
         const apikey = "941caf17-812f-443b-a45e-f3541536d22f";
         const model = `modeldeployer/16bdd1a8-0747-4cf3-977a-717b0b84737c`;
 
@@ -40,14 +40,22 @@ describe("modeldeployer", function () {
             }
         });
 
-        // TODO: get this one working
-        it.only("prompt (implied model from apikey)", async function () {
-            const response = await LLM("the color of the sky is usually", { apikey });
+        it("prompt (implied model from apikey)", async function () {
+            const response = await LLM("the color of the sky is usually", { model: "modeldeployer", apikey });
             assert(response.indexOf("blue") !== -1, response);
         });
 
+        it("prompt (max_token override)", async function () {
+            const response = await LLM("the color of the sky is usually", { model: "modeldeployer", max_tokens: 1, apikey });
+            assert(response.indexOf("blue") !== -1, response);
+            assert(response.length > 0);
+            assert(response.length < 6);
+        });
+
+
         it("streaming", async function () {
-            const response = await LLM("who created hypertext?", { stream: true, temperature: 0, max_tokens: 30, model }); // stop token?
+            const llm = new LLM([], { stream: true, model, apikey });
+            const response = await llm.chat("who created hypertext?");
 
             let buffer = "";
             for await (const content of response) {

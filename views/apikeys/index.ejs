@@ -6,12 +6,16 @@
             <tr>
                 <th class="text-left p-2">Key</th>
                 <th class="text-left p-2">Model</th>
+                <th class="text-left p-2">Service</th>
+                <th class="text-left p-2">Usage</th>
                 <th class="text-left p-2">Actions</th>
             </tr>
             <% for (let apikey of apikeys ) { -%>
             <tr>
                 <td class="p-2"><%= apikey.id %></td>
-                <td class="p-2"><%# apikey.ModelId %></td>
+                <td class="p-2"><%= apikey.Model.model %></td>
+                <td class="p-2"><%= apikey.Model.service %></td>
+                <td class="p-2">0</td>
                 <td class="p-2">
                     <a href="/admin/history/<%# model.id %>" class="button">Logs</a>
                     <a href="/admin/models/<%# model.id %>" class="button purple">Show</a>
@@ -20,7 +24,7 @@
             <% } %>
             <% if (apikeys.length === 0) { %>
             <tr>
-                <td colspan="3" class="p-2 text-center">No api keys found. Create them from a model or from the API.</td>
+                <td colspan="4" class="p-2 text-center">No api keys found. Create them from a model or from the API.</td>
             </tr>
             <% } %>
         </table>

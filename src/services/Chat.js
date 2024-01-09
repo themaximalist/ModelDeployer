@@ -11,6 +11,7 @@ export default async function Chat(req) {
     return await LLM(messages, options);
 }
 
+// TODO: clean this up...it's a mess
 async function parseOptions(req) {
     const { options } = req.body;
 
@@ -20,15 +21,22 @@ async function parseOptions(req) {
             const model = await Model.findByPk(req.session.apikey_model_id);
             if (options.model) {
                 const [_, id] = options.model.split("/");
-                if (id !== model.id) {
-                    throw new Error(`Invalid model ${options.model}`);
+                if (id) {
+                    if (id !== model.id) {
+                        throw new Error(`Invalid model ${options.model}`);
+                    }
+                } else {
+                    options.model = `modeldeployer/${model.id}`;
                 }
             }
 
-            return { ...model.options, model: model.model };
+            log("Using API key...swapping model", options);
+
+            return { ...model.options, ...options, model: model.model };
         }
     } catch (e) {
-        throw new Error(`Could not find model ${options.model}`);
+        console.log(e);
+        throw new Error(`Could not find api model ${options.model}`);
     }
 
     try {
