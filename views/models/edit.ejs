@@ -14,6 +14,18 @@
 
     <label>
         <div>
+            Options
+        </div>
+        <textarea name="options" class="w-full"><%= locals.Envtools.toEnv(model.options) %></textarea>
+        <div class="text-sm text-gray-400">
+            KEY1=VALUE1<br />
+            KEY2=VALUE2<br />
+            ...
+        </div>
+    </label>
+
+    <label>
+        <div>
             Secrets
         </div>
         <textarea name="secrets" class="w-full"><%= locals.Envtools.toEnv(model.secrets) %></textarea>
@@ -24,17 +36,6 @@
         </div>
     </label>
 
-    <label>
-        <div>
-            Options
-        </div>
-        <textarea name="options" class="w-full"><%= locals.Envtools.toEnv(model.options) %></textarea>
-        <div class="text-sm text-gray-400">
-            KEY1=VALUE1<br />
-            KEY2=VALUE2<br />
-            ...
-        </div>
-    </label>
 
     <button type="submit" class="w-full bg-purple-700 hover:bg-purple-800 text-white p-3">Save</button>
 </form>

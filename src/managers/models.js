@@ -8,15 +8,6 @@ import BaseManager from "./base.js"
 // TODO: how to break some of this out?
 
 export default class Models extends BaseManager {
-    static async find(req) {
-        const id = req.params.id;
-        const UserId = req.session.user_id;
-        const where = Object.assign({}, this.defaultWhere, { where: { id, UserId } });
-
-        const obj = await Model.findOne(where);
-        if (!obj) throw new Error("No object found");
-        return obj;
-    }
 
     static async findAll(req) {
         const UserId = req.session.user_id;
@@ -48,3 +39,5 @@ export default class Models extends BaseManager {
         return await model.save();
     }
 }
+
+Models["Model"] = Model;

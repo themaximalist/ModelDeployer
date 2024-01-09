@@ -33,3 +33,5 @@ export default class Users extends BaseManager {
         return user;
     }
 }
+
+Users.Model = User;
