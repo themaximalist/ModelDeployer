@@ -1,5 +1,6 @@
 import Sequelize from "sequelize";
 const DataTypes = Sequelize.DataTypes;
+import User from "./user.js";
 
 import sequelize from "../sequelize.js";
 
@@ -37,3 +38,6 @@ Model.init({
         defaultValue: true,
     },
 }, { sequelize });
+
+Model.belongsTo(User, { foreignKey: { allowNull: false }, onDelete: 'CASCADE' })
+User.hasMany(Model, { foreignKey: { allowNull: true }, onDelete: 'CASCADE' })

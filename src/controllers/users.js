@@ -30,6 +30,7 @@ export default class UserController extends BaseController {
     }
 
     async profile(req, res) {
+        // TODO: replace
         if (!req.session.user_id) {
             return res.redirect(`${this.route}/login`);
         }

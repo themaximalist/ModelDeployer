@@ -7,7 +7,7 @@ export default class BaseController {
 
     get route() {
         if (this.path.indexOf(`/${this.namespace}`) === 0) { return this.path }
-        return `/${this.path}${this.namespace}`;
+        return `${this.path}/${this.namespace}`;
     }
 
     add(req, res) {
@@ -19,10 +19,11 @@ export default class BaseController {
 
     async add_handler(req, res) {
         try {
-            const object = await this.manager.add(req.body);
+            const object = await this.manager.add(req);
             res.flash("success", `Successfully added ${this.object}`);
             res.redirect(this.redirects.add || `${this.route}/${object.id}/`);
         } catch (e) {
+            console.log(e);
             return res.render(`${this.namespace}/edit`, {
                 [this.object]: req.body,
                 error: e.message,
@@ -33,39 +34,49 @@ export default class BaseController {
 
     async index(req, res) {
         res.render(`${this.namespace}/index`, {
-            [this.namespace]: await this.model.findAll(this.defaultWhere),
+            [this.namespace]: await this.manager.findAll(req),
         });
     };
 
     async show(req, res) {
-        res.render(`${this.namespace}/show`, {
-            [this.object]: await this.model.findByPk(req.params.id),
-        });
+        try {
+            res.render(`${this.namespace}/show`, {
+                [this.object]: await this.manager.find(req),
+            });
+        } catch (e) {
+            res.flash("error", "Cannot find model");
+            res.render(`error`);
+        }
     }
 
     async edit(req, res) {
-        res.render(`${this.namespace}/edit`, {
-            [this.object]: await this.model.findByPk(req.params.id),
-            action: `${this.route}/${req.params.id}/edit`
-        });
+        try {
+            res.render(`${this.namespace}/edit`, {
+                [this.object]: await this.manager.find(req),
+                action: `${this.route}/${req.params.id}/edit`
+            });
+        } catch (e) {
+            res.flash("error", "Cannot find model");
+            res.render(`error`);
+        }
     }
 
     async edit_handler(req, res) {
         try {
-            const object = await this.manager.edit(req.body);
+            const object = await this.manager.edit(req);
             res.flash("success", `Successfully edited ${this.object}`);
             res.redirect(`${this.route}/${object.id}/`);
         } catch (e) {
             return res.render(`${this.namespace}/edit`, {
                 [this.object]: req.body,
                 error: e.message,
-                action: `${this.route}/edit`
+                action: `${this.route}/${req.params.id}/edit`
             });
         }
     }
 
     async remove_handler(req, res) {
-        const obj = await this.model.findByPk(req.params.id);
+        const obj = await this.manager.find(req);
         await obj.update({ active: false });
         res.flash("success", `Successfully deleted ${this.object}`);
         res.redirect(this.route);

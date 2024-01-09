@@ -12,5 +12,9 @@ export async function loggedInUser(req, res, next) {
         }
     }
 
+    if (req.path.startsWith("/admin") && !res.locals.user_id) {
+        return res.redirect("/users/login");
+    }
+
     next();
 };

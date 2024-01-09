@@ -1,13 +1,13 @@
 <% if (!locals.htmx) { %>
-<%- include('../partials/header') -%>
+    <%- include('../partials/header') -%>
 <% } %>
 
 <div class="w-full max-w-5xl mx-auto min-h-screen pb-20 flex flex-col">
     <div class="uppercase text-xs flex gap-4 py-2 text-gray-400">
         <a href="/" class="hover:text-gray-700">Model Deployer</a>
         <% if (locals.user_email) { %>
-            <a href="/models" class="hover:text-gray-700">Models</a>
-            <a href="/history" class="hover:text-gray-700">History</a>
+            <a href="/admin/models" class="hover:text-gray-700">Models</a>
+            <a href="/admin/history" class="hover:text-gray-700">History</a>
             <div class="grow"></div>
             <a href="/users/profile" class="hover:text-gray-700"><%= locals.user_email %></a>
         <% } else { %>

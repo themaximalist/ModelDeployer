@@ -32,13 +32,4 @@ export default class Users extends BaseManager {
 
         return user;
     }
-
-    /*
-    static async edit(data) {
-        if (!data.id) throw new Error("No ID provided");
-
-        const model = await Model.findByPk(data.id);
-        return await Models.update(model, data);
-    }
-    */
 }

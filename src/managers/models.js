@@ -5,20 +5,42 @@ import LLM from "@themaximalist/llm.js"
 
 import BaseManager from "./base.js"
 
+// TODO: how to break some of this out?
+
 export default class Models extends BaseManager {
-    static async edit(data) {
-        if (!data.id) throw new Error("No ID provided");
+    static async find(req) {
+        const id = req.params.id;
+        const UserId = req.session.user_id;
+        const where = Object.assign({}, this.defaultWhere, { where: { id, UserId } });
 
-        const model = await Model.findByPk(data.id);
-        return await Models.update(model, data);
+        const obj = await Model.findOne(where);
+        if (!obj) throw new Error("No object found");
+        return obj;
     }
 
-    static async add(data) {
+    static async findAll(req) {
+        const UserId = req.session.user_id;
+        const where = Object.assign({}, this.defaultWhere, { where: { UserId } });
+        return await Model.findAll(where);
+    }
+
+    static async edit(req) {
+        if (!req.body.id) throw new Error("No ID provided");
+        const model = await Models.find(req);
+        return await Models.update(model, req);
+    }
+
+    static async add(req) {
+        if (!req.session.user_id) throw new Error("No user ID provided");
+
         const model = Model.build();
-        return await Models.update(model, data);
+        model.UserId = req.session.user_id;
+
+        return await Models.update(model, req);
     }
 
-    static async update(model, data) {
+    static async update(model, req) {
+        const data = req.body;
         model.model = data.model;
         model.secrets = Envtools.toJSON(data.secrets);
         model.options = Envtools.toJSON(data.options);
