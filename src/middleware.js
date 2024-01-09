@@ -1,4 +1,5 @@
-import User from './models/user.js';
+import User from "./models/user.js"
+import APIKey from "./models/apikey.js"
 
 export async function loggedInUser(req, res, next) {
     if (req.session.user_id) {
@@ -23,13 +24,23 @@ export async function apiUser(req, res, next) {
     if (!req.path.startsWith("/api")) {
         return next();
     }
+    // TODO: Log API requests
 
-    let apikey = req.headers["x-api-key"] || req.query.apikey;
-    if (!apikey) {
+    let key = req.headers["x-api-key"] || req.query.apikey;
+
+    if (!key) {
         return res.status(401).json({ error: "No API key provided" });
     }
 
-    // req.locals.api_key = apikey;
+    try {
+        const apikey = await APIKey.findOne({ where: { id: key } });
 
-    next();
+        req.session.apikey = apikey.id;
+        req.session.apikey_model_id = apikey.ModelId;
+
+        next();
+    } catch (e) {
+        console.log(e);
+        return res.status(401).json({ error: "Invalid API key provided" });
+    }
 }

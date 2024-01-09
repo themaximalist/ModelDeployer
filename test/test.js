@@ -14,10 +14,35 @@ describe("modeldeployer", function () {
     this.slow(5000);
 
     describe("modeldeployer", function () {
-        const model = "modeldeployer/16bdd1a8-0747-4cf3-977a-717b0b84737c";
+        const apikey = "941caf17-812f-443b-a45e-f3541536d22f";
+        const model = `modeldeployer/16bdd1a8-0747-4cf3-977a-717b0b84737c`;
 
-        it.only("prompt", async function () {
-            const response = await LLM("the color of the sky is usually", { model });
+        it("invalid api key", async function () {
+            try {
+                const response = await LLM("the color of the sky is usually", { model, apikey: "1234" });
+                assert.fail("should have thrown error");
+            } catch (e) {
+                assert.ok("ok");
+            }
+        });
+
+        it("prompt", async function () {
+            const response = await LLM("the color of the sky is usually", { model, apikey });
+            assert(response.indexOf("blue") !== -1, response);
+        });
+
+        it("prompt (wrong model)", async function () {
+            try {
+                const response = await LLM("the color of the sky is usually", { model: "modeldeployer/abcd", apikey });
+                assert.fail("should have failed");
+            } catch (e) {
+                assert.ok("ok");
+            }
+        });
+
+        // TODO: get this one working
+        it.only("prompt (implied model from apikey)", async function () {
+            const response = await LLM("the color of the sky is usually", { apikey });
             assert(response.indexOf("blue") !== -1, response);
         });
 

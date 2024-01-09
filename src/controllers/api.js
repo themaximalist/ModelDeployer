@@ -16,6 +16,7 @@ export async function chat(req, res) {
         }
     } catch (e) {
         log(`Error: ${e.message}`);
+        return res.json({ error: true, message: e.message });
     } finally {
         res.end();
     }
