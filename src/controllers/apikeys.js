@@ -11,4 +11,10 @@ export default class APIKeysController extends BaseController {
         this.model = APIKey;
         this.manager = new APIKeys();
     }
+
+    async index(req, res) {
+        res.render(`${this.namespace}/index`, {
+            [this.namespace]: await this.manager.findAllKeyUsage(req.session.user_id),
+        });
+    };
 }

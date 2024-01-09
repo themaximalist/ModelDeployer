@@ -1,6 +1,15 @@
 import User from "./models/user.js"
 import APIKey from "./models/apikey.js"
 
+import { timeSince } from "./utils.js";
+
+
+export async function helpers(req, res, next) {
+    req.app.locals.timeSince = timeSince;
+
+    next();
+}
+
 export async function loggedInUser(req, res, next) {
     if (req.session.user_id) {
         try {

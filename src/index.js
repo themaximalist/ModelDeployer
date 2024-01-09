@@ -11,6 +11,7 @@ const hummingbird = new Hummingbird();
 hummingbird.app.locals.Envtools = Envtools;
 hummingbird.app.use(middleware.loggedInUser);
 hummingbird.app.use(middleware.apiUser);
+hummingbird.app.use(middleware.helpers);
 
 hummingbird.get("/", "index");
 

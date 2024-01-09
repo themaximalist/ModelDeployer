@@ -1,0 +1,77 @@
+<%- include('../partials/page_header', { title: "Event Details"}) -%>
+
+<div class="flex flex-col gap-8 justify-start w-full">
+
+    <div class="flex flex-col gap-1">
+        <div class="uppercase text-xs">
+            Time
+        </div>
+        <div>
+            <%= locals.timeSince(event.createdAt) %> ago <span class="text-sm text-gray-500"><%= event.createdAt %>)</span>
+        </div>
+    </div>
+
+    <div class="flex flex-col gap-1">
+        <div class="uppercase text-xs">
+            Model
+        </div>
+        <a href="/admin/models/<%= event.ModelId %>">
+            <code><%= event.Model.service %>/<%= event.Model.model %></code>
+        </a>
+    </div>
+
+    <div class="flex flex-col gap-1">
+        <div class="uppercase text-xs">
+            API Key
+        </div>
+        <a href="/admin/events/?apikey=<%= event.APIKeyId %>">
+            <code><%= event.APIKeyId %></code>
+        </a>
+    </div>
+
+    <div class="flex flex-col gap-1">
+        <div class="uppercase text-xs">
+            Options
+        </div>
+        <div>
+            <code>
+                <pre><%= locals.Envtools.fromJSON(event.options) || "-" %></pre>
+            </code>
+        </div>
+    </div>
+
+    <div class="flex flex-col gap-1">
+        <div class="uppercase text-xs">
+            Response Code
+        </div>
+        <div>
+            <%- include('_response_code', { response_code: event.response_code }) -%>
+        </div>
+    </div>
+
+    <div class="flex flex-col gap-1">
+        <div class="uppercase text-xs">
+            Messages
+        </div>
+        <div>
+            <div class="flex flex-col gap-8 w-full my-4">
+                <% for (let message of event.messages) { -%>
+                <div class="flex">
+                    <div class="text-sm">
+                        <strong class="uppercase font-medium"><%= message.role %></strong>
+                        <div class="prose-sm max-w-xl"><%= message.content %></div>
+                    </div>
+                </div>
+                <% } %>
+
+                <div class="flex bg-gray-50 p-2 -m-2">
+                    <div class="text-sm">
+                        <strong class="uppercase font-medium">Assistant</strong>
+                        <div class="prose-sm max-w-xl"><%= event.response_data %></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <%- include('../partials/page_footer') -%>

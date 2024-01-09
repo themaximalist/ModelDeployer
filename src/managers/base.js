@@ -1,5 +1,4 @@
-// TODO: it's kind of a mess that we have to pass in a req object
-// TODO: it would be better if there was a way to "auth" a manager, and inject a user_id, reference, etc...
+import lodash from "lodash";
 
 export default class BaseManager {
 
@@ -26,13 +25,16 @@ export default class BaseManager {
         return obj;
     }
 
-    async findAll(UserId) {
-        const where = JSON.parse(JSON.stringify(this.defaultWhere));
+    async findAll(UserId, options = {}) {
+        let where = JSON.parse(JSON.stringify(this.defaultWhere));
         if (this.Reference) {
             where.include = { model: this.Reference, where: { UserId } };
         } else {
             where.where.UserId = UserId;
         }
+
+        where = lodash.merge(where, options);
+
         return await this.Model.findAll(where);
     }
 

@@ -1,12 +1,34 @@
+* handle event errors
+* event options
+* fix demo..why isn't streaming working?
+
+
+* fix llm.js readme for modeldeployer
+* fix modeldeployer.com marketing website
+* track usage
+* track $$$ usage
+
+* rate limit
+* test secrets...currently doesn't work
+* test dev-provided API key
+* test user-provided API key
+* free faucet generator for verified emails
+* how can Model Deployer handle subscriptions when the subscription is for another app?
+* flash doesn't work without javascript..hrm?
+
+* deploy
+* run tests on production endpoint
+* update llm.js to use production endpoint
+
+* blog
+* how to deploy [anthropic, openai, llamafile] for your users
+
+* Add to themaximalist.com
+* Add to bradjasper.com
+
 extract to hummingbird-starter
 * flash
 * htmx
 * page_header/footer
 * managers
 * services
-
-tests
-
-finish model deployer
-* API keys
-* history/logging

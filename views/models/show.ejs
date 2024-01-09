@@ -50,7 +50,7 @@
 
     <div class="flex flex-col gap-16">
         <div class="flex gap-4">
-            <a href="/admin/events/<%= model.id %>" class="button purple">Events</a>
+            <a href="/admin/events?model=<%= model.id %>" class="button purple">Events</a>
             <form hx-post="/admin/apikeys/add" action="/admin/apikeys/add" method="POST">
                 <input type="text" name="ModelId" value="<%= model.id %>" hidden>
                 <button type="submit" class="button">Generate API Key</button>

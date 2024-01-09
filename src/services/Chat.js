@@ -15,21 +15,36 @@ export default async function Chat({ messages, options }, session) {
 
     log("/api/v1/chat")
 
+    const inputMessages = JSON.parse(JSON.stringify(messages)); // store input messages...they get modified in LLM() and we dont need it twice
     options = await parseOptions(options, session.apikey_model_id);
-    const response_data = await LLM(messages, options);
 
-    delete options.model; // don't need it
+    try {
+        const response_data = await LLM(messages, options);
 
-    const event = await Event.create({
-        options,
-        messages,
-        response_data,
-        response_code: 200,
-        ModelId: session.apikey_model_id,
-        APIKeyId: session.apikey,
-    });
+        delete options.model; // don't need it
 
-    return response_data;
+        await Event.create({
+            options,
+            messages: inputMessages,
+            response_data,
+            response_code: 200,
+            ModelId: session.apikey_model_id,
+            APIKeyId: session.apikey,
+        });
+
+        return response_data;
+    } catch (e) {
+        await Event.create({
+            options,
+            messages: inputMessages,
+            response_data: e.message,
+            response_code: 500,
+            ModelId: session.apikey_model_id,
+            APIKeyId: session.apikey,
+        });
+
+        throw e;
+    }
 }
 
 async function parseOptions(options, apikey_model_id = null) {

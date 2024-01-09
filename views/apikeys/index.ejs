@@ -3,30 +3,34 @@
 <div class="w-full flex flex-col gap-8">
     <div class="">
         <table class="w-full">
-            <tr>
-                <th class="text-left p-2">Key</th>
-                <th class="text-left p-2">Model</th>
-                <th class="text-left p-2">Service</th>
-                <th class="text-left p-2">Usage</th>
-                <th class="text-left p-2">Actions</th>
-            </tr>
-            <% for (let apikey of apikeys ) { -%>
-            <tr>
-                <td class="p-2"><%= apikey.id %></td>
-                <td class="p-2"><%= apikey.Model.model %></td>
-                <td class="p-2"><%= apikey.Model.service %></td>
-                <td class="p-2">0</td>
-                <td class="p-2">
-                    <a href="/admin/events/?model=<%= apikey.Model.id %>&apikey=<%= apikey.id %>" class="button">Events</a>
-                    <a href="/admin/apikeys/<%= apikey.id %>" class="button purple">Show</a>
-                </td>
-            </tr>
-            <% } %>
-            <% if (apikeys.length === 0) { %>
-            <tr>
-                <td colspan="4" class="p-2 text-center">No api keys found. Create them from a model or from the API.</td>
-            </tr>
-            <% } %>
+            <thead>
+                <tr>
+                    <th>Key</th>
+                    <th>Model</th>
+                    <th>Service</th>
+                    <th>Usage</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for (let apikey of apikeys ) { -%>
+                <tr>
+                    <td><%= apikey.id %></td>
+                    <td><%= apikey.Model.model %></td>
+                    <td><%= apikey.Model.service %></td>
+                    <td><%= apikey.usage %></td>
+                    <td>
+                        <a href="/admin/events/?apikey=<%= apikey.id %>" class="button">Events</a>
+                        <a href="/admin/apikeys/<%= apikey.id %>" class="button purple">Show</a>
+                    </td>
+                </tr>
+                <% } %>
+                <% if (apikeys.length === 0) { %>
+                <tr>
+                    <td colspan="5" class="text-center">No api keys found. Create them from a model or from the API.</td>
+                </tr>
+                <% } %>
+            </tbody>
         </table>
     </div>
 </div>

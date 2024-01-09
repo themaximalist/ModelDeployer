@@ -1,5 +1,6 @@
 import assert from "assert";
 import LLM from "@themaximalist/llm.js"
+import Event from "../src/models/event.js"
 import { setupAPIToken, teardownDatabase } from "./utils.js";
 
 // largely a duplicate of the other three modules, this works with modeldeployer which in turn works with llm.js
@@ -8,19 +9,19 @@ describe("modeldeployer", function () {
     this.timeout(10000);
     this.slow(5000);
 
-    describe.only("modeldeployer", function () {
-        let model;
+    let model;
 
-        this.beforeAll(async function () {
-            model = await setupAPIToken();
-            assert(model);
-        });
+    this.beforeAll(async function () {
+        model = await setupAPIToken();
+        assert(model);
+    });
 
-        this.afterAll(async function () {
-            await teardownDatabase(true);
-        });
+    this.afterAll(async function () {
+        await teardownDatabase(true);
+    });
 
-        it.only("prompt", async function () {
+    describe("modeldeployer", function () {
+        it("prompt", async function () {
             const response = await LLM("the color of the sky is usually", { model });
             assert(response.indexOf("blue") !== -1, response);
         });
@@ -53,6 +54,29 @@ describe("modeldeployer", function () {
 
             assert(buffer.includes("Ted Nelson"));
         });
+    });
+
+    describe.only("events", function () {
+        it("saves request as event", async function () {
+            let oldEvents = await Event.findAll({});
+
+            const response = await LLM("the color of the sky is usually", { model });
+            assert(response.indexOf("blue") !== -1, response);
+
+            let newEvents = await Event.findAll({});
+            assert(oldEvents.length + 1 === newEvents.length);
+
+            const event = await Event.findOne({
+                order: [["createdAt", "DESC"]]
+            });
+
+            assert(event);
+            assert(event.messages.length == 1);
+            assert(event.response_data.indexOf("blue") !== -1, event.response_data);
+            assert(event.response_code === 200);
+        });
+
+        // TODO: saves failed request as event
     });
 
     describe.skip("llamafile", function () {

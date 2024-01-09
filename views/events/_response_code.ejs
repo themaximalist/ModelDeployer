@@ -1,0 +1,13 @@
+<div class="inline-block my-1">
+    <% if (response_code == 200) { %>
+        <div class="flex items-center gap-2 bg-green-100 text-green-800 rounded-md py-2 px-4">
+            <div class="text-xl font-bold">✓</div>
+            <div class="text-sm">200</div>
+        </div>
+    <% } else { %>
+        <div class="flex items-center gap-2 bg-red-100 text-red-800 rounded-md py-2 px-4">
+            <div class="text-xl font-bold">✓</div>
+            <div class="text-sm"><%= response_code %></div>
+        </div>
+    <% } %>
+</div>

@@ -1,35 +1,52 @@
-<%- include('../partials/page_header', { title: "Events"}) -%>
+<%- include('../partials/page_header', { title: "Events", subtitle: `${events.length} events`}) -%>
 
 <div class="w-full flex flex-col gap-8">
     <div class="">
-        <table class="w-full">
-            <tr>
-                <th class="text-left p-2">Endpoint</th>
-                <th class="text-left p-2">Service</th>
-                <th class="text-left p-2">Model</th>
-                <th class="text-left p-2">Options</th>
-                <th class="text-left p-2">Secrets</th>
-                <th class="text-left p-2">Actions</th>
-            </tr>
-            <% for (let event of events) { -%>
-            <tr>
-                <td class="p-2"><%= event.APIKeyId %></td>
-                <td class="p-2"><%= event.messages[0].content.substr(0, 70) %>...</td>
-                <td class="p-2"><%= event.response_data.substr(0, 70) %>...</td>
-                <td class="p-2"><%= event.response_code %></td>
-                <td class="p-2"><%= event.Model.model %></td>
-                <td class="p-2"><%= event.Model.service %></td>
-                <td class="p-2"><%= locals.Envtools.fromJSON(event.options) %></td>
-                <td class="p-2"><%# Object.keys(model.secrets).join(", ") %></td>
-                <td class="p-2">
-                </td>
-            </tr>
+
+        <% if (locals.apikey || locals.model) { %>
+        <div class="text-sm pb-6 flex flex-col gap-4">
+            <% if (locals.apikey) { %>
+            <div><strong>API Key</strong> <code><%= locals.apikey %></code></div>
             <% } %>
-            <% if (events.length === 0) { %>
-            <tr>
-                <td colspan="6" class="p-2 text-center">No events found</td>
-            </tr>
+            <% if (locals.model) { %>
+            <div><strong>MODEL</strong> <code><%= locals.model %></code></div>
             <% } %>
+            <a href="/admin/events" class="text-xs text-gray-500">Clear</a>
+        </div>
+        <% } %>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Time</th>
+                    <th>API Key</th>
+                    <th>Service</th>
+                    <th>Model</th>
+                    <th>Input</th>
+                    <th>Output</th>
+                    <th>Response</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for (let event of events) { -%>
+                <tr onclick="window.location='/admin/events/<%= event.id %>'" class="cursor-pointer">
+                    <td class="whitespace-nowrap"><%= locals.timeSince(event.createdAt) %> ago</td>
+                    <td class="whitespace-nowrap"><%= event.APIKeyId.split("-")[0] %></td>
+                    <td class="whitespace-nowrap"><%= event.Model.service %></td>
+                    <td class="whitespace-nowrap"><%= event.Model.model %></td>
+                    <td><%= event.messages[0].content.substr(0, 70) %>...</td>
+                    <td><%= event.response_data.substr(0, 70) %>...</td>
+                    <td>
+                        <%- include('_response_code', { response_code: event.response_code }) -%>
+                    </td>
+                </tr>
+                <% } %>
+                <% if (events.length === 0) { %>
+                <tr>
+                    <td colspan="6" class="p-2 text-center">No events found</td>
+                </tr>
+                <% } %>
+            </tbody>
         </table>
     </div>
 </div>
