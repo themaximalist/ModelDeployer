@@ -4,12 +4,9 @@ export default class BaseManager {
         if (!req.session.user_id) throw new Error("No user ID provided");
         if (!req.params.id) throw new Error("No param ID provided");
 
-        const where = Object.assign({}, this.defaultWhere, {
-            where: {
-                id: req.params.id,
-                UserId: req.session.user_id,
-            }
-        });
+        const where = JSON.parse(JSON.stringify(this.defaultWhere));
+        where.where.id = req.params.id;
+        where.where.UserId = req.session.user_id;
 
         const obj = await this.Model.findOne(where);
         if (!obj) throw new Error("No object found");
@@ -18,7 +15,7 @@ export default class BaseManager {
 
     static async findAll(req) {
         const UserId = req.session.user_id;
-        const where = Object.assign({}, this.defaultWhere);
+        const where = JSON.parse(JSON.stringify(this.defaultWhere));
         where.where.UserId = UserId;
         return await this.Model.findAll(where);
     }

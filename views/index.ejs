@@ -14,7 +14,11 @@
             <li>Prevent private keys from leaking in app</li>
         </ul>
         <p>
-            <a href="/users/signup" class="font-bold text-blue-600">Start Deploying</a>
+            <% if (locals.user_id) { %>
+                <a href="/admin/models" class="font-bold text-blue-600">Start Deploying</a>
+            <% } else { %>
+                <a href="/users/signup" class="font-bold text-blue-600">Start Deploying</a>
+            <% } %>
         </p>
     </div>
 </div>

@@ -1,9 +1,8 @@
-import Envtools from "../services/Envtools.js"
+import BaseManager from "./base.js"
 import Model from "../models/model.js"
 
+import Envtools from "../services/Envtools.js"
 import LLM from "@themaximalist/llm.js"
-
-import BaseManager from "./base.js"
 
 export default class Models extends BaseManager {
 
