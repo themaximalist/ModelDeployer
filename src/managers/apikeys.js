@@ -1,13 +1,18 @@
 import BaseManager from "./base.js"
-import APIKey from "../models/model.js"
+import APIKey from "../models/apikey.js"
+import Model from "../models/model.js"
 
 export default class APIKeys extends BaseManager {
 
-    static async update(model, req) {
+    constructor() {
+        super(...arguments);
+        this.Model = APIKey;
+        this.Reference = Model;
+    }
+
+    async update(model, req) {
         const data = req.body;
         model.options = data.options;
         return await model.save();
     }
 }
-
-APIKeys.Model = APIKey;

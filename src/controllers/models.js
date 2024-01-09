@@ -9,6 +9,6 @@ export default class ModelsController extends BaseController {
         this.object = "model";
         this.namespace = "models";
         this.model = Model;
-        this.manager = Models;
+        this.manager = new Models();
     }
 }

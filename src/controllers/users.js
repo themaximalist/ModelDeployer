@@ -9,7 +9,7 @@ export default class UserController extends BaseController {
         this.object = "user";
         this.namespace = "users";
         this.model = User;
-        this.manager = Users;
+        this.manager = new Users();
 
         this.redirects["add"] = `${this.route}/profile`;
     }

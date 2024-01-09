@@ -4,11 +4,16 @@ import bcrypt from "bcrypt"
 
 export default class Users extends BaseManager {
 
-    static async add(data) {
+    constructor() {
+        super(...arguments);
+        this.Model = User;
+    }
+
+    async add(data) {
         return await Users.update(User.build(), data);
     }
 
-    static async update(user, data) {
+    async update(user, data) {
         user.email = data.email;
 
         if (data.password1 !== data.password2) { throw new Error("Passwords do not match") }
@@ -19,7 +24,7 @@ export default class Users extends BaseManager {
         return await user.save();
     }
 
-    static async login(data) {
+    async login(data) {
         const user = await User.findOne({ where: { email: data.email } });
         if (!user) { throw new Error("Error logging in") }
 
@@ -33,5 +38,3 @@ export default class Users extends BaseManager {
         return user;
     }
 }
-
-Users.Model = User;

@@ -9,6 +9,6 @@ export default class EventsController extends BaseController {
         this.object = "event";
         this.namespace = "events";
         this.model = Event;
-        this.manager = Events;
+        this.manager = new Events();
     }
 }

@@ -1,28 +1,29 @@
 <% if (!locals.htmx) { %>
-    <%- include('../partials/header') -%>
+<%- include('../partials/header') -%>
 <% } %>
 
 <div class="w-full max-w-5xl mx-auto min-h-screen pb-20 flex flex-col">
     <div class="uppercase text-xs flex gap-4 py-2 text-gray-400">
         <a href="/" class="hover:text-gray-700">Model Deployer</a>
         <% if (locals.user_email) { %>
-            <a href="/admin/models" class="hover:text-gray-700">Models</a>
-            <a href="/admin/events" class="hover:text-gray-700">Events</a>
-            <div class="grow"></div>
-            <a href="/users/profile" class="hover:text-gray-700"><%= locals.user_email %></a>
+        <a href="/admin/models" class="hover:text-gray-700">Models</a>
+        <a href="/admin/events" class="hover:text-gray-700">Events</a>
+        <a href="/admin/apikeys" class="hover:text-gray-700">API Keys</a>
+        <div class="grow"></div>
+        <a href="/users/profile" class="hover:text-gray-700"><%= locals.user_email %></a>
         <% } else { %>
-            <div class="grow"></div>
-            <a href="/users/signup" class="hover:text-gray-700">Sign up</a>
+        <div class="grow"></div>
+        <a href="/users/signup" class="hover:text-gray-700">Sign up</a>
         <% } %>
     </div>
 
     <div class="flex flex-col py-8 gap-2">
         <% if (locals.title) { %>
-            <h1 class="text-2xl leading-none uppercase"><%= locals.title %></h1>
+        <h1 class="text-2xl leading-none uppercase"><%= locals.title %></h1>
         <% } %>
 
         <% if (locals.subtitle) { %>
-            <h2 class="text-sm leading-none uppercase text-gray-500"><%= locals.subtitle %></h2>
+        <h2 class="text-sm leading-none uppercase text-gray-500"><%= locals.subtitle %></h2>
         <% } %>
     </div>
 

@@ -9,6 +9,6 @@ export default class APIKeysController extends BaseController {
         this.object = "apikey";
         this.namespace = "apikeys";
         this.model = APIKey;
-        this.manager = APIKeys;
+        this.manager = new APIKeys();
     }
 }

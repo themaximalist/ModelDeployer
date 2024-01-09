@@ -6,7 +6,12 @@ import LLM from "@themaximalist/llm.js"
 
 export default class Models extends BaseManager {
 
-    static async update(model, req) {
+    constructor() {
+        super(...arguments);
+        this.Model = Model;
+    }
+
+    async update(model, req) {
         const data = req.body;
         model.model = data.model;
         model.secrets = Envtools.toJSON(data.secrets);
@@ -15,5 +20,3 @@ export default class Models extends BaseManager {
         return await model.save();
     }
 }
-
-Models["Model"] = Model;
