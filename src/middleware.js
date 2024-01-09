@@ -18,3 +18,18 @@ export async function loggedInUser(req, res, next) {
 
     next();
 };
+
+export async function apiUser(req, res, next) {
+    if (!req.path.startsWith("/api")) {
+        return next();
+    }
+
+    let apikey = req.headers["x-api-key"] || req.query.apikey;
+    if (!apikey) {
+        return res.status(401).json({ error: "No API key provided" });
+    }
+
+    // req.locals.api_key = apikey;
+
+    next();
+}

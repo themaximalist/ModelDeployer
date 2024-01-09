@@ -4,8 +4,9 @@ const log = debug("modeldeployer:services:chat");
 import LLM from "@themaximalist/llm.js"
 import Model from "../models/model.js";
 
-export default async function Chat({ messages, options }) {
+export default async function Chat(req) {
     log("/api/v1/chat")
+    const { messages, options } = req.body;
     const opts = await parseOptions(options);
     return await LLM(messages, opts);
 }

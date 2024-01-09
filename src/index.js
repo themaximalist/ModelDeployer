@@ -10,12 +10,14 @@ const hummingbird = new Hummingbird();
 
 hummingbird.app.locals.Envtools = Envtools;
 hummingbird.app.use(middleware.loggedInUser);
+hummingbird.app.use(middleware.apiUser);
 
 hummingbird.get("/", "index");
 
 hummingbird.mount("/users", controllers.users);
 hummingbird.mount("/admin", controllers.models);
 hummingbird.mount("/admin", controllers.events);
+hummingbird.mount("/admin", controllers.apikeys);
 
 hummingbird.post("/api/v1/chat", controllers.api.chat);
 

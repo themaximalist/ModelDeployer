@@ -1,0 +1,30 @@
+<%- include('../partials/page_header', { title: "API Keys"}) -%>
+
+<div class="w-full flex flex-col gap-8">
+    <div class="">
+        <table class="w-full">
+            <tr>
+                <th class="text-left p-2">Key</th>
+                <th class="text-left p-2">Model</th>
+                <th class="text-left p-2">Actions</th>
+            </tr>
+            <% for (let apikey of apikeys ) { -%>
+            <tr>
+                <td class="p-2"><%= apikey.id %></td>
+                <td class="p-2"><%# apikey.ModelId %></td>
+                <td class="p-2">
+                    <a href="/admin/history/<%# model.id %>" class="button">Logs</a>
+                    <a href="/admin/models/<%# model.id %>" class="button purple">Show</a>
+                </td>
+            </tr>
+            <% } %>
+            <% if (apikeys.length === 0) { %>
+            <tr>
+                <td colspan="3" class="p-2 text-center">No events found</td>
+            </tr>
+            <% } %>
+        </table>
+    </div>
+</div>
+
+<%- include('../partials/page_footer') -%>

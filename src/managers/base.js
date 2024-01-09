@@ -17,6 +17,7 @@ export default class BaseManager {
         const UserId = req.session.user_id;
         const where = JSON.parse(JSON.stringify(this.defaultWhere));
         where.where.UserId = UserId;
+        console.log("WHERE", this.Model, where);
         return await this.Model.findAll(where);
     }
 

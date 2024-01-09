@@ -3,6 +3,8 @@ import LLM from "@themaximalist/llm.js"
 
 // largely a duplicate of the other three modules, this works with modeldeployer which in turn works with llm.js
 
+// TODO: api key
+// TODO: create models dynamically for each of the three services
 // TODO: setup test models for each of the three services
 // TODO:  - put good limits (max_tokens, temperature=0) on each of the models for testing
 // TODO: conver the tests below to use the test models
@@ -12,9 +14,9 @@ describe("modeldeployer", function () {
     this.slow(5000);
 
     describe("modeldeployer", function () {
-        const model = "modeldeployer/d64b8ae0-9052-4bc8-8ced-af052a9848ec";
+        const model = "modeldeployer/16bdd1a8-0747-4cf3-977a-717b0b84737c";
 
-        it("prompt", async function () {
+        it.only("prompt", async function () {
             const response = await LLM("the color of the sky is usually", { model });
             assert(response.indexOf("blue") !== -1, response);
         });
