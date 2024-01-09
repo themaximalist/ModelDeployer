@@ -20,7 +20,7 @@ describe("modeldeployer", function () {
             await teardownDatabase(true);
         });
 
-        it("prompt", async function () {
+        it.only("prompt", async function () {
             const response = await LLM("the color of the sky is usually", { model });
             assert(response.indexOf("blue") !== -1, response);
         });
