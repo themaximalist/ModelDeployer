@@ -56,7 +56,7 @@ describe("modeldeployer", function () {
         });
     });
 
-    describe.only("events", function () {
+    describe("events", function () {
         it("saves request as event", async function () {
             let oldEvents = await Event.findAll({});
 
@@ -66,17 +66,56 @@ describe("modeldeployer", function () {
             let newEvents = await Event.findAll({});
             assert(oldEvents.length + 1 === newEvents.length);
 
-            const event = await Event.findOne({
-                order: [["createdAt", "DESC"]]
-            });
-
+            const event = await Event.findOne({ order: [["createdAt", "DESC"]] });
             assert(event);
             assert(event.messages.length == 1);
             assert(event.response_data.indexOf("blue") !== -1, event.response_data);
             assert(event.response_code === 200);
         });
 
-        // TODO: saves failed request as event
+        it("event saves streaming response", async function () {
+            let oldEvents = await Event.findAll({});
+
+            const llm = new LLM([], { stream: true, model });
+            const response = await llm.chat("who created hypertext?");
+
+            let buffer = "";
+            for await (const content of response) {
+                buffer += content;
+            }
+
+            assert(buffer.includes("Ted Nelson"));
+
+            let newEvents = await Event.findAll({});
+            assert(oldEvents.length + 1 === newEvents.length);
+
+            const event = await Event.findOne({ order: [["createdAt", "DESC"]] });
+            assert(event);
+            assert(event.messages.length == 1);
+            assert(event.response_data.indexOf("Ted Nelson") !== -1, event.response_data);
+            assert(event.response_code === 200);
+        });
+
+        it("saves failed request as event", async function () {
+            let oldEvents = await Event.findAll({});
+
+            try {
+                await LLM("the color of the sky is usually", { model, max_tokens: -1 }); // should throw error, max_tokens must be > 0
+                assert.fail("should have thrown error");
+            } catch (e) {
+                assert.ok("ok");
+            }
+
+            let newEvents = await Event.findAll({});
+            assert(oldEvents.length + 1 === newEvents.length);
+
+            const event = await Event.findOne({ order: [["createdAt", "DESC"]] });
+            assert(event);
+            assert(event.messages.length == 1);
+            assert(event.response_data.includes("Error"));
+            assert(event.response_data.includes("max_tokens"));
+            assert.notEqual(event.response_code, 200);
+        });
     });
 
     describe.skip("llamafile", function () {

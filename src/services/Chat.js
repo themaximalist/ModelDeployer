@@ -4,8 +4,6 @@ const log = debug("modeldeployer:services:chat");
 import LLM from "@themaximalist/llm.js"
 import Model from "../models/model.js"
 import Event from "../models/event.js"
-import APIKey from "../models/apikey.js";
-
 
 export default async function Chat({ messages, options }, session) {
     if (!messages || messages.length == 0) { throw new Error("No messages provided") }
@@ -17,34 +15,49 @@ export default async function Chat({ messages, options }, session) {
 
     const inputMessages = JSON.parse(JSON.stringify(messages)); // store input messages...they get modified in LLM() and we dont need it twice
     options = await parseOptions(options, session.apikey_model_id);
+    const model = options.model;
+    delete options.model;
+
+    const event = await Event.build({
+        options,
+        messages: inputMessages,
+        ModelId: session.apikey_model_id,
+        APIKeyId: session.apikey,
+    });
 
     try {
-        const response_data = await LLM(messages, options);
+        const response_data = await LLM(messages, Object.assign({}, options, { model }));
+        if (!options.stream) {
+            event.response_code = 200;
+            event.response_data = response_data;
+            await event.save();
+            return response_data;
+        }
 
-        delete options.model; // don't need it
-
-        await Event.create({
-            options,
-            messages: inputMessages,
-            response_data,
-            response_code: 200,
-            ModelId: session.apikey_model_id,
-            APIKeyId: session.apikey,
+        return stream_response(response_data, async (final_response_data) => {
+            event.response_code = 200;
+            event.response_data = final_response_data;
+            await event.save();
         });
 
-        return response_data;
+
     } catch (e) {
-        await Event.create({
-            options,
-            messages: inputMessages,
-            response_data: e.message,
-            response_code: 500,
-            ModelId: session.apikey_model_id,
-            APIKeyId: session.apikey,
-        });
+        event.response_code = 500;
+        event.response_data = String(e || "Unknown error");
+        await event.save();
 
         throw e;
     }
+}
+
+async function* stream_response(response, callback) {
+    let buffer = "";
+    for await (const data of response) {
+        buffer += data;
+        yield data;
+    }
+
+    callback(buffer);
 }
 
 async function parseOptions(options, apikey_model_id = null) {

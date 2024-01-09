@@ -1,25 +1,20 @@
-* handle event errors
-* event options
-* fix demo..why isn't streaming working?
-
-
-* fix llm.js readme for modeldeployer
-* fix modeldeployer.com marketing website
 * track usage
 * track $$$ usage
-
 * rate limit
 * test secrets...currently doesn't work
 * test dev-provided API key
 * test user-provided API key
 * free faucet generator for verified emails
-* how can Model Deployer handle subscriptions when the subscription is for another app?
 * flash doesn't work without javascript..hrm?
 
+
+* how can Model Deployer handle subscriptions when the subscription is for another app?
 * deploy
 * run tests on production endpoint
 * update llm.js to use production endpoint
 
+* fix llm.js readme for modeldeployer
+* fix modeldeployer.com marketing website
 * blog
 * how to deploy [anthropic, openai, llamafile] for your users
 
