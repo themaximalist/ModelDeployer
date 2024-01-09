@@ -4,50 +4,20 @@ const log = debug("modeldeployer:services:chat");
 import LLM from "@themaximalist/llm.js"
 import Model from "../models/model.js";
 
-export default async function Chat(req) {
+export default async function Chat({ messages, options }, apikey_model_id = null) {
     log("/api/v1/chat")
-    const { messages } = req.body;
-    const options = await parseOptions(req);
-    return await LLM(messages, options);
+    return await LLM(
+        messages,
+        await parseOptions(options, apikey_model_id)
+    );
 }
 
-// TODO: clean this up...it's a mess
-async function parseOptions(req) {
-    const { options } = req.body;
+async function parseOptions(options, apikey_model_id = null) {
+    if (!apikey_model_id) { throw new Error("No model ID provided") }
 
-    // API key overrides local model...but if they pass one we still verify
-    try {
-        if (req.session.apikey) {
-            const model = await Model.findByPk(req.session.apikey_model_id);
-            if (options.model) {
-                const [_, id] = options.model.split("/");
-                if (id) {
-                    if (id !== model.id) {
-                        throw new Error(`Invalid model ${options.model}`);
-                    }
-                } else {
-                    options.model = `modeldeployer/${model.id}`;
-                }
-            }
+    const model = await Model.findByPk(apikey_model_id);
+    if (!model) throw new Error(`Invalid model ${apikey_model_id}`);
 
-            log("Using API key...swapping model", options);
-
-            return { ...model.options, ...options, model: model.model };
-        }
-    } catch (e) {
-        console.log(e);
-        throw new Error(`Could not find api model ${options.model}`);
-    }
-
-    try {
-        if (LLM.serviceForModel(options.model) !== LLM.MODELDEPLOYER) { return options }
-
-        const [_, id] = options.model.split("/");
-        const model = await Model.findByPk(id);
-        return { ...model.options, ...options, model: model.model };
-    } catch (e) {
-        console.log(e);
-        throw new Error(`Could not find model ${options.model}`);
-    }
+    return { ...model.options, ...options, model: model.model };
 }
 

@@ -1,3 +1,4 @@
+import Database from "../src/database.js"
 import Users from "../src/managers/users.js"
 import User from "../src/models/user.js"
 
@@ -6,7 +7,7 @@ import APIKey from "../src/models/apikey.js"
 
 import assert from "assert"
 
-export async function setupDatabase() {
+export async function setupAPIToken() {
     const users = new Users();
     const user = await users.add({
         email: "test@themaximalist.com",
@@ -35,11 +36,12 @@ export async function setupDatabase() {
 
     assert(apikey);
 
-    return { user, model, apikey };
+    return `modeldeployer://${apikey.id}`;
 }
 
 
-export async function teardownDatabase() {
+export async function teardownDatabase(shutdown = false) {
     const user = await User.findOne({ where: { email: "test@themaximalist.com" } });
     await user.destroy({ cascade: true });
+    if (shutdown) { await Database.close() }
 }

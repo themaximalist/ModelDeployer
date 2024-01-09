@@ -1,6 +1,6 @@
 import assert from "assert";
 import LLM from "@themaximalist/llm.js"
-import { setupDatabase, teardownDatabase } from "./utils.js";
+import { setupAPIToken, teardownDatabase } from "./utils.js";
 
 // largely a duplicate of the other three modules, this works with modeldeployer which in turn works with llm.js
 
@@ -9,53 +9,33 @@ describe("modeldeployer", function () {
     this.slow(5000);
 
     describe.only("modeldeployer", function () {
-        let user, model, apikey;
+        let model;
 
         this.beforeAll(async function () {
-            const setup = await setupDatabase();
-            user = setup.user;
-            model = `modeldeployer/${setup.model.model}`;
-            apikey = setup.apikey.id;
-
-            assert(user);
+            model = await setupAPIToken();
             assert(model);
-            assert(apikey);
         });
 
         this.afterAll(async function () {
-            await teardownDatabase();
+            await teardownDatabase(true);
+        });
+
+        it("prompt", async function () {
+            const response = await LLM("the color of the sky is usually", { model });
+            assert(response.indexOf("blue") !== -1, response);
         });
 
         it("invalid api key", async function () {
             try {
-                const response = await LLM("the color of the sky is usually", { model, apikey: "1234" });
+                const response = await LLM("the color of the sky is usually", { model: "modeldeployer://abc" });
                 assert.fail("should have thrown error");
             } catch (e) {
                 assert.ok("ok");
             }
         });
 
-        it("prompt", async function () {
-            const response = await LLM("the color of the sky is usually", { model, apikey });
-            assert(response.indexOf("blue") !== -1, response);
-        });
-
-        it("prompt (wrong model)", async function () {
-            try {
-                const response = await LLM("the color of the sky is usually", { model: "modeldeployer/abcd", apikey });
-                assert.fail("should have failed");
-            } catch (e) {
-                assert.ok("ok");
-            }
-        });
-
-        it("prompt (implied model from apikey)", async function () {
-            const response = await LLM("the color of the sky is usually", { model: "modeldeployer", apikey });
-            assert(response.indexOf("blue") !== -1, response);
-        });
-
         it("prompt (max_token override)", async function () {
-            const response = await LLM("the color of the sky is usually", { model: "modeldeployer", max_tokens: 1, apikey });
+            const response = await LLM("the color of the sky is usually", { model, max_tokens: 1 });
             assert(response.indexOf("blue") !== -1, response);
             assert(response.length > 0);
             assert(response.length < 6);
@@ -63,7 +43,7 @@ describe("modeldeployer", function () {
 
 
         it("streaming", async function () {
-            const llm = new LLM([], { stream: true, model, apikey });
+            const llm = new LLM([], { stream: true, model });
             const response = await llm.chat("who created hypertext?");
 
             let buffer = "";

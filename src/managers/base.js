@@ -1,3 +1,6 @@
+// TODO: it's kind of a mess that we have to pass in a req object
+// TODO: it would be better if there was a way to "auth" a manager, and inject a user_id, reference, etc...
+
 export default class BaseManager {
 
     constructor() {
