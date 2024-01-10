@@ -116,13 +116,18 @@ describe("modeldeployer", function () {
             assert(event.response_data.includes("max_tokens"));
             assert.notEqual(event.response_code, 200);
         });
-    });
 
-    describe("usage", function () {
-        it.skip("simple prompt", async function () {
+        it("simple prompt usage", async function () {
             const response = await LLM("the color of the sky is usually", { model });
-            consnole.log("RESPONSE", response);
             assert(response.indexOf("blue") !== -1, response);
+
+            const event = await Event.findOne({ order: [["createdAt", "DESC"]] });
+            assert(event);
+            assert(event.messages.length == 1);
+            assert(event.response_data.includes("blue"));
+            assert(event.messages_tokens > 0);
+            assert(event.response_tokens > 0);
+            assert.equal(event.tokens, event.messages_tokens + event.response_tokens);
         });
     });
 
