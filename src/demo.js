@@ -1,3 +1,9 @@
+import TokenCost from "./services/TokenCost.js";
+
+console.log("COST", TokenCost(5, "gpt-3.5-turbo-1106", TokenCost.INPUT));
+console.log("COST", TokenCost(5, "gpt-4-1106-preview", TokenCost.INPUT));
+
+/*
 import LLM from "@themaximalist/llm.js"
 const model = "modeldeployer://bbf950a2-83c7-47e5-be66-46ca6e43f316";
 const llm = new LLM([], { model, temperature: 0, max_tokens: 200, stream: true })
@@ -26,3 +32,5 @@ while (true) {
     }
     process.stdout.write("\n");
 }
+
+*/

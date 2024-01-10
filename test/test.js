@@ -2,6 +2,9 @@ import assert from "assert";
 import LLM from "@themaximalist/llm.js"
 import Event from "../src/models/event.js"
 import { setupAPIToken, teardownDatabase } from "./utils.js";
+// import TokenCost from "../src/services/TokenCost.js";
+import TokenCounter from "../src/services/TokenCounter.js";
+import TokenCost from "../src/services/TokenCost.js";
 
 // largely a duplicate of the other three modules, this works with modeldeployer which in turn works with llm.js
 
@@ -18,6 +21,38 @@ describe("modeldeployer", function () {
 
     this.afterAll(async function () {
         await teardownDatabase(true);
+    });
+
+    describe.only("token cost", function () {
+        it("calculates token cost for gpt 3.5 turbo", async function () {
+            const model = "gpt-3.5-turbo-1106";
+            const tokens = TokenCounter("the color of the sky is usually blue", model);
+            assert.equal(tokens, 8);
+
+            const cost = TokenCost(tokens, model, TokenCost.INPUT);
+            assert.equal(cost, 0.000008)
+        });
+
+        it("calculates token cost for gpt 4", async function () {
+            const model = "gpt-4";
+            const tokens = TokenCounter("the color of the sky is usually blue", model);
+            assert.equal(tokens, 8);
+
+            const cost = TokenCost(tokens, model, TokenCost.INPUT);
+            assert.equal(cost, 0.00024)
+        });
+
+        it("calculates token cost for gpt 4 turbo", async function () {
+            const model = "gpt-4-1106-preview";
+            const tokens = TokenCounter("the color of the sky is usually blue", model);
+            assert.equal(tokens, 8);
+
+            const cost = TokenCost(tokens, model, TokenCost.INPUT);
+            assert.equal(cost, 0.00008)
+        });
+        // TODO: claude
+        // TODO: llamafile and local models?
+        // TODO: run tests on live calculation from event
     });
 
     describe("modeldeployer", function () {
