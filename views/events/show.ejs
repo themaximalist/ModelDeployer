@@ -31,6 +31,17 @@
 
     <div class="flex flex-col gap-1">
         <div class="uppercase text-xs">
+            Usage
+        </div>
+        <div>
+            <code>
+                <pre><%= event.tokens %> tokens</pre>
+            </code>
+        </div>
+    </div>
+
+    <div class="flex flex-col gap-1">
+        <div class="uppercase text-xs">
             Options
         </div>
         <div>
@@ -57,17 +68,17 @@
             <div class="flex flex-col gap-8 w-full my-4">
                 <% for (let message of event.messages) { -%>
                 <div class="flex">
-                    <div class="text-sm">
+                    <div class="text-sm w-full">
                         <strong class="uppercase font-medium"><%= message.role %></strong>
-                        <div class="prose-sm max-w-xl"><%= message.content %></div>
+                        <div class="prose-sm whitespace-pre-wrap overflow-y-scroll w-full"><%= message.content %></div>
                     </div>
                 </div>
                 <% } %>
 
-                <div class="flex bg-gray-50 p-2 -m-2">
-                    <div class="text-sm">
+                <div class="flex bg-gray-50 p-2 -m-2 w-full">
+                    <div class="text-sm w-full">
                         <strong class="uppercase font-medium">Assistant</strong>
-                        <div class="prose-sm max-w-xl"><%= event.response_data %></div>
+                        <div class="prose-sm whitespace-pre-wrap overflow-y-scroll w-full"><%= event.response_data %></div>
                     </div>
                 </div>
             </div>

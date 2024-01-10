@@ -17,4 +17,15 @@ export default class APIKeysController extends BaseController {
             [this.namespace]: await this.manager.findAllKeyUsage(req.session.user_id),
         });
     };
+
+    async show(req, res) {
+        try {
+            res.render(`${this.namespace}/show`, {
+                [this.object]: await this.manager.findKeyUsage(req.params.id, req.session.user_id),
+            });
+        } catch (e) {
+            res.flash("error", "Cannot find model");
+            res.render(`error`);
+        }
+    }
 }

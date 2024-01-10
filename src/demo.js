@@ -1,6 +1,6 @@
 import LLM from "@themaximalist/llm.js"
 const model = "modeldeployer://bbf950a2-83c7-47e5-be66-46ca6e43f316";
-const llm = new LLM([], { model, temperature: 0, max_tokens: 0 })
+const llm = new LLM([], { model, temperature: 0, max_tokens: 200, stream: true })
 
 import fs from "fs";
 
@@ -20,10 +20,9 @@ const prompt = function (message) {
 
 while (true) {
     const input = prompt("> ");
-    console.log("input", input);
     const response = await llm.chat(input);
-    console.log("RESPONSE", response);
     for await (const text of response) {
-        console.log(text);
+        process.stdout.write(text);
     }
+    process.stdout.write("\n");
 }

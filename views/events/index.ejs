@@ -20,8 +20,8 @@
                 <tr>
                     <th>Time</th>
                     <th>API Key</th>
-                    <th>Service</th>
                     <th>Model</th>
+                    <th>Tokens</th>
                     <th>Input</th>
                     <th>Output</th>
                     <th>Response</th>
@@ -32,8 +32,10 @@
                 <tr onclick="window.location='/admin/events/<%= event.id %>'" class="cursor-pointer">
                     <td class="whitespace-nowrap"><%= locals.timeSince(event.createdAt) %> ago</td>
                     <td class="whitespace-nowrap"><%= event.APIKeyId.split("-")[0] %></td>
-                    <td class="whitespace-nowrap"><%= event.Model.service %></td>
-                    <td class="whitespace-nowrap"><%= event.Model.model %></td>
+                    <td class="whitespace-nowrap">
+                        <%= event.Model.service %>/<%= event.Model.model %>
+                    </td>
+                    <td><%= event.tokens %></td>
                     <td><%= event.messages[0].content.substr(0, 70) %>...</td>
                     <td><%= event.response_data.substr(0, 70) %>...</td>
                     <td>

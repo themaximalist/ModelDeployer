@@ -1,4 +1,3 @@
-import { Sequelize } from "sequelize";
 import lodash from "lodash";
 
 import BaseManager from "./base.js"
@@ -19,6 +18,10 @@ export default class APIKeys extends BaseManager {
         return await model.save();
     }
 
+    async findKeyUsage(id, UserId) {
+        const key = await this.find(id, UserId);
+        return await this.addUsage(key);
+    }
 
     async findAllKeyUsage(UserId, options = {}) {
         let where = JSON.parse(JSON.stringify(this.defaultWhere));
@@ -32,14 +35,16 @@ export default class APIKeys extends BaseManager {
 
         where = lodash.merge(where, options);
 
-        // TODO: slow...make this in sql
-        const keys = await this.Model.findAll(where);
-        for (const key of keys) {
-            key.usage = await key.countEvents();
-        }
-
-        return keys;
+        const keys = await this.findAll(UserId, where);
+        return await Promise.all(keys.map(async (key) => await this.addUsage(key)));
     }
 
-
+    // TODO: move to sql...not scalable
+    async addUsage(key) {
+        let usage = 0;
+        const events = await key.getEvents();
+        for (const event of events) { usage += event.tokens }
+        key.usage = usage;
+        return key;
+    }
 }
