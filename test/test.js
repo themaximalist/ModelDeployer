@@ -19,13 +19,31 @@ describe("modeldeployer", function () {
         await teardownDatabase(true);
     });
 
+    describe.only("modeldeployer gpt-3.5 client key", async function () {
+        let model;
+        this.beforeAll(() => { model = models.gpt_nokey });
+
+        it("invalid client key", async function () {
+            try {
+                await LLM("the color of the sky is usually", { model });
+                assert.fail("expected error");
+            } catch (e) {
+                assert.ok("ok");
+            }
+        });
+
+        it("prompt", async function () {
+            const response = await LLM("the color of the sky is usually", { model, apikey: process.env.MODELDEPLOYER_OPENAI_API_KEY });
+            console.log("RESPONSE", response);
+            assert(response.indexOf("blue") !== -1, response);
+        });
+    });
+
     describe("modeldeployer gpt-3.5-turbo", async function () {
         let model;
         this.beforeAll(() => { model = models.gpt });
 
         it("prompt", async function () {
-            console.log("MODELS1", model);
-
             const response = await LLM("the color of the sky is usually", { model });
             assert(response.indexOf("blue") !== -1, response);
         });
@@ -85,7 +103,7 @@ describe("modeldeployer", function () {
         let model;
         this.beforeAll(() => { model = models.llama });
 
-        it.only("prompt (with cost override)", async function () {
+        it("prompt (with cost override)", async function () {
             // cost override for llama is set in test/utils.js
             const response = await LLM("the color of the sky is usually", { model });
             assert(response.indexOf("blue") !== -1, response);
@@ -146,6 +164,7 @@ describe("modeldeployer", function () {
         });
 
         it("calculates llamafile override prices", async function () {
+            const model = "llamafile";
             const price = { input: 0.0001, output: 0.0001 };
 
             const tokens = TokenCounter("the color of the sky is usually blue", model);
@@ -159,6 +178,9 @@ describe("modeldeployer", function () {
     });
 
     describe("events", function () {
+        let model;
+        this.beforeAll(() => { model = models.gpt });
+
         it("saves request as event", async function () {
             let oldEvents = await Event.findAll({});
 
@@ -257,4 +279,36 @@ describe("modeldeployer", function () {
             assert(event.response_cost <= 0.00007, event.response_cost);
         });
     });
+
+    describe("rate limit", async function () {
+
+        it("severe rate limit", async function () {
+            try {
+                await LLM("the color of the sky is usually", { model: models.ratelimit_severe });
+                assert.fail("should have thrown error");
+            } catch (e) {
+                assert(e.message.indexOf("Rate limit exceeded") !== -1, e.message);
+            }
+        });
+
+        it("exceed rate limit (day)", async function () {
+            const llm = new LLM([], { model: models.ratelimit_day });
+            await llm.chat("the color of the sky is usually");
+            try {
+                await llm.chat("why do you think that?")
+                await llm.chat("what do some people think?")
+            } catch (e) {
+                assert(e.message.indexOf("Rate limit exceeded") !== -1, e.message);
+            }
+        });
+
+        it("exceed rate limit (week)", async function () {
+            const llm = new LLM([], { model: models.ratelimit_week });
+            await llm.chat("the color of the sky is usually");
+            await llm.chat("why do you think that?")
+            await llm.chat("what do some people think?") // this would have failed on day limit
+        });
+    });
+
+
 });

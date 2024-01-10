@@ -10,6 +10,8 @@ export async function chat(req, res) {
             apikey_model_id: req.session.apikey_model_id,
         };
 
+        console.log("REQ", req.body);
+
         const data = await Chat(req.body, session);
 
         if (typeof data === "string") {
@@ -22,7 +24,7 @@ export async function chat(req, res) {
     } catch (e) {
         console.log(e);
         log(`Error: ${e.message}`);
-        return res.json({ error: true, message: e.message });
+        return res.json({ error: e.message });
     } finally {
         res.end();
     }

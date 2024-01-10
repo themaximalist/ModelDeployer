@@ -4,6 +4,7 @@ const log = debug("modeldeployer:services:chat");
 import LLM from "@themaximalist/llm.js"
 import Model from "../models/model.js"
 import Events from "../managers/events.js"
+import RateLimit from "./RateLimit.js"
 
 export default async function Chat({ messages, options }, session) {
     if (!messages || messages.length == 0) { throw new Error("No messages provided") }
@@ -14,7 +15,7 @@ export default async function Chat({ messages, options }, session) {
     log("/api/v1/chat")
 
     const inputMessages = JSON.parse(JSON.stringify(messages)); // store input messages...they get modified in LLM() and we dont need it twice
-    options = await parseOptions(options, session.apikey_model_id);
+    options = await parseOptions(options, session);
     const model = options.model;
     delete options.model;
 
@@ -56,12 +57,18 @@ async function* stream_response(response, callback) {
     callback(buffer);
 }
 
-async function parseOptions(options, apikey_model_id = null) {
-    if (!apikey_model_id) { throw new Error("No model ID provided") }
+async function parseOptions(options, session = {}) {
+    if (!session.apikey) { throw new Error("No apikey provided") }
+    if (!session.apikey_model_id) { throw new Error("No model ID provided") }
 
-    const model = await Model.findByPk(apikey_model_id);
-    if (!model) throw new Error(`Invalid model ${apikey_model_id}`);
+    const model = await Model.findByPk(session.apikey_model_id);
+    if (!model) throw new Error(`Invalid model ${session.apikey_model_id}`);
 
+    if (await RateLimit(model, session.apikey)) {
+        throw new Error("Rate limit exceeded");
+    }
+
+    console.log("OPTS", { ...model.options, ...options, model: model.model });
     return { ...model.options, ...options, model: model.model };
 }
 

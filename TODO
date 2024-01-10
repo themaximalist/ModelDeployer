@@ -1,24 +1,19 @@
-* rate limit
-
-* test user-provided API key
-* free faucet generator for verified emails
 * flash doesn't work without javascript..hrm?
-
-
 * how can Model Deployer handle subscriptions when the subscription is for another app?
-* deploy
-* run tests on production endpoint
-* update llm.js to use production endpoint
 
+
+deploy
+ * run tests on production endpoint
+ * update llm.js to use production endpoint
 * fix llm.js readme for modeldeployer
 * fix modeldeployer.com marketing website
 * blog
 * how to deploy [anthropic, openai, llamafile] for your users
-
 * Add to themaximalist.com
 * Add to bradjasper.com
 
 extract to hummingbird-starter
+* find way to move more of controllers into hummingbird.js, then duplication isn't a big problem and things become easier to understand and easier to change
 * flash
 * htmx
 * page_header/footer

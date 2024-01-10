@@ -11,9 +11,22 @@ export async function setupDatabase() {
     const user = await setupUser();
 
     const gpt = await setupGPT3(user);
+    const gpt_nokey = await setupGPT3NoKey(user);
     const claude = await setupClaude(user);
     const llama = await setupLlama(user);
-    return { gpt, claude, llama };
+    const ratelimit_severe = await setupRateLimit(user);
+    const ratelimit_day = await setupRateLimit(user, 50, "day");
+    const ratelimit_week = await setupRateLimit(user, 250, "week");
+
+    return {
+        gpt,
+        gpt_nokey,
+        claude,
+        llama,
+        ratelimit_severe,
+        ratelimit_day,
+        ratelimit_week
+    };
 }
 
 export async function setupUser() {
@@ -38,6 +51,18 @@ export async function setupGPT3(user) {
             temperature: 0,
             max_tokens: 100,
             apikey: process.env.MODELDEPLOYER_OPENAI_API_KEY,
+        },
+        UserId: user.id,
+    });
+}
+
+export async function setupGPT3NoKey(user) {
+    return await createAPIKey({
+        model: "gpt-3.5-turbo-1106",
+        service: "openai",
+        options: {
+            temperature: 0,
+            max_tokens: 100,
         },
         UserId: user.id,
     });
@@ -78,6 +103,21 @@ export async function createAPIKey(data) {
     assert(apikey);
 
     return `modeldeployer://${apikey.id}`;
+}
+
+export async function setupRateLimit(user, tokens = 0, period = "year") {
+    return await createAPIKey({
+        model: "gpt-3.5-turbo-1106",
+        service: "openai",
+        options: {
+            temperature: 0,
+            max_tokens: 100,
+            apikey: process.env.MODELDEPLOYER_OPENAI_API_KEY,
+            ratelimit_tokens: tokens,
+            ratelimit_period: period,
+        },
+        UserId: user.id,
+    });
 }
 
 
