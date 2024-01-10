@@ -13,7 +13,6 @@ export default class Models extends BaseManager {
 
     async update(model, data) {
         model.model = data.model;
-        model.secrets = Envtools.toJSON(data.secrets);
         model.options = Envtools.toJSON(data.options);
         model.service = LLM.serviceForModel(model.model);
         return await model.save();

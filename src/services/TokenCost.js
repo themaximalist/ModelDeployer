@@ -1,4 +1,3 @@
-
 const INPUT = "input";
 const OUTPUT = "output";
 
@@ -15,10 +14,11 @@ const SERVICE = {
     "claude-instant-1.2": [0.0008, 0.0024], // .80 per million && $2.4 per million
     "claude-2.0": [0.008, 0.024], // $8 / million && $24 per million
     "claude-2.1": "claude-2.0",
-
 }
 
 function getModelCost(model) {
+    // pass in your own price object or array
+
     if (typeof model === "object" && model[INPUT] && model[OUTPUT]) {
         return [model[INPUT], model[OUTPUT]];
     }

@@ -23,3 +23,21 @@ export function timeSince(date) {
         return day + " " + month + year;
     }
 }
+
+export function smartRound(number) {
+    let epsilon = 1e-14; // Threshold for floating point arithmetic precision
+    let multiplier = 1;
+    let roundedNumber = number;
+
+    while (Math.round(roundedNumber * multiplier) / multiplier !== number) {
+        multiplier *= 10;
+        roundedNumber = Math.round(number * multiplier) / multiplier;
+
+        // Break if the difference is within floating point precision limits
+        if (Math.abs(roundedNumber - number) < epsilon) {
+            break;
+        }
+    }
+
+    return roundedNumber;
+}

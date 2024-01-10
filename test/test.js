@@ -1,7 +1,7 @@
 import assert from "assert";
 import LLM from "@themaximalist/llm.js"
 import Event from "../src/models/event.js"
-import { setupAPIToken, teardownDatabase } from "./utils.js";
+import { setupDatabase, teardownDatabase } from "./utils.js";
 import TokenCounter from "../src/services/TokenCounter.js";
 import TokenCost from "../src/services/TokenCost.js";
 
@@ -11,16 +11,106 @@ describe("modeldeployer", function () {
     this.timeout(10000);
     this.slow(5000);
 
-    let model;
+    let models = {};
 
     this.beforeAll(async function () {
-        model = await setupAPIToken();
-        assert(model);
+        models = await setupDatabase();
     });
 
     this.afterAll(async function () {
         await teardownDatabase(true);
     });
+
+    // TODO: tests llamafile model with override costs
+
+    describe("modeldeployer llamafile", function () {
+        let model;
+        this.beforeAll(() => { model = models.llama });
+
+        it.only("prompt (with cost override)", async function () {
+            // cost override for llama is set in test/utils.js
+            const response = await LLM("the color of the sky is usually", { model });
+            assert(response.indexOf("blue") !== -1, response);
+
+            const event = await Event.findOne({ order: [["createdAt", "DESC"]] });
+            assert(event.response_data.indexOf("blue") !== -1, event.response_data);
+            assert(event.cost > 0);
+            assert(event.tokens > 0);
+        });
+
+        /*
+        it("prompt (max_token override)", async function () {
+            const response = await LLM("the color of the sky is usually", { model, max_tokens: 1 });
+            assert(response.length > 0);
+            assert(response.length < 6);
+        });
+        */
+    });
+
+
+    describe("modeldeployer gpt-3.5-turbo", async function () {
+        let model;
+        this.beforeAll(() => { model = models.gpt });
+
+        it("prompt", async function () {
+            console.log("MODELS1", model);
+
+            const response = await LLM("the color of the sky is usually", { model });
+            assert(response.indexOf("blue") !== -1, response);
+        });
+
+        it("invalid api key", async function () {
+            try {
+                const response = await LLM("the color of the sky is usually", { model: "modeldeployer://abc" });
+                assert.fail("should have thrown error");
+            } catch (e) {
+                assert.ok("ok");
+            }
+        });
+
+        it("prompt (max_token override)", async function () {
+            const response = await LLM("the color of the sky is usually", { model, max_tokens: 1 });
+            assert(response.indexOf("blue") !== -1, response);
+            assert(response.length > 0);
+            assert(response.length < 6);
+        });
+
+
+        it("streaming", async function () {
+            const llm = new LLM([], { stream: true, model });
+            const response = await llm.chat("who created hypertext?");
+
+            let buffer = "";
+            for await (const content of response) {
+                buffer += content;
+            }
+
+            assert(buffer.includes("Ted Nelson"));
+        });
+    });
+
+    describe("modeldeployer claude", function () {
+        let model;
+        this.beforeAll(() => { model = models.claude });
+
+        it("prompt", async function () {
+            const response = await LLM("the color of the sky is usually", { model });
+            assert(response.indexOf("blue") !== -1, response);
+
+            const event = await Event.findOne({ order: [["createdAt", "DESC"]] });
+            assert(event.response_data.indexOf("blue") !== -1, event.response_data);
+            assert(event.cost > 0);
+            assert(event.tokens > 0);
+        });
+
+        it("prompt (max_token override)", async function () {
+            const response = await LLM("the color of the sky is usually", { model, max_tokens: 1 });
+            assert(response.length > 0);
+            assert(response.length < 6);
+        });
+    });
+
+
 
     describe("token cost", function () {
         it("calculates token cost for gpt 3.5 turbo", async function () {
@@ -80,42 +170,6 @@ describe("modeldeployer", function () {
             console.log(cost);
             assert(cost >= 0.0000008, cost);
             assert(cost < 0.00000081, cost);
-        });
-    });
-
-    describe("modeldeployer", function () {
-        it("prompt", async function () {
-            const response = await LLM("the color of the sky is usually", { model });
-            assert(response.indexOf("blue") !== -1, response);
-        });
-
-        it("invalid api key", async function () {
-            try {
-                const response = await LLM("the color of the sky is usually", { model: "modeldeployer://abc" });
-                assert.fail("should have thrown error");
-            } catch (e) {
-                assert.ok("ok");
-            }
-        });
-
-        it("prompt (max_token override)", async function () {
-            const response = await LLM("the color of the sky is usually", { model, max_tokens: 1 });
-            assert(response.indexOf("blue") !== -1, response);
-            assert(response.length > 0);
-            assert(response.length < 6);
-        });
-
-
-        it("streaming", async function () {
-            const llm = new LLM([], { stream: true, model });
-            const response = await llm.chat("who created hypertext?");
-
-            let buffer = "";
-            for await (const content of response) {
-                buffer += content;
-            }
-
-            assert(buffer.includes("Ted Nelson"));
         });
     });
 

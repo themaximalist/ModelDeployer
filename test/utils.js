@@ -7,7 +7,16 @@ import APIKey from "../src/models/apikey.js"
 
 import assert from "assert"
 
-export async function setupAPIToken() {
+export async function setupDatabase() {
+    const user = await setupUser();
+
+    const gpt = await setupGPT3(user);
+    const claude = await setupClaude(user);
+    const llama = await setupLlama(user);
+    return { gpt, claude, llama };
+}
+
+export async function setupUser() {
     const users = new Users();
     const user = await users.add({
         email: "test@themaximalist.com",
@@ -18,22 +27,54 @@ export async function setupAPIToken() {
     assert(user);
     assert(user.id);
 
-    const model = await Model.create({
+    return user;
+}
+
+export async function setupGPT3(user) {
+    return await createAPIKey({
         model: "gpt-3.5-turbo-1106",
         service: "openai",
         options: {
             temperature: 0,
             max_tokens: 100,
+            apikey: process.env.MODELDEPLOYER_OPENAI_API_KEY,
         },
         UserId: user.id,
     });
+}
 
+export async function setupClaude(user) {
+    return await createAPIKey({
+        model: "claude-2.1",
+        service: "anthropic",
+        options: {
+            temperature: 0,
+            max_tokens: 100,
+            apikey: process.env.MODELDEPLOYER_ANTHROPIC_API_KEY,
+        },
+        UserId: user.id,
+    });
+}
+
+export async function setupLlama(user) {
+    return await createAPIKey({
+        model: "llamafile",
+        service: "llamafile",
+        options: {
+            temperature: 0,
+            max_tokens: 100,
+            input_cost: 1,
+            output_cost: 1,
+        },
+        UserId: user.id,
+    });
+}
+
+export async function createAPIKey(data) {
+    const model = await Model.create(data);
     assert(model);
 
-    const apikey = await APIKey.create({
-        ModelId: model.id,
-    });
-
+    const apikey = await APIKey.create({ ModelId: model.id });
     assert(apikey);
 
     return `modeldeployer://${apikey.id}`;

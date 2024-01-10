@@ -16,7 +16,6 @@
                     <th>Service</th>
                     <th>Model</th>
                     <th>Options</th>
-                    <th>Secrets</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -26,11 +25,10 @@
                     <td><%= model.id.split("-")[0] %></td>
                     <td><%= model.service %></td>
                     <td><%= model.model %></td>
-                    <td><%= locals.Envtools.fromJSON(model.options) %></td>
-                    <td><%= Object.keys(model.secrets).join(", ") %></td>
-                    <td>
-                        <a href="/admin/events?model=<%= model.id %>" class="button">Events</a>
+                    <td class="whitespace-pre-wrap"><%= Object.keys(model.options).join("\n") %></td>
+                    <td class="whitespace-nowrap">
                         <a href="/admin/models/<%= model.id %>" class="button purple">Show</a>
+                        <a href="/admin/events?model=<%= model.id %>" class="button">Events</a>
                     </td>
                 </tr>
                 <% } %>

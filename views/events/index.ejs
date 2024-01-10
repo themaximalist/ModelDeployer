@@ -21,7 +21,7 @@
                     <th>Time</th>
                     <th>API Key</th>
                     <th>Model</th>
-                    <th>Tokens</th>
+                    <th>Usage</th>
                     <th>Input</th>
                     <th>Output</th>
                     <th>Response</th>
@@ -35,7 +35,10 @@
                     <td class="whitespace-nowrap">
                         <%= event.Model.service %>/<%= event.Model.model %>
                     </td>
-                    <td><%= event.tokens %></td>
+                    <td>
+                        <div>$<%= locals.smartRound(event.cost) %></div>
+                        <div class="whitespace-nowrap"><%= event.tokens %> tokens</div>
+                    </td>
                     <td><%= event.messages[0].content.substr(0, 70) %>...</td>
                     <td><%= event.response_data.substr(0, 70) %>...</td>
                     <td>

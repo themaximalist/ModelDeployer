@@ -1,10 +1,18 @@
 <%- include('../partials/page_header', { title: "MODEL DETAILS"}) -%>
 
+<div class="flex gap-4 mb-8">
+    <a href="/admin/events?model=<%= model.id %>" class="button purple">Events</a>
+    <form hx-post="/admin/apikeys/add" action="/admin/apikeys/add" method="POST">
+        <input type="text" name="ModelId" value="<%= model.id %>" hidden>
+        <button type="submit" class="button">Generate API Key</button>
+    </form>
+</div>
+
 <div class="flex flex-col gap-8 justify-start w-full">
 
     <div class="flex flex-col gap-1">
         <div class="uppercase text-xs">
-            Endpoint
+            ID
         </div>
         <div>
             <code><%= model.id %></code>
@@ -13,19 +21,10 @@
 
     <div class="flex flex-col gap-1">
         <div class="uppercase text-xs">
-            Service
-        </div>
-        <div>
-            <%= model.service %>
-        </div>
-    </div>
-
-    <div class="flex flex-col gap-1">
-        <div class="uppercase text-xs">
             Model
         </div>
         <div>
-            <%= model.model %>
+            <%= model.service %>/<%= model.model %>
         </div>
     </div>
 
@@ -34,35 +33,20 @@
         <div class="uppercase text-xs">
             Options
         </div>
-        <div>
-            <%= locals.Envtools.fromJSON(model.options) || "-" %>
+        <div class="overflow-y-scroll">
+            <code>
+                <pre><%= locals.Envtools.fromJSON(model.options) || "-" %></pre>
+            </code>
         </div>
     </div>
 
-    <div class="flex flex-col gap-1">
-        <div class="uppercase text-xs">
-            Secrets
-        </div>
-        <div>
-            <%= locals.Envtools.fromJSON(model.secrets) || "-" %>
-        </div>
-    </div>
+    <hr />
 
-    <div class="flex flex-col gap-16">
-        <div class="flex gap-4">
-            <a href="/admin/events?model=<%= model.id %>" class="button purple">Events</a>
-            <form hx-post="/admin/apikeys/add" action="/admin/apikeys/add" method="POST">
-                <input type="text" name="ModelId" value="<%= model.id %>" hidden>
-                <button type="submit" class="button">Generate API Key</button>
-            </form>
-        </div>
-
-        <div class="flex gap-4">
-            <a href="/admin/models/<%= model.id %>/edit" class="button">Edit</a>
-            <form hx-post="/admin/models/<%= model.id %>/remove" action="/admin/models/<%= model.id %>/remove" method="POST">
-                <button type="submit" class="button red" onclick="return confirm('Are you sure you want to delete this model?')">Delete</button>
-            </form>
-        </div>
+    <div class="flex gap-4">
+        <a href="/admin/models/<%= model.id %>/edit" class="button">Edit</a>
+        <form hx-post="/admin/models/<%= model.id %>/remove" action="/admin/models/<%= model.id %>/remove" method="POST">
+            <button type="submit" class="button red" onclick="return confirm('Are you sure you want to delete this model?')">Delete</button>
+        </form>
     </div>
 </div>
 

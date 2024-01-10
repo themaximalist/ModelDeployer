@@ -27,11 +27,6 @@ Model.init({
         defaultValue: {},
         allowNull: false
     },
-    secrets: {
-        type: DataTypes.JSON,
-        defaultValue: {},
-        allowNull: false
-    },
     active: {
         type: DataTypes.BOOLEAN,
         allowNull: false,

@@ -40,10 +40,19 @@
 
     <div class="flex flex-col gap-1">
         <div class="uppercase text-xs">
-            Usage
+            Cost
         </div>
         <div>
-            <%= apikey.usage %> tokens
+            $<%= locals.smartRound(apikey.cost) %>
+        </div>
+    </div>
+
+    <div class="flex flex-col gap-1">
+        <div class="uppercase text-xs">
+            Tokens
+        </div>
+        <div>
+            <%= apikey.tokens %> tokens
         </div>
     </div>
 

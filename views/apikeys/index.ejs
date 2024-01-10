@@ -8,7 +8,7 @@
                     <th>Key</th>
                     <th>Model</th>
                     <th>Service</th>
-                    <th>Tokens</th>
+                    <th>Usage</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -18,7 +18,14 @@
                     <td><%= apikey.id %></td>
                     <td><%= apikey.Model.model %></td>
                     <td><%= apikey.Model.service %></td>
-                    <td><%= apikey.usage %></td>
+                    <td>
+                        <div>
+                            $<%= locals.smartRound(apikey.cost) %>
+                        </div>
+                        <div class="whitespace-nowrap">
+                            <%= apikey.tokens %> tokens
+                        </div>
+                    </td>
                     <td>
                         <a href="/admin/events/?apikey=<%= apikey.id %>" class="button">Events</a>
                         <a href="/admin/apikeys/<%= apikey.id %>" class="button purple">Show</a>

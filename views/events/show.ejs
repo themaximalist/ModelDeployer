@@ -31,12 +31,23 @@
 
     <div class="flex flex-col gap-1">
         <div class="uppercase text-xs">
-            Usage
+            Cost
         </div>
         <div>
-            <code>
-                <pre><%= event.tokens %> tokens</pre>
-            </code>
+            <div>$<%= smartRound(Number(event.cost)) %> total</div>
+            <div>$<%= smartRound(Number(event.messages_cost)) %> input</div>
+            <div>$<%= smartRound(Number(event.response_cost)) %> output</div>
+        </div>
+    </div>
+
+    <div class="flex flex-col gap-1">
+        <div class="uppercase text-xs">
+            Tokens
+        </div>
+        <div>
+            <div><%= event.tokens %> tokens</div>
+            <div><%= event.messages_tokens %> input</div>
+            <div><%= event.response_tokens %> output</div>
         </div>
     </div>
 

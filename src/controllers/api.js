@@ -20,6 +20,7 @@ export async function chat(req, res) {
             res.write(`data: ${JSON.stringify({ ok: true, content: message })}\n`);
         }
     } catch (e) {
+        console.log(e);
         log(`Error: ${e.message}`);
         return res.json({ error: true, message: e.message });
     } finally {

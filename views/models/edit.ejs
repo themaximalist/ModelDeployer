@@ -1,6 +1,6 @@
 <%- include('../partials/page_header', { title: "Add Model"}) -%>
 
-<form method="POST" hx-post="<%= action %>" hx-target="#container" hx-swap="innerHTML" action="<%= action %>" class="flex flex-col max-w-md w-full space-y-4">
+<form method="POST" hx-post="<%= action %>" hx-target="#container" hx-swap="innerHTML" action="<%= action %>" class="flex flex-col max-w-xl w-full space-y-4">
     <input type="hidden" name="id" value="<%= model.id %>" />
 
     <label>
@@ -16,26 +16,14 @@
         <div>
             Options
         </div>
-        <textarea name="options" class="w-full"><%= locals.Envtools.toEnv(model.options) %></textarea>
+        <textarea name="options" class="w-full" rows="5"><%= locals.Envtools.toEnv(model.options) %></textarea>
         <div class="text-sm text-gray-400">
-            KEY1=VALUE1<br />
-            KEY2=VALUE2<br />
+            apikey=sk-abc<br />
+            temperature=0.5<br />
+            max_tokens=300<br />
             ...
         </div>
     </label>
-
-    <label>
-        <div>
-            Secrets
-        </div>
-        <textarea name="secrets" class="w-full"><%= locals.Envtools.toEnv(model.secrets) %></textarea>
-        <div class="text-sm text-gray-400">
-            KEY1=VALUE1<br />
-            KEY2=VALUE2<br />
-            ...
-        </div>
-    </label>
-
 
     <button type="submit" class="w-full bg-purple-700 hover:bg-purple-800 text-white p-3">Save</button>
 </form>
