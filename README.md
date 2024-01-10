@@ -5,11 +5,44 @@ Model Deployer is the simplest way to deploy AI models for your applications.
 
 **Features:**
 
-* Rate-limit users based on pre-defined limits
-* Free, credits, and recurring subscriptions are supported
-
-* A single interface to dozens of local and remote models
+* Proxy to hundreds of local and remote AI models (LLM, stable diffusion, vectordbs)
+* A single interface to all models, built on [LLM.js](https://github.com/themaximal1st/llm.js)
 * Easily view usage history for each app user
+* Rate-limit users based on pre-defined limits
+* Track cost and usage cross hundreds of AI models
+* Free, paid, and user-provided API key are supported
+* Prevent free users from consuming your API tokens
+* Pre-pay with credits *(coming soon)*
+* Monthly subscription *(coming soon)*
+* Self-hosted or hosted [modeldeployer.com](https://modeldeployer.com)
+* MIT License
+
+
+
+## Getting started
+
+You'll need a Postgres DB setup. Then in your shell:
+
+```bash
+npm install @themaximalist/modeldeployer
+cd modeldeployer
+npm install
+cp .env.template .env # edit DB connection
+npm run dev
+```
+
+Visit [http://localhost:3000](http://localhost:3000) and you'll see Model Deployer.
+
+You should be able to create a user, a model, and an API key.
+
+Then you can use `LLM.js` to interact with your API:
+
+```javascript
+import LLM from "@themaximalist/llm.js"
+await LLM("what color is the sky?", { model: "modeldeployer://api-key-goes-here" });
+```
+
+More documentation is coming soon!
 
 
 
@@ -38,18 +71,13 @@ This accomplishes the best of both worlds. Free, open-source, MIT licensed model
 
 
 
-- Open-Source
-- Hosted Service
-    - Free hourly/daily/weekly/monthly credits (require email verification)
-    - Free using your own API key
-    - Pre-pay with credits
-    - Monthly subscription 
-- Features
-    - Proxy to hundreds of local and remote AI models (LLM, stable diffusion, vectordbs)
-    - Automatically manage usage for different tiers (free, paid, pro)
-    - View usage history
-    - Prevent free users from consuming your API tokens
-- Future
-    - pow ddos prevention
-    - caching
-    - Advertising Faucet supported
+## Author
+
+-   [The Maximalist](https://themaximalist.com/)
+-   [@themaximal1st](https://twitter.com/themaximal1st)
+
+
+
+## License
+
+MIT
