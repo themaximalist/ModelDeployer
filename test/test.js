@@ -118,6 +118,14 @@ describe("modeldeployer", function () {
         });
     });
 
+    describe("usage", function () {
+        it.skip("simple prompt", async function () {
+            const response = await LLM("the color of the sky is usually", { model });
+            consnole.log("RESPONSE", response);
+            assert(response.indexOf("blue") !== -1, response);
+        });
+    });
+
     describe.skip("llamafile", function () {
         const model = "modeldeployer/llamafile";
 

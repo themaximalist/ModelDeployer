@@ -26,12 +26,27 @@ Event.init({
         defaultValue: [],
         allowNull: false
     },
+    messages_tokens: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+        allowNull: false,
+    },
     response_data: {
         type: DataTypes.TEXT,
         allowNull: false,
     },
     response_code: {
         type: DataTypes.INTEGER,
+        allowNull: false,
+    },
+    response_tokens: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+        allowNull: false,
+    },
+    tokens: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
         allowNull: false,
     },
     active: {

@@ -3,7 +3,7 @@ const log = debug("modeldeployer:services:chat");
 
 import LLM from "@themaximalist/llm.js"
 import Model from "../models/model.js"
-import Event from "../models/event.js"
+import Events from "../managers/events.js"
 
 export default async function Chat({ messages, options }, session) {
     if (!messages || messages.length == 0) { throw new Error("No messages provided") }
@@ -18,34 +18,29 @@ export default async function Chat({ messages, options }, session) {
     const model = options.model;
     delete options.model;
 
-    const event = await Event.build({
+    const events = new Events();
+    const event = {
         options,
         messages: inputMessages,
         ModelId: session.apikey_model_id,
         APIKeyId: session.apikey,
-    });
+    };
 
     try {
         const response_data = await LLM(messages, Object.assign({}, options, { model }));
         if (!options.stream) {
-            event.response_code = 200;
-            event.response_data = response_data;
-            await event.save();
+            await events.success({ ...event, response_data });
             return response_data;
         }
 
         return stream_response(response_data, async (final_response_data) => {
-            event.response_code = 200;
-            event.response_data = final_response_data;
-            await event.save();
+            await events.success({ ...event, response_data: final_response_data });
+            return response_data;
         });
 
 
     } catch (e) {
-        event.response_code = 500;
-        event.response_data = String(e || "Unknown error");
-        await event.save();
-
+        await events.failure({ ...event, response_data: String(e) });
         throw e;
     }
 }
