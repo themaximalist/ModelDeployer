@@ -11,9 +11,18 @@ const SERVICE = {
     "gpt-3.5-turbo-1106": "gpt-3.5-turbo",
     "gpt-3.5": "gpt-3.5-turbo",
     "gpt-3.5-turbo": [0.0010, 0.0020],
+
+    "claude-instant-1.2": [0.0008, 0.0024], // .80 per million && $2.4 per million
+    "claude-2.0": [0.008, 0.024], // $8 / million && $24 per million
+    "claude-2.1": "claude-2.0",
+
 }
 
 function getModelCost(model) {
+    if (typeof model === "object" && model[INPUT] && model[OUTPUT]) {
+        return [model[INPUT], model[OUTPUT]];
+    }
+
     const service = SERVICE[model];
     if (typeof service === "string") {
         return getModelCost(service);

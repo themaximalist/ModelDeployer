@@ -21,6 +21,7 @@ export default async function Chat({ messages, options }, session) {
     const events = new Events();
     const event = {
         options,
+        model,
         messages: inputMessages,
         ModelId: session.apikey_model_id,
         APIKeyId: session.apikey,

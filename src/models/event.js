@@ -31,6 +31,11 @@ Event.init({
         defaultValue: 0,
         allowNull: false,
     },
+    messages_cost: {
+        type: DataTypes.DECIMAL,
+        defaultValue: 0,
+        allowNull: false,
+    },
     response_data: {
         type: DataTypes.TEXT,
         allowNull: false,
@@ -44,8 +49,18 @@ Event.init({
         defaultValue: 0,
         allowNull: false,
     },
+    response_cost: {
+        type: DataTypes.DECIMAL,
+        defaultValue: 0,
+        allowNull: false,
+    },
     tokens: {
         type: DataTypes.INTEGER,
+        defaultValue: 0,
+        allowNull: false,
+    },
+    cost: {
+        type: DataTypes.DECIMAL,
         defaultValue: 0,
         allowNull: false,
     },
