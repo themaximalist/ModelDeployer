@@ -63,8 +63,8 @@ export async function setupLlama(user) {
         options: {
             temperature: 0,
             max_tokens: 100,
-            input_cost: 1,
-            output_cost: 1,
+            input_cost: 0.01,
+            output_cost: 0.01,
         },
         UserId: user.id,
     });

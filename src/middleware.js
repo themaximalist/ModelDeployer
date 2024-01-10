@@ -32,8 +32,6 @@ export async function apiUser(req, res, next) {
     if (!req.path.startsWith("/api")) {
         return next();
     }
-    // TODO: Log API requests
-
     let key = req.headers["x-api-key"] || req.query.apikey;
 
     if (!key) {
