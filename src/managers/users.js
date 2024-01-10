@@ -25,7 +25,7 @@ export default class Users extends BaseManager {
     }
 
     async login(data) {
-        const user = await this.model.findOne({ where: { email: data.email } });
+        const user = await this.Model.findOne({ where: { email: data.email } });
         if (!user) { throw new Error("Error logging in") }
 
         const isValid = await bcrypt.compare(

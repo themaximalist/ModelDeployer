@@ -58,6 +58,7 @@ export default class UserController extends BaseController {
             res.flash("success", `Successfully logged in`);
             res.redirect(this.redirects.login || `${this.route}/profile`);
         } catch (e) {
+            console.log(e);
             res.render(`${this.namespace}/login`, {
                 [this.object]: this.model.build(req.body),
                 error: e.message,
