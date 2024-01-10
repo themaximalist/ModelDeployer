@@ -19,7 +19,7 @@ describe("modeldeployer", function () {
         await teardownDatabase(true);
     });
 
-    describe.only("modeldeployer gpt-3.5 client key", async function () {
+    describe("modeldeployer gpt-3.5 client key", async function () {
         let model;
         this.beforeAll(() => { model = models.gpt_nokey });
 
