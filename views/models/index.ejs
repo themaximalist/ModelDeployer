@@ -12,8 +12,7 @@
         <table>
             <thead>
                 <tr>
-                    <th>Endpoint</th>
-                    <th>Service</th>
+                    <th>ID</th>
                     <th>Model</th>
                     <th>Options</th>
                     <th>Actions</th>
@@ -23,9 +22,8 @@
                 <% for (let model of models) { -%>
                 <tr>
                     <td><%= model.id.split("-")[0] %></td>
-                    <td><%= model.service %></td>
-                    <td><%= model.model %></td>
-                    <td class="whitespace-pre-wrap"><%= Object.keys(model.options).join("\n") %></td>
+                    <td><%= model.service %>/<%= model.model %></td>
+                    <td class="whitespace-pre-wrap text-xs"><%= Object.keys(model.options).join("\n") %></td>
                     <td class="whitespace-nowrap">
                         <a href="/admin/models/<%= model.id %>" class="button purple">Show</a>
                         <a href="/admin/events?model=<%= model.id %>" class="button">Events</a>

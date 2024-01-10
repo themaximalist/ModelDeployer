@@ -11,4 +11,17 @@ export default class ModelsController extends BaseController {
         this.model = Model;
         this.manager = new Models();
     }
+
+    async show(req, res) {
+        try {
+            const obj = await this.manager.find(req.params.id, req.session.user_id);
+            obj.apikeys = await obj.getAPIKeys();
+            res.render(`${this.namespace}/show`, {
+                [this.object]: obj
+            });
+        } catch (e) {
+            res.flash("error", "Cannot find model");
+            res.render(`error`);
+        }
+    }
 }

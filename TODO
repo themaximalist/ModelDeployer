@@ -1,8 +1,5 @@
-
-* track $$$ usage
 * rate limit
-* test secrets...currently doesn't work
-* test dev-provided API key
+
 * test user-provided API key
 * free faucet generator for verified emails
 * flash doesn't work without javascript..hrm?

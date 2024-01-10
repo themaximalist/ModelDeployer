@@ -2,17 +2,13 @@
 
 <div class="flex gap-4 mb-8">
     <a href="/admin/events?model=<%= model.id %>" class="button purple">Events</a>
-    <form hx-post="/admin/apikeys/add" action="/admin/apikeys/add" method="POST">
-        <input type="text" name="ModelId" value="<%= model.id %>" hidden>
-        <button type="submit" class="button">Generate API Key</button>
-    </form>
 </div>
 
 <div class="flex flex-col gap-8 justify-start w-full">
 
     <div class="flex flex-col gap-1">
         <div class="uppercase text-xs">
-            ID
+            Model ID
         </div>
         <div>
             <code><%= model.id %></code>
@@ -39,6 +35,28 @@
             </code>
         </div>
     </div>
+
+    <div class="flex flex-col gap-1">
+        <div class="uppercase text-xs">
+            API Keys
+        </div>
+        <div class="flex flex-col gap-2">
+            <div class="overflow-y-scroll">
+                <code>
+                    <% for (const apikey of model.apikeys) { %>
+                    <a href="/admin/apikeys/<%= apikey.id %>/"><%= apikey.id %></a>
+                    <% } %>
+                </code>
+            </div>
+
+            <form hx-post="/admin/apikeys/add" action="/admin/apikeys/add" method="POST">
+                <input type="text" name="ModelId" value="<%= model.id %>" hidden>
+                <button type="submit" class="button">Generate API Key</button>
+            </form>
+        </div>
+    </div>
+
+
 
     <hr />
 
