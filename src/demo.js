@@ -1,8 +1,9 @@
 import LLM from "@themaximalist/llm.js"
 //const model = "modeldeployer://bbf950a2-83c7-47e5-be66-46ca6e43f316"; // gpt-4
 //const model = "modeldeployer://a52f2bfb-10c2-4d54-bb97-eb82fdaecc8d"; // anthropic
-const model = "modeldeployer://8dad4c6b-0b1b-4ce7-9c72-3ea35d48fd46"; // llama
-const llm = new LLM([], { model, temperature: 0, max_tokens: 200, stream: true })
+const endpoint = "https://modeldeployer.com/api/v1/chat";
+const model = "modeldeployer://a619839c-8f21-438f-b4bc-0cbb4bd5c329";
+const llm = new LLM([], { model, temperature: 0, max_tokens: 200, stream: true, endpoint })
 
 import fs from "fs";
 

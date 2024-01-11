@@ -30,7 +30,7 @@
             <tbody>
                 <% for (let event of events) { -%>
                 <tr onclick="window.location='/admin/events/<%= event.id %>'" class="cursor-pointer">
-                    <td class="whitespace-nowrap"><%= locals.timeSince(event.createdAt) %> ago</td>
+                    <td class="whitespace-nowrap"><%= locals.timeSince(event.createdAt) %></td>
                     <td class="whitespace-nowrap"><%= event.APIKeyId.split("-")[0] %></td>
                     <td class="whitespace-nowrap">
                         <%= event.Model.service %>/<%= event.Model.model %>

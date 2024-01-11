@@ -4,24 +4,31 @@ import en from "relative-time-format/locale/en"
 RelativeTimeFormat.addLocale(en)
 
 export function timeSince(date) {
-    var timeStamp = date.getTime();
-    var now = new Date(),
-        secondsPast = (now.getTime() - timeStamp) / 1000;
-    if (secondsPast < 60) {
-        return parseInt(secondsPast) + 's';
+    try {
+        var timeStamp = date.getTime();
+        var now = new Date(),
+            secondsPast = (now.getTime() - timeStamp) / 1000;
+        if (secondsPast < 60) {
+            return parseInt(secondsPast) + 's ago';
+        }
+        if (secondsPast < 3600) {
+            return parseInt(secondsPast / 60) + 'm ago';
+        }
+        if (secondsPast <= 86400) {
+            return parseInt(secondsPast / 3600) + 'h ago';
+        }
+
+        if (secondsPast > 86400) {
+            const day = date.getDate();
+            const month = date.toDateString().match(/ [a-zA-Z]*/)[0].replace(" ", "");
+            const year = date.getFullYear() == date.getFullYear() ? "" : " " + date.getFullYear();
+            return day + " " + month + year;
+        }
+    } catch (e) {
+        console.log("Error in timeSince: ", e);
+        return "unknown";
     }
-    if (secondsPast < 3600) {
-        return parseInt(secondsPast / 60) + 'm';
-    }
-    if (secondsPast <= 86400) {
-        return parseInt(secondsPast / 3600) + 'h';
-    }
-    if (secondsPast > 86400) {
-        day = timeStamp.getDate();
-        month = timeStamp.toDateString().match(/ [a-zA-Z]*/)[0].replace(" ", "");
-        year = timeStamp.getFullYear() == now.getFullYear() ? "" : " " + timeStamp.getFullYear();
-        return day + " " + month + year;
-    }
+
 }
 
 export function smartRound(number) {
