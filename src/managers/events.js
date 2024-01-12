@@ -13,6 +13,7 @@ export default class Events extends BaseManager {
 
     async success(data = {}, options = {}) {
         if (typeof options.count_response_tokens === "undefined") { options.count_response_tokens = true }
+        if (typeof data.response_data !== "string") { data.response_data = JSON.stringify(data.response_data) }
 
         data.messages_tokens = TokenCounter(data.messages);
 
@@ -43,6 +44,8 @@ export default class Events extends BaseManager {
     async failure(data = {}) {
         data.messages_tokens = TokenCounter(data.messages);
         if (!data.response_data) { data.response_data = "Unknown error" }
+        if (typeof data.response_data !== "string") { data.response_data = JSON.stringify(data.response_data) }
+
         data.response_tokens = 0;
         data.tokens = data.messages_tokens + data.response_tokens;
         data.response_code = 500;
