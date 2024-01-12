@@ -6,3 +6,4 @@ TODO
 .embeddings.cache.json
 src/demo.js
 src/demo_embeddings.js
+package-lock.json
