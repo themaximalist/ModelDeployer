@@ -6,7 +6,8 @@ Model Deployer is the simplest way to deploy AI models for your applications.
 **Features:**
 
 * Proxy to hundreds of local and remote AI models (LLM, stable diffusion, vectordbs)
-* A single interface to all models, built on [LLM.js](https://github.com/themaximal1st/llm.js)
+* A single interface for all models, built on [LLM.js](https://github.com/themaximal1st/llm.js)
+* A single interface for all embeddings, built on [Embeddings.js](https://github.com/themaximal1st/embeddings.js)
 * Easily view usage history for each app user
 * Rate-limit users based on pre-defined limits
 * Track cost and usage cross hundreds of AI models
@@ -39,10 +40,25 @@ Then you can use `LLM.js` to interact with your API:
 
 ```javascript
 import LLM from "@themaximalist/llm.js"
-await LLM("what color is the sky?", { model: "modeldeployer://api-key-goes-here" });
+await LLM("what color is the sky?", { service: "modeldeployer", model: "model-api-key-goes-here" });
 ```
 
-More documentation is coming soon!
+
+
+## Embeddings
+
+Model Deployer also works with `embeddings.js`:
+
+```javascript
+import Embeddings from "@themaximalist/embeddings.js"
+await Embeddings("what color is the sky?", { service: "modeldeployer", model: "embeddings-api-key-goes-here" });
+```
+
+
+
+More documentation coming soon!
+
+
 
 
 

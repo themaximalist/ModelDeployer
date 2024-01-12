@@ -19,7 +19,10 @@ export default class Event extends Sequelize.Model {
     }
 
     inputPreview() {
-        return `${this.inputData().substring(0, 40)}...`;
+        const data = this.inputData();
+        if (data && data.length > 0) {
+            return `${this.inputData().substring(0, 40)}...`;
+        }
     }
 
     outputPreview() {
@@ -27,6 +30,8 @@ export default class Event extends Sequelize.Model {
             return this.outputData().substring(0, 70);
         } else if (this.Model.model_type === "embedding") {
             return this.outputData().substring(0, 20);
+        } else {
+            return "";
         }
     }
 
