@@ -1,6 +1,6 @@
 {
     "name": "@themaximalist/modeldeployer",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "description": "Deploy and Manage AI Models",
     "type": "module",
     "main": "src/index.js",

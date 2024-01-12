@@ -100,7 +100,7 @@ export async function setupLlama(user) {
 }
 
 export async function setupOpenAIEmbeddings(user) {
-    const model = await createAPIKey({
+    return await createAPIKey({
         model: "text-embedding-ada-002",
         service: "openai",
         options: {
@@ -108,13 +108,10 @@ export async function setupOpenAIEmbeddings(user) {
         },
         UserId: user.id,
     });
-
-
-    return model.split("://")[1];
 }
 
 export async function setupLocalEmbeddings(user) {
-    const model = await createAPIKey({
+    return await createAPIKey({
         model: "Xenova/all-MiniLM-L6-v2",
         service: "transformers",
         UserId: user.id,
@@ -123,9 +120,6 @@ export async function setupLocalEmbeddings(user) {
             output_cost: 0,
         }
     });
-
-
-    return model.split("://")[1];
 }
 
 export async function setupRateLimit(user, tokens = 0, period = "year") {
@@ -150,7 +144,7 @@ export async function createAPIKey(data) {
     const apikey = await APIKey.create({ ModelId: model.id });
     assert(apikey);
 
-    return `modeldeployer://${apikey.id}`;
+    return apikey.id;
 }
 
 

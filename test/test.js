@@ -14,6 +14,7 @@ describe("modeldeployer", function () {
     this.timeout(10000);
     this.slow(5000);
 
+    const service = "modeldeployer";
     let models = {};
 
     this.beforeAll(async function () {
@@ -31,7 +32,7 @@ describe("modeldeployer", function () {
 
             it("invalid client key", async function () {
                 try {
-                    await LLM("the color of the sky is usually", { model });
+                    await LLM("the color of the sky is usually", { model, service });
                     assert.fail("expected error");
                 } catch (e) {
                     assert.ok("ok");
@@ -39,7 +40,7 @@ describe("modeldeployer", function () {
             });
 
             it("prompt", async function () {
-                const response = await LLM("the color of the sky is usually", { model, apikey: process.env.MODELDEPLOYER_OPENAI_API_KEY });
+                const response = await LLM("the color of the sky is usually", { model, service, apikey: process.env.MODELDEPLOYER_OPENAI_API_KEY });
                 assert(response.indexOf("blue") !== -1, response);
             });
         });
@@ -49,13 +50,13 @@ describe("modeldeployer", function () {
             this.beforeAll(() => { model = models.gpt });
 
             it("prompt", async function () {
-                const response = await LLM("the color of the sky is usually", { model });
+                const response = await LLM("the color of the sky is usually", { model, service });
                 assert(response.indexOf("blue") !== -1, response);
             });
 
             it("invalid api key", async function () {
                 try {
-                    const response = await LLM("the color of the sky is usually", { model: "modeldeployer://abc" });
+                    const response = await LLM("the color of the sky is usually", { model: "abc-123", service });
                     assert.fail("should have thrown error");
                 } catch (e) {
                     assert.ok("ok");
@@ -63,7 +64,7 @@ describe("modeldeployer", function () {
             });
 
             it("prompt (max_token override)", async function () {
-                const response = await LLM("the color of the sky is usually", { model, max_tokens: 1 });
+                const response = await LLM("the color of the sky is usually", { model, service, max_tokens: 1 });
                 assert(response.indexOf("blue") !== -1, response);
                 assert(response.length > 0);
                 assert(response.length < 6);
@@ -71,7 +72,7 @@ describe("modeldeployer", function () {
 
 
             it("streaming", async function () {
-                const llm = new LLM([], { stream: true, model });
+                const llm = new LLM([], { stream: true, model, service });
                 const response = await llm.chat("who created hypertext?");
 
                 let buffer = "";
@@ -88,7 +89,7 @@ describe("modeldeployer", function () {
             this.beforeAll(() => { model = models.claude });
 
             it("prompt", async function () {
-                const response = await LLM("the color of the sky is usually", { model });
+                const response = await LLM("the color of the sky is usually", { model, service });
                 assert(response.indexOf("blue") !== -1, response);
 
                 const event = await Event.findOne({ order: [["createdAt", "DESC"]] });
@@ -98,7 +99,7 @@ describe("modeldeployer", function () {
             });
 
             it("prompt (max_token override)", async function () {
-                const response = await LLM("the color of the sky is usually", { model, max_tokens: 1 });
+                const response = await LLM("the color of the sky is usually", { model, max_tokens: 1, service });
                 assert(response.length > 0);
                 assert(response.length < 6);
             });
@@ -110,7 +111,7 @@ describe("modeldeployer", function () {
 
             it("prompt (with cost override)", async function () {
                 // cost override for llama is set in test/utils.js
-                const response = await LLM("the color of the sky is usually", { model });
+                const response = await LLM("the color of the sky is usually", { model, service });
                 assert(response.indexOf("blue") !== -1, response);
 
                 const event = await Event.findOne({ order: [["createdAt", "DESC"]] });
@@ -188,7 +189,7 @@ describe("modeldeployer", function () {
             it("saves request as event", async function () {
                 let oldEvents = await Event.findAll({});
 
-                const response = await LLM("the color of the sky is usually", { model });
+                const response = await LLM("the color of the sky is usually", { model, service });
                 assert(response.indexOf("blue") !== -1, response);
 
                 let newEvents = await Event.findAll({});
@@ -204,7 +205,7 @@ describe("modeldeployer", function () {
             it("event saves streaming response", async function () {
                 let oldEvents = await Event.findAll({});
 
-                const llm = new LLM([], { stream: true, model });
+                const llm = new LLM([], { stream: true, model, service });
                 const response = await llm.chat("who created hypertext?");
 
                 let buffer = "";
@@ -228,7 +229,7 @@ describe("modeldeployer", function () {
                 let oldEvents = await Event.findAll({});
 
                 try {
-                    await LLM("the color of the sky is usually", { model, max_tokens: -1 }); // should throw error, max_tokens must be > 0
+                    await LLM("the color of the sky is usually", { model, max_tokens: -1, service }); // should throw error, max_tokens must be > 0
                     assert.fail("should have thrown error");
                 } catch (e) {
                     assert.ok("ok");
@@ -246,7 +247,7 @@ describe("modeldeployer", function () {
             });
 
             it("token count", async function () {
-                const response = await LLM("the color of the sky is usually", { model });
+                const response = await LLM("the color of the sky is usually", { model, service });
                 assert(response.indexOf("blue") !== -1, response);
 
                 const event = await Event.findOne({ order: [["createdAt", "DESC"]] });
@@ -262,7 +263,7 @@ describe("modeldeployer", function () {
             it("token price", async function () {
                 let oldEvents = await Event.findAll({});
 
-                const response = await LLM("the color of the sky is usually", { model, max_tokens: 100 });
+                const response = await LLM("the color of the sky is usually", { model, max_tokens: 100, service });
                 assert(response.indexOf("blue") !== -1, response);
 
                 let newEvents = await Event.findAll({});
@@ -290,7 +291,7 @@ describe("modeldeployer", function () {
 
             it("severe rate limit", async function () {
                 try {
-                    await LLM("the color of the sky is usually", { model: models.ratelimit_severe });
+                    await LLM("the color of the sky is usually", { model: models.ratelimit_severe, service });
                     assert.fail("should have thrown error");
                 } catch (e) {
                     assert(e.message.indexOf("Rate limit exceeded") !== -1, e.message);
@@ -298,7 +299,7 @@ describe("modeldeployer", function () {
             });
 
             it("exceed rate limit (day)", async function () {
-                const llm = new LLM([], { model: models.ratelimit_day });
+                const llm = new LLM([], { model: models.ratelimit_day, service });
                 await llm.chat("the color of the sky is usually");
                 try {
                     await llm.chat("why do you think that?")
@@ -310,7 +311,7 @@ describe("modeldeployer", function () {
             });
 
             it("exceed rate limit (week)", async function () {
-                const llm = new LLM([], { model: models.ratelimit_week });
+                const llm = new LLM([], { model: models.ratelimit_week, service });
                 await llm.chat("the color of the sky is usually");
                 await llm.chat("why do you think that?")
                 await llm.chat("what do some people think?") // this would have failed on day limit
@@ -325,7 +326,7 @@ describe("modeldeployer", function () {
         describe("openai", function () {
             it("fetches openai embeddings", async function () {
                 const model = models.openai_embeddings;
-                const embedding = await Embeddings("hello", { service: "modeldeployer", model });
+                const embedding = await Embeddings("hello", { service: "modeldeployer", model, service });
                 assert(embedding);
                 assert(embedding.length, 1536);
             });
