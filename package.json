@@ -31,7 +31,7 @@
         "@tailwindcss/typography": "^0.5.10",
         "@themaximalist/embeddings.js": "^0.0.4",
         "@themaximalist/hummingbird.js": "^0.0.3",
-        "@themaximalist/llm.js": "^0.4.2",
+        "@themaximalist/llm.js": "^0.4.3",
         "bcrypt": "^5.1.1",
         "debug": "^4.3.4",
         "dotenv-extended": "^2.9.0",
