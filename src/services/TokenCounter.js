@@ -11,7 +11,7 @@ export default function TokenCounter(input, model = MODEL) {
         input = input.map(message => message.content).join(" ");
     }
 
-    if (typeof input !== "string") { throw new Error("Input must be a string") }
+    if (typeof input !== "string") { input = JSON.stringify(input) }
 
     let encoding;
 
