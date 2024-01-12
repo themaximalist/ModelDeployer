@@ -1,6 +1,8 @@
 import debug from "debug"
 const log = debug("modeldeployer:services:chat");
 
+import merge from "lodash/merge.js"
+
 import LLM from "@themaximalist/llm.js"
 import Model from "../models/model.js"
 import Events from "../managers/events.js"
@@ -12,10 +14,11 @@ export default async function Chat({ messages, options }, session) {
     if (!session.apikey) { throw new Error("No apikey provided") }
     if (!session.apikey_model_id) { throw new Error("No model ID provided") }
 
-    log("/api/v1/chat")
-
     const inputMessages = JSON.parse(JSON.stringify(messages)); // store input messages...they get modified in LLM() and we dont need it twice
     options = await parseOptions(options, session);
+
+    log(`/api/v1/chat options: ${JSON.stringify(options)}`);
+
     const model = options.model;
     delete options.model;
 
@@ -68,6 +71,6 @@ async function parseOptions(options, session = {}) {
         throw new Error("Rate limit exceeded");
     }
 
-    return { ...model.options, ...options, model: model.model };
+    return merge(model.options, options, { model: model.model });
 }
 

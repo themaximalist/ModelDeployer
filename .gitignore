@@ -7,3 +7,4 @@ TODO
 src/demo.js
 src/demo_embeddings.js
 package-lock.json
+llama.log

@@ -389,4 +389,35 @@ describe("modeldeployer", function () {
 
         });
     });
+
+    describe("tools", async function () {
+        let model;
+        this.beforeAll(() => { model = models.gpt });
+
+        it("prompt", async function () {
+
+            const tool = {
+                "name": "generate_sky_colors",
+                "description": "Generates the colors of the sky",
+                "parameters": {
+                    "type": "object",
+                    "properties": {
+                        "colors": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "required": ["colors"]
+                }
+            };
+
+            const response = await LLM("the colors of the sky are usually (in JSON)", { model, service, tool });
+            assert(response);
+            assert(response.colors);
+            assert(response.colors.length > 0);
+            assert(response.colors.includes("blue"));
+        });
+    });
 });

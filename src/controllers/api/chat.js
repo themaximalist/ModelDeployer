@@ -4,7 +4,7 @@ const log = debug("modeldeployer:api:chat");
 import Chat from "../../services/Chat.js";
 
 function isGenerator(obj) {
-    return typeof obj?.next === 'function' && typeof obj[Symbol.iterator] === 'function';
+    return obj && typeof obj.next === 'function';
 }
 
 export default async function chat(req, res) {
