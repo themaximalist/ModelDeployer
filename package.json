@@ -29,8 +29,10 @@
     "devDependencies": {
         "@tailwindcss/forms": "^0.5.7",
         "@tailwindcss/typography": "^0.5.10",
+        "@themaximalist/embeddings.js": "^0.0.4",
         "@themaximalist/hummingbird.js": "^0.0.3",
         "@themaximalist/llm.js": "^0.3.9",
+        "@xenova/transformers": "^2.14.0",
         "bcrypt": "^5.1.1",
         "debug": "^4.3.4",
         "dotenv-extended": "^2.9.0",

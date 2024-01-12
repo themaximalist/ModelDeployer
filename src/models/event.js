@@ -1,12 +1,35 @@
 import Sequelize from "sequelize";
 const DataTypes = Sequelize.DataTypes;
-import User from "./user.js";
 import Model from "./model.js";
 import APIKey from "./apikey.js";
 
 import sequelize from "../sequelize.js";
 
 export default class Event extends Sequelize.Model {
+    inputData() {
+        if (this.Model.model_type === "llm") {
+            return this.messages[0].content;
+        }
+
+        return this.messages;
+    }
+
+    outputData() {
+        return this.response_data;
+    }
+
+    inputPreview() {
+        return `${this.inputData().substring(0, 40)}...`;
+    }
+
+    outputPreview() {
+        if (this.Model.model_type === "llm") {
+            return this.outputData().substring(0, 70);
+        } else if (this.Model.model_type === "embedding") {
+            return this.outputData().substring(0, 20);
+        }
+    }
+
 }
 
 Event.init({

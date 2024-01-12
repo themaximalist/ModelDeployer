@@ -32,15 +32,15 @@
                 <tr onclick="window.location='/admin/events/<%= event.id %>'" class="cursor-pointer">
                     <td class="whitespace-nowrap"><%= locals.timeSince(event.createdAt) %></td>
                     <td class="whitespace-nowrap"><%= event.APIKeyId.split("-")[0] %></td>
-                    <td class="whitespace-nowrap">
+                    <td>
                         <%= event.Model.service %>/<%= event.Model.model %>
                     </td>
                     <td>
                         <div>$<%= locals.smartRound(event.cost) %></div>
                         <div class="whitespace-nowrap"><%= event.tokens %> tokens</div>
                     </td>
-                    <td><%= event.messages[0].content.substr(0, 70) %>...</td>
-                    <td><%= event.response_data.substr(0, 70) %>...</td>
+                    <td><%= event.inputPreview() %></td>
+                    <td><%= event.outputPreview() %></td>
                     <td>
                         <%- include('_response_code', { response_code: event.response_code }) -%>
                     </td>

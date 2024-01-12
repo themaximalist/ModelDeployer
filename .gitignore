@@ -3,3 +3,4 @@
 node_modules/
 .sessions/
 TODO
+.embeddings.cache.json

@@ -8,7 +8,7 @@
         <input type="text" name="model" value="<%= model.model %>" class="w-full" />
 
         <div class="text-sm text-gray-400">
-            llamafile, gpt-*, claude-*
+            llamafile, gpt-*, claude-*, text-embedding-local, text-embedding-ada-002
         </div>
     </label>
 
@@ -21,6 +21,10 @@
             apikey=sk-abc<br />
             temperature=0.5<br />
             max_tokens=300<br />
+            input_cost=0.001<br />
+            output_cost=0.001<br />
+            ratelimit_tokens=5000<br />
+            ratelimit_period=day<br />
             ...
         </div>
     </label>

@@ -32,16 +32,17 @@ export function timeSince(date) {
 }
 
 export function smartRound(number) {
-    let epsilon = 1e-14; // Threshold for floating point arithmetic precision
+    let baseEpsilon = 1e-14; // Base threshold for floating point arithmetic precision
     let multiplier = 1;
     let roundedNumber = number;
+    let dynamicEpsilon = baseEpsilon * Math.max(1, Math.abs(number));
 
     while (Math.round(roundedNumber * multiplier) / multiplier !== number) {
         multiplier *= 10;
         roundedNumber = Math.round(number * multiplier) / multiplier;
 
-        // Break if the difference is within floating point precision limits
-        if (Math.abs(roundedNumber - number) < epsilon) {
+        // Break if the difference is within dynamic floating point precision limits
+        if (Math.abs(roundedNumber - number) < dynamicEpsilon) {
             break;
         }
     }

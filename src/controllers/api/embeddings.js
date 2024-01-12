@@ -1,9 +1,25 @@
 import debug from "debug";
-const log = debug("modeldeployer:api:chat");
+const log = debug("modeldeployer:api:embeddings");
 
-import Chat from "../services/Chat.js";
+// import Chat from "../services/Chat.js";
+import Embeddings from "../../services/Embeddings.js";
 
-export async function chat(req, res) {
+export default async function embeddings(req, res) {
+    try {
+        const session = { apikey: req.session.apikey, apikey_model_id: req.session.apikey_model_id };
+        const data = await Embeddings(req.body, session);
+        return res.json({ ok: true, data });
+    } catch (e) {
+        console.log(e);
+        log(`Error: ${e.message}`);
+        return res.json({ error: e.message });
+    } finally {
+        res.end();
+    }
+}
+
+/*
+export async function _chat(req, res) {
     try {
         const session = {
             apikey: req.session.apikey,
@@ -29,3 +45,4 @@ export async function chat(req, res) {
         res.end();
     }
 }
+*/

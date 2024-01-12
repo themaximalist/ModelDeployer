@@ -40,6 +40,9 @@ export async function apiUser(req, res, next) {
 
     try {
         const apikey = await APIKey.findOne({ where: { id: key } });
+        if (!apikey) {
+            return res.status(401).json({ error: "Invalid API key provided" });
+        }
 
         req.session.apikey = apikey.id;
         req.session.apikey_model_id = apikey.ModelId;

@@ -17,6 +17,8 @@ export async function setupDatabase() {
     const ratelimit_severe = await setupRateLimit(user);
     const ratelimit_day = await setupRateLimit(user, 50, "day");
     const ratelimit_week = await setupRateLimit(user, 250, "week");
+    const openai_embeddings = await setupOpenAIEmbeddings(user);
+    const local_embeddings = await setupLocalEmbeddings(user);
 
     return {
         gpt,
@@ -25,7 +27,9 @@ export async function setupDatabase() {
         llama,
         ratelimit_severe,
         ratelimit_day,
-        ratelimit_week
+        ratelimit_week,
+        openai_embeddings,
+        local_embeddings,
     };
 }
 
@@ -95,14 +99,33 @@ export async function setupLlama(user) {
     });
 }
 
-export async function createAPIKey(data) {
-    const model = await Model.create(data);
-    assert(model);
+export async function setupOpenAIEmbeddings(user) {
+    const model = await createAPIKey({
+        model: "text-embedding-ada-002",
+        service: "openai",
+        options: {
+            apikey: process.env.MODELDEPLOYER_OPENAI_API_KEY,
+        },
+        UserId: user.id,
+    });
 
-    const apikey = await APIKey.create({ ModelId: model.id });
-    assert(apikey);
 
-    return `modeldeployer://${apikey.id}`;
+    return model.split("://")[1];
+}
+
+export async function setupLocalEmbeddings(user) {
+    const model = await createAPIKey({
+        model: "Xenova/all-MiniLM-L6-v2",
+        service: "transformers",
+        UserId: user.id,
+        options: {
+            input_cost: 0.001,
+            output_cost: 0,
+        }
+    });
+
+
+    return model.split("://")[1];
 }
 
 export async function setupRateLimit(user, tokens = 0, period = "year") {
@@ -118,6 +141,16 @@ export async function setupRateLimit(user, tokens = 0, period = "year") {
         },
         UserId: user.id,
     });
+}
+
+export async function createAPIKey(data) {
+    const model = await Model.create(data);
+    assert(model);
+
+    const apikey = await APIKey.create({ ModelId: model.id });
+    assert(apikey);
+
+    return `modeldeployer://${apikey.id}`;
 }
 
 

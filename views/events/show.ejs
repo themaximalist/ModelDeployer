@@ -15,9 +15,12 @@
         <div class="uppercase text-xs">
             Model
         </div>
-        <a href="/admin/models/<%= event.ModelId %>">
-            <code><%= event.Model.service %>/<%= event.Model.model %></code>
-        </a>
+        <div class="flex gap-2 items-center">
+            <a href="/admin/models/<%= event.ModelId %>">
+                <code><%= event.Model.service %>/<%= event.Model.model %></code>
+            </a>
+            <div class="bg-gray-500 text-white py-[1px] px-[4px] rounded-sm text-xs font-mono flex"><%= event.Model.model_type %></div>
+        </div>
     </div>
 
     <div class="flex flex-col gap-1">
@@ -72,6 +75,7 @@
     </div>
 
     <div class="flex flex-col gap-1">
+        <% if (event.Model.model_type === "llm") { -%>
         <div class="uppercase text-xs">
             Messages
         </div>
@@ -93,7 +97,28 @@
                     </div>
                 </div>
             </div>
-
         </div>
+        <% } else if (event.Model.model_type === "embedding") { -%>
+        <div class="uppercase text-xs">
+            Embedding
+        </div>
+        <div>
+            <div class="flex flex-col gap-8 w-full my-4">
+                <div class="flex">
+                    <div class="text-sm w-full">
+                        <strong class="uppercase font-medium">Input</strong>
+                        <div class="prose-sm whitespace-pre-wrap overflow-y-scroll w-full"><%= event.messages %></div>
+                    </div>
+                </div>
+
+                <div class="flex bg-gray-50 p-2 -m-2 w-full">
+                    <div class="text-sm w-full">
+                        <strong class="uppercase font-medium">Embedding</strong>
+                        <div class="prose-sm whitespace-pre-wrap overflow-y-scroll w-full"><%= event.response_data %></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <% } %>
 
         <%- include('../partials/page_footer') -%>

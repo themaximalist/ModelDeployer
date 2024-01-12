@@ -68,7 +68,6 @@ async function parseOptions(options, session = {}) {
         throw new Error("Rate limit exceeded");
     }
 
-    console.log("OPTS", { ...model.options, ...options, model: model.model });
     return { ...model.options, ...options, model: model.model };
 }
 

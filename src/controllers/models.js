@@ -15,7 +15,7 @@ export default class ModelsController extends BaseController {
     async show(req, res) {
         try {
             const obj = await this.manager.find(req.params.id, req.session.user_id);
-            obj.apikeys = await obj.getAPIKeys();
+            obj.apikeys = await obj.getAPIKeys({ where: { active: true } });
             res.render(`${this.namespace}/show`, {
                 [this.object]: obj
             });

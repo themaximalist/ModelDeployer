@@ -5,7 +5,6 @@ import Database from "./database.js"
 import * as middleware from "./middleware.js"
 import "./models/index.js"
 
-
 const hummingbird = new Hummingbird();
 
 hummingbird.app.locals.Envtools = Envtools;
@@ -21,6 +20,7 @@ hummingbird.mount("/admin", controllers.events);
 hummingbird.mount("/admin", controllers.apikeys);
 
 hummingbird.post("/api/v1/chat", controllers.api.chat);
+hummingbird.post("/api/v1/embeddings", controllers.api.embeddings);
 
 await Database.initialize();
 await hummingbird.start();

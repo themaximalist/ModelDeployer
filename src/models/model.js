@@ -27,6 +27,11 @@ Model.init({
         defaultValue: {},
         allowNull: false
     },
+    model_type: {
+        type: DataTypes.ENUM('llm', 'embedding'),
+        defaultValue: 'llm',
+        allowNull: false
+    },
     active: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
