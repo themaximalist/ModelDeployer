@@ -33,6 +33,7 @@ export default async function Chat({ messages, options }, session) {
 
     try {
         const response_data = await LLM(messages, Object.assign({}, options, { model }));
+        console.log("response_data", response_data);
         if (!options.stream) {
             await events.success({ ...event, response_data });
             return response_data;
