@@ -1,13 +1,21 @@
 # Model Deployer
-> deploy AI models for your apps
+<img src="logo.png" />
 
-Model Deployer is the simplest way to deploy AI models for your applications.
+<div class="badges" style="text-align: center; margin-top: 0px;">
+<img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/themaximal1st/modeldeployer">
+<img alt="NPM Downloads" src="https://img.shields.io/npm/dt/%40themaximalist%2Fmodeldeployer">
+<img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/themaximal1st/modeldeployer">
+<img alt="GitHub License" src="https://img.shields.io/github/license/themaximal1st/modeldeployer">
+</div>
+<br />
+
+[Model Deployer](https://modeldeployer.com) is the simplest way to deploy AI models for your applications.
 
 **Features:**
 
-* Proxy to hundreds of local and remote AI models (LLM, stable diffusion, vectordbs)
-* A single interface for all models, built on [LLM.js](https://github.com/themaximal1st/llm.js)
-* A single interface for all embeddings, built on [Embeddings.js](https://github.com/themaximal1st/embeddings.js)
+* Proxy to hundreds of local and remote AI models (LLM, Stable Diffusion, VectorDBs)
+* A single interface for all LLM models, built on [LLM.js](https://llmjs.themaximalist.com)
+* A single interface for all embeddings, built on [Embeddings.js](https://embeddingsjs.themaximalist.com)
 * Easily view usage history for each app user
 * Rate-limit users based on pre-defined limits
 * Track cost and usage cross hundreds of AI models
@@ -65,11 +73,11 @@ More documentation coming soon!
 
 ## Why does Model Deployer exist?
 
-I built [LLM.js](https://github.com/themaximal1st/llm.js) because I wanted to give people control over how they use AI models in their apps.
+I built [LLM.js](https://llmjs.themaximalist.com) because I wanted to give people control over how they use AI models in their apps.
 
 It's great to use GPT-4 and Claude, but it sucks to get locked in. And it's hard to use local models.
 
-LLM.js solves these problems, by creating a single simple interface that works with dozens of popular models.
+`LLM.js` solves these problems, by creating a single simple interface that works with dozens of popular models.
 
 As great as it is, it doesn't fully solve the problem.
 
@@ -77,7 +85,7 @@ Bundling an app with a local model is not practical, the binaries are hundreds o
 
 Downloading the model on first start also isn't practical. Some users will patiently sit through this, but most won't. The first 10 seconds mean everything on a new app—making users wait will not work.
 
-How do you offer the power of server models, with the flexibility of local open-source models?
+**How do you offer the power of server models, with the flexibility of local open-source models?**
 
 Model Deployer is the solution. It's an open-source server to manage models for your users. It trades a little bit of privacy for user experience.
 

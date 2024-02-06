@@ -1,9 +1,14 @@
 {
     "name": "@themaximalist/modeldeployer",
-    "version": "0.0.7",
+    "version": "0.0.8",
     "description": "Deploy and Manage AI Models",
     "type": "module",
     "main": "src/index.js",
+    "homepage": "https://modeldeployer.themaximalist.com",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/themaximal1st/modeldeployer.git"
+    },
     "scripts": {
         "start": "npm run server",
         "dev": "npm run watch",
