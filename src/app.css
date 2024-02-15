@@ -2,46 +2,37 @@
 @tailwind components;
 @tailwind utilities;
 
+.hero {
+    background-image: url("/images/bg.png");
+    @apply bg-cover bg-center;
+    @apply h-[971px];
+}
+
 .button {
-    @apply border border-blue-600 hover:bg-blue-400 hover:text-white uppercase tracking-wider p-1 px-2 text-xs text-blue-800 no-underline;
+    @apply text-xl bg-mod-blue text-mod-white p-4 px-8 text-center rounded-md shadow-sm cursor-pointer font-medium;
 
-    &.red {
-        @apply border-red-600 hover:bg-red-400 text-red-800 hover:text-white;
+    &.turquoise {
+        @apply bg-mod-turquoise text-mod-dark-blue;
     }
 
-    &.purple {
-        @apply border-purple-600 hover:bg-purple-400 text-purple-800 hover:text-white;
+    &.baby-blue {
+        @apply bg-mod-baby-blue text-mod-dark-blue;
     }
 
-    &.large {
-        @apply text-lg p-2 px-4 border-2;
+    &.light-purple {
+        @apply bg-mod-light-purple text-mod-darkest-gray;
+    }
+
+    &.white {
+        @apply bg-mod-white/20 text-mod-white hover:bg-mod-white/30 transition-all;
+    }
+
+    &.small {
+        @apply text-base p-3 px-5;
     }
 }
 
-a {
-    @apply underline;
-}
-
-table {
-    @apply w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400;
-}
-
-table thead {
-    @apply text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400;
-}
-
-table thead th {
-    @apply text-left px-6 py-3;
-}
-
-table tbody th {
-    @apply px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white;
-}
-
-table tbody tr {
-    @apply bg-white border-b dark:bg-gray-800 dark:border-gray-700;
-}
-
-table tbody td {
-    @apply px-6 py-4;
+.scrolling-x-content::-webkit-scrollbar {
+    display: none;
+    @apply transition-all;
 }

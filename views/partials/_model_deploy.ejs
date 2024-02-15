@@ -1,0 +1,15 @@
+<div class="min-w-64 flex flex-col bg-mod-white rounded-lg shadow-sm">
+    <div class="grow w-full flex gap-3 p-4">
+        <div class="absolute">
+            <img src="/images/<%= locals.service.toLowerCase() %>-icon.png" class="w-[24px] h-[24px] mt-[2px]" />
+        </div>
+        <div class="ml-[24px] pl-2">
+            <h3 class=" font-light text-xl"><%= locals.service %></h3>
+            <h4 class="font-bold"><%= locals.model %></h4>
+            <p class="text-sm my-1"><%= locals.description %></p>
+        </div>
+    </div>
+    <a href="/deploy" class="bg-mod-black text-mod-white p-4 text-center rounded-b-lg whitespace-nowrap">
+        Deploy <%= locals.name %>
+    </a>
+</div>
