@@ -2,10 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-.hero {
+.wrapper {
+    @apply relative overflow-hidden;
+}
+
+.bg {
+    @apply absolute left-0 top-0 right-0 h-[1200px] z-10;
     background-image: url("/images/bg.png");
-    @apply bg-cover bg-center;
-    @apply h-[971px];
+    @apply bg-cover bg-no-repeat bg-top;
 }
 
 .button {

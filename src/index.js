@@ -13,6 +13,7 @@ hummingbird.app.use(middleware.apiUser);
 hummingbird.app.use(middleware.helpers);
 
 hummingbird.get("/", "index");
+hummingbird.get("/about", "about");
 
 hummingbird.mount("/users", controllers.users);
 hummingbird.mount("/admin", controllers.models);

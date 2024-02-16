@@ -1,0 +1,23 @@
+<%- include("partials/page_header", { title: "About Model Deployer", subtitle: "Model Deployer is an API proxy service for managing AI models"}) %>
+
+<p><a href="https://bradjasper.com">I</a> built <a href="https://llmjs.themaximalist.com">LLM.js</a> because I wanted to give people control over how they use AI models in their apps.</p>
+
+<p>It’s great to use GPT-4 and Claude, but it sucks to get locked in. And it’s hard to use local models.</p>
+
+<p>LLM.js solves these problems, by creating a single simple interface that works with dozens of popular models.</p>
+
+<p>As great as it is, it doesn’t fully solve the problem.</p>
+
+<p>Bundling an app with a local model is not practical, the binaries are hundreds of MBs or even GBs.</p>
+
+<p>Downloading the model on first start also isn’t practical. Some users will patiently sit through this, but most won’t. The first 10 seconds mean everything on a new app—making users wait will not work.</p>
+
+<p>How do you offer the power of server models, with the flexibility of local open-source models?</p>
+
+<p><strong>Model Deployer is the solution.</strong> It’s an open-source server to manage models for your users. It trades a little bit of privacy for user experience.</p>
+
+<p>Importantly, it’s built on a 100% open stack. So for users who care, there are ways to go fully local, and self hosted.</p>
+
+<p>This accomplishes the best of both worlds. High-quality AI models, with the flexibility of privacy and local models.</p>
+
+<%- include("partials/page_footer") %>
