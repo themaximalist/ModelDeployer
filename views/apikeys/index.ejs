@@ -1,4 +1,4 @@
-<%- include('../partials/page_header', { title: "API Keys"}) -%>
+<%- include('../partials/admin_header', { title: "Keys", subtitle: "API Keys for AI models"}) -%>
 
 <div class="w-full flex flex-col gap-8">
     <div class="">
@@ -7,7 +7,6 @@
                 <tr>
                     <th>Key</th>
                     <th>Model</th>
-                    <th>Service</th>
                     <th>Usage</th>
                     <th>Actions</th>
                 </tr>
@@ -15,26 +14,29 @@
             <tbody>
                 <% for (let apikey of apikeys ) { -%>
                 <tr>
-                    <td><%= apikey.id %></td>
-                    <td><%= apikey.Model.model %></td>
-                    <td><%= apikey.Model.service %></td>
+                    <td class="font-mono whitespace-nowrap">
+                        <a href="/admin/apikeys/<%= apikey.id %>" class="large">
+                            <%= apikey.id %>
+                        </a>
+                    </td>
+                    <td class="whitespace-nowrap w-full"><%= apikey.Model.service %>/<%= apikey.Model.model %></td>
                     <td>
                         <div>
-                            $<%= locals.smartRound(apikey.cost) %>
+                            <%= locals.smartRound(apikey.cost) %>
                         </div>
                         <div class="whitespace-nowrap">
                             <%= apikey.tokens %> tokens
                         </div>
                     </td>
                     <td>
-                        <a href="/admin/events/?apikey=<%= apikey.id %>" class="button">Events</a>
-                        <a href="/admin/apikeys/<%= apikey.id %>" class="button purple">Show</a>
+                        <a href="/admin/events/?apikey=<%= apikey.id %>">Events</a>
+                        <a href="/admin/apikeys/<%= apikey.id %>">Show</a>
                     </td>
                 </tr>
                 <% } %>
                 <% if (apikeys.length === 0) { %>
                 <tr>
-                    <td colspan="5" class="text-center">No api keys found. Create them from a model or from the API.</td>
+                    <td colspan="4" class="text-center">No API Keys found. Create them from a model or from the API.</td>
                 </tr>
                 <% } %>
             </tbody>
@@ -42,4 +44,4 @@
     </div>
 </div>
 
-<%- include('../partials/page_footer') -%>
+<%- include('../partials/admin_footer') -%>

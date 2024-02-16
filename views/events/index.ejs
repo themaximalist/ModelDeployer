@@ -1,8 +1,7 @@
-<%- include('../partials/page_header', { title: "Events", subtitle: `${events.length} events`}) -%>
+<%- include('../partials/admin_header', { title: "Events", subtitle: `${events.length} events`}) -%>
 
 <div class="w-full flex flex-col gap-8">
     <div class="">
-
         <% if (locals.apikey || locals.model) { %>
         <div class="text-sm pb-6 flex flex-col gap-4">
             <% if (locals.apikey) { %>
@@ -19,7 +18,6 @@
             <thead>
                 <tr>
                     <th>Time</th>
-                    <th>API Key</th>
                     <th>Model</th>
                     <th>Usage</th>
                     <th>Input</th>
@@ -30,14 +28,18 @@
             <tbody>
                 <% for (let event of events) { -%>
                 <tr onclick="window.location='/admin/events/<%= event.id %>'" class="cursor-pointer">
-                    <td class="whitespace-nowrap"><%= locals.timeSince(event.createdAt) %></td>
-                    <td class="whitespace-nowrap"><%= event.APIKeyId.split("-")[0] %></td>
-                    <td>
-                        <%= event.Model.service %>/<%= event.Model.model %>
+                    <td class="whitespace-nowrap text-sm">
+                        <div><%= locals.timeSince(event.createdAt) %></div>
+                        <div class="text-sm text-mod-light-gray"><%= event.APIKeyId.split("-")[0] %></div>
                     </td>
                     <td>
-                        <div>$<%= locals.smartRound(event.cost) %></div>
-                        <div class="whitespace-nowrap"><%= event.tokens %> tokens</div>
+                        <div class="whitespace-nowrap truncate text-mod-gray">
+                            <span class=""><%= event.Model.service %></span>/<span class="font-medium text-mod-dark-gray"><%= event.Model.model %></span>
+                        </div>
+                    </td>
+                    <td class="text-sm">
+                        <div><%= locals.smartRound(event.cost) %></div>
+                        <div class="whitespace-nowrap text-mod-gray"><%= event.tokens %> tokens</div>
                     </td>
                     <td><%= event.inputPreview() %></td>
                     <td><%= event.outputPreview() %></td>
@@ -48,12 +50,19 @@
                 <% } %>
                 <% if (events.length === 0) { %>
                 <tr>
-                    <td colspan="6" class="p-2 text-center">No events found</td>
+                    <td colspan="7" class="p-2 text-center">No events found</td>
                 </tr>
                 <% } %>
             </tbody>
         </table>
+        <div class="flex gap-4 justify-center my-8">
+            <% for (let page = 0; (page * limit) < count; page++) { %>
+            <% const active = offset == page * limit ? "bg-mod-lightest-gray/60 font-medium text-mod-black" : "bg-mod-lightest-gray/20 text-mod-gray" %>
+            <a class="<%= active %> hover:bg-mod-lightest-gray/60 p-2 min-w-8 text-center rounded-sm" href="/admin/events/?offset=<%= page * limit %>&limit=<%= limit %>"><%= page + 1%></a>
+            <% } %>
+        </div>
+
     </div>
 </div>
 
-<%- include('../partials/page_footer') -%>
+<%- include('../partials/admin_footer') -%>

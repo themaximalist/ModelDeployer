@@ -1,43 +1,44 @@
-<%- include('../partials/page_header', { title: "Models"}) -%>
+<%- include('../partials/admin_header', { title: "Models", subtitle: "Manage deployed AI models"}) -%>
 
 <div class="w-full flex flex-col gap-8">
-    <div class="flex justify-end">
-        <a href="/admin/models/add" class="button purple flex items-center gap-2">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-            </svg>
-            Add Model</a>
-    </div>
-    <div class="">
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Model</th>
-                    <th>Options</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% for (let model of models) { -%>
-                <tr>
-                    <td><%= model.id.split("-")[0] %></td>
-                    <td><%= model.service %>/<%= model.model %></td>
-                    <td class="whitespace-pre-wrap text-xs"><%= Object.keys(model.options).join("\n") %></td>
-                    <td class="whitespace-nowrap">
-                        <a href="/admin/models/<%= model.id %>" class="button purple">Show</a>
-                        <a href="/admin/events?model=<%= model.id %>" class="button">Events</a>
-                    </td>
-                </tr>
-                <% } %>
-                <% if (models.length === 0) { %>
-                <tr>
-                    <td colspan="6" class="text-center">No models found</td>
-                </tr>
-                <% } %>
-            </tbody>
-        </table>
-    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Model</th>
+                <th>Activity</th>
+                <th>Options</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for (let model of models) { -%>
+            <tr>
+                <td class="w-full">
+                    <a href="/admin/models/<%= model.id %>" class="large">
+                        <span class="font-medium">
+                            <%= model.service %>/<%= model.model %>
+                        </span>
+                        <span class="text-mod-light-gray">
+                            <%= model.model_type %>
+                        </span>
+                    </a>
+                    <div class="text-mod-light-gray"><%= model.id.split("-")[0] %></div>
+                </td>
+                <td class="whitespace-pre-wrap text-xs"><%= model.Events.length %></td>
+                <td class="whitespace-pre-wrap text-xs"><%= Object.keys(model.options).join("\n") %></td>
+                <td class="row-buttons">
+                    <a href="/admin/models/<%= model.id %>">Show</a>
+                    <a href="/admin/events?model=<%= model.id %>">Events</a>
+                </td>
+            </tr>
+            <% } %>
+            <% if (models.length === 0) { %>
+            <tr>
+                <td colspan="4" class="text-center">No models found</td>
+            </tr>
+            <% } %>
+        </tbody>
+    </table>
 </div>
 
-<%- include('../partials/page_footer') -%>
+<%- include('../partials/admin_footer') -%>

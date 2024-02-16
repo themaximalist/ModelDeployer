@@ -15,6 +15,10 @@
 .button {
     @apply text-xl bg-mod-blue text-mod-white p-4 px-8 text-center rounded-md shadow-sm cursor-pointer font-medium;
 
+    &.outline {
+        @apply bg-transparent border-[1px] border-mod-blue/20 text-mod-blue;
+    }
+
     &.turquoise {
         @apply bg-mod-turquoise text-mod-dark-blue;
     }
@@ -45,4 +49,48 @@ form button,
 form button[type="submit"],
 form input[type="submit"] {
     @apply w-full bg-mod-blue hover:bg-mod-dark-blue text-mod-white p-3;
+}
+
+.admin-content table {
+    @apply w-full;
+}
+
+.admin-content table th {
+    @apply text-left;
+}
+
+.admin-content table td {
+    @apply py-2 align-top pr-20;
+}
+
+.admin-content table td:last-child {
+    @apply pr-0;
+}
+
+.admin-content table tr:nth-child(even) td {
+    @apply bg-mod-lightest-gray/20;
+}
+
+.admin-content table a {
+    @apply text-mod-gray hover:text-mod-black text-xs pb-1;
+}
+
+.admin-content table a.large {
+    @apply text-base;
+}
+
+.admin-content .button.toolbar {
+    @apply bg-transparent p-0 shadow-none text-mod-blue;
+
+    &.red {
+        @apply text-mod-red;
+    }
+}
+
+.admin-content table .row-buttons a {
+    @apply flex;
+}
+
+.admin-content table tr:hover td {
+    @apply bg-mod-baby-blue/10;
 }

@@ -47,5 +47,9 @@ export function smartRound(number) {
         }
     }
 
-    return roundedNumber;
+    if (roundedNumber < 0.000001) {
+        return "<$0.000001";
+    }
+
+    return `$${roundedNumber}`;
 }

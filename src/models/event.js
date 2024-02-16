@@ -26,13 +26,7 @@ export default class Event extends Sequelize.Model {
     }
 
     outputPreview() {
-        if (this.Model.model_type === "llm") {
-            return this.outputData().substring(0, 70);
-        } else if (this.Model.model_type === "embedding") {
-            return this.outputData().substring(0, 20);
-        } else {
-            return "";
-        }
+        return this.outputData().substring(0, 20);
     }
 
 }

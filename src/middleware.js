@@ -6,6 +6,7 @@ import { timeSince, smartRound } from "./utils.js";
 export async function helpers(req, res, next) {
     req.app.locals.timeSince = timeSince;
     req.app.locals.smartRound = smartRound;
+    req.app.locals.isPath = (path) => req.path.indexOf(path) === 0;
     next();
 }
 

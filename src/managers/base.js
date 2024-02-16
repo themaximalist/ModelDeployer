@@ -38,6 +38,19 @@ export default class BaseManager {
         return await this.Model.findAll(where);
     }
 
+    async findAndCountAll(UserId, options = {}) {
+        let where = JSON.parse(JSON.stringify(this.defaultWhere));
+        if (this.Reference) {
+            where.include = { model: this.Reference, where: { UserId } };
+        } else {
+            where.where.UserId = UserId;
+        }
+
+        where = lodash.merge(where, options);
+
+        return await this.Model.findAndCountAll(where);
+    }
+
     async edit(data, UserId) {
         if (!data.id) throw new Error("No ID provided");
         const model = await this.find(data.id, UserId);

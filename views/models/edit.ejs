@@ -1,35 +1,40 @@
-<%- include('../partials/page_header', { title: "Add Model"}) -%>
+<%- include('../partials/admin_header', { title: "Add Model", subtitle: "Deploy new AI model into production"}) -%>
 
-<form method="POST" hx-post="<%= action %>" hx-target="#container" hx-swap="innerHTML" action="<%= action %>" class="flex flex-col max-w-xl w-full space-y-4">
-    <input type="hidden" name="id" value="<%= model.id %>" />
+<div class="flex flex-col lg:flex-row gap-8">
+    <form method="POST" hx-post="<%= action %>" hx-target="#container" hx-swap="innerHTML" action="<%= action %>" class="flex flex-col space-y-4 w-full">
+        <input type="hidden" name="id" value="<%= model.id %>" />
 
-    <label>
-        <div>Model</div>
-        <input type="text" name="model" value="<%= model.model %>" class="w-full" />
+        <label>
+            <div>Model</div>
+            <input type="text" name="model" value="<%= model.model %>" class="w-full" />
 
-        <div class="text-sm text-gray-400">
-            llamafile, gpt-*, claude-*, text-embedding-local, text-embedding-ada-002
-        </div>
-    </label>
+            <div class="text-sm text-gray-400">
+                llamafile, gpt-*, claude-*, text-embedding-local, text-embedding-ada-002
+            </div>
+        </label>
 
-    <label>
-        <div>
-            Options
-        </div>
-        <textarea name="options" class="w-full" rows="5"><%= locals.Envtools.toEnv(model.options) %></textarea>
-        <div class="text-sm text-gray-400">
-            apikey=sk-abc<br />
-            temperature=0.5<br />
-            max_tokens=300<br />
-            input_cost=0.001<br />
-            output_cost=0.001<br />
-            ratelimit_tokens=5000<br />
-            ratelimit_period=day<br />
-            ...
-        </div>
-    </label>
+        <label>
+            <div>
+                Options
+            </div>
+            <textarea name="options" class="w-full" rows="5"><%= locals.Envtools.toEnv(model.options) %></textarea>
+            <div class="text-sm text-gray-400">
+                apikey=sk-abc<br />
+                temperature=0.5<br />
+                max_tokens=300<br />
+                input_cost=0.001<br />
+                output_cost=0.001<br />
+                ratelimit_tokens=5000<br />
+                ratelimit_period=day<br />
+                ...
+            </div>
+        </label>
 
-    <button type="submit" class="w-full bg-purple-700 hover:bg-purple-800 text-white p-3">Save</button>
-</form>
+        <button type="submit">Save</button>
+    </form>
+    <div class="w-full flex justify-center items-center">
+        <p>Learn more about <a href="https://modeldeployer.themaximalist.com" class="text-mod-blue">deploying models</a></p>
+    </div>
+</div>
 
-<%- include('../partials/page_footer') -%>
+<%- include('../partials/admin_footer') -%>
