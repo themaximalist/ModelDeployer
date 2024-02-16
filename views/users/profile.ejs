@@ -1,6 +1,6 @@
-<%- include("../partials/page_header", {title: "Profile"}) %>
+<%- include("../partials/page_header", {title: "Profile", subtitle: locals.user_email }) %>
 <div class="flex flex-col gap-8">
-    <p>You are logged in as <%= locals.user_email %></p>
+    <p>You are logged in as <strong><%= locals.user_email %></strong></p>
     <div>
         <a href="/users/logout" class="button red">Logout</a>
     </div>

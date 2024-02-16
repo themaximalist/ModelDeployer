@@ -40,3 +40,9 @@
     display: none;
     @apply transition-all;
 }
+
+form button,
+form button[type="submit"],
+form input[type="submit"] {
+    @apply w-full bg-mod-blue hover:bg-mod-dark-blue text-mod-white p-3;
+}

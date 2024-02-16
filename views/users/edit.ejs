@@ -1,7 +1,6 @@
-<%- include("../partials/page_header", {title: "Signup"}) %>
-<div class="flex flex-col gap-8">
-    <p>Signup to Model Deployer by creating an account below. If you already have an account <a href="/users/login">Login</a>.</p>
+<%- include("../partials/page_header", {title: "Signup", subtitle: "Signup for Model Deployer"}) %>
+<p>Signup to Model Deployer by creating an account below.</p>
+<p>If you already have an account <a href="/users/login">Login</a>.</p>
 
-    <%- include("form", {action: "/users/signup"}) %>
-</div>
+<%- include("form", {action: "/users/signup"}) %>
 <%- include("../partials/page_footer") %>
