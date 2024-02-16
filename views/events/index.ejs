@@ -1,4 +1,4 @@
-<%- include('../partials/admin_header', { title: "Events", subtitle: `${events.length} events`}) -%>
+<%- include('../partials/admin_header', { title: "Events", subtitle: `${count} Events`}) -%>
 
 <div class="w-full flex flex-col gap-8">
     <div class="">
@@ -33,8 +33,11 @@
                         <div class="text-sm text-mod-light-gray"><%= event.APIKeyId.split("-")[0] %></div>
                     </td>
                     <td>
-                        <div class="whitespace-nowrap truncate text-mod-gray">
-                            <span class=""><%= event.Model.service %></span>/<span class="font-medium text-mod-dark-gray"><%= event.Model.model %></span>
+                        <div class="whitespace-nowrap truncate text-mod-gray flex items-center gap-1">
+                            <img src="/images/<%= event.Model.service %>-icon.png" class="w-4 h-4" />
+                            <div class="flex gap-[1px]">
+                                <div><%= event.Model.service %></div>/<div class="font-medium text-mod-dark-gray"><%= event.Model.model %></div>
+                            </div>
                         </div>
                     </td>
                     <td class="text-sm">

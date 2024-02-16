@@ -1,6 +1,6 @@
-<%- include("partials/header", { title: "Model Deployer", subtitle: "Deploy, manage and rate-limit AI models in production"}) %>
+<%- include("partials/header", { title: "Model Deployer", subtitle: "API for your AI models"}) %>
 <div class="bg"></div>
-<div class="relative z-20">
+<div class="relative z-20 overflow-x-hidden">
     <div class="max-w-3xl mx-auto p-4 pt-20 flex flex-col gap-4">
         <div class="flex">
             <div class="flex">
@@ -14,7 +14,7 @@
                     <img src="/images/icon.png" class="w-16 h-16 lg:hidden" />
                     <h1 class="text-mod-dark-blue text-5xl font-bold">Model Deployer</h1>
                 </div>
-                <h2 class="text-mod-gray text-2xl font-medium max-w-lg">Deploy, manage and rate-limit AI models in production</h2>
+                <h2 class="text-mod-gray text-2xl font-medium max-w-lg">An API for all your AI models</h2>
             </div>
         </div>
         <div class="mt-8">
@@ -61,9 +61,9 @@
             </ul>
         </div>
     </div>
-    <div class="mt-20 p-4">
+    <div class="mt-16 p-4 bg-mod-white">
         <div class="max-w-3xl mx-auto py-8 prose prose-xl">
-            <h1 class="text-mod-blue text-3xl">Model Deployer makes it easy to use AI in your apps</h1>
+            <h1 class="text-mod-blue text-3xl"> Model Deployer turns AI models into production-ready APIs.</h1>
             <p>Any app developer that wants to use AI models in their apps has a few questions to answer:</p>
             <ul class="leading-1">
                 <li>How do you rate limit users and prevent someone from running up your bill?</li>
@@ -166,7 +166,7 @@
                     <p class="text-sm px-5">Host Model Deployer on your servers and manage which AI models you support.</p>
                     <div class="grow"></div>
                     <div class="bg-mod-turquoise flex flex-col mt-2 rounded-b-md">
-                        <a href="https://modeldeployer.themaximalist.com" class="button small turquoise">Run on Your Servers</a>
+                        <a href="https://modeldeployer.themaximalist.com" class="button small turquoise">Run on your Servers</a>
                     </div>
                 </div>
 
@@ -175,7 +175,7 @@
                     <p class="text-sm px-5">Let your users run their own Model Deployer locally, for maximum privacy.</p>
                     <div class="grow"></div>
                     <div class="bg-mod-light-purple flex flex-col mt-2 rounded-b-md">
-                        <a href="https://modeldeployer.themaximalist.com" class="button small light-purple">Run on Your Servers</a>
+                        <a href="https://modeldeployer.themaximalist.com" class="button small light-purple">Let Users Self Host</a>
                     </div>
                 </div>
             </div>
@@ -184,18 +184,69 @@
             </div>
         </div>
     </div>
-    <div class="max-w-3xl mx-auto p-4 py-12">
-        <h2 class="text-mod-purple text-3xl">Deploying Models in Production</h2>
-        <h3 class="text-mod-dark-gray text-xl">Model Deployer makes it easy to deploy dozens of popular AI models in production</h3>
+    <div class="max-w-5xl mx-auto md:p-4 py-12 flex flex-col gap-12">
+        <h2 class="text-mod-dark-gray text-3xl md:text-center px-4">Model Deployer makes deploying AI models in production easy</h2>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 py-8">
-            <img src="https://placehold.co/600x400/EEE/31343C" />
-            <img src="https://placehold.co/600x400/EEE/31343C" />
-            <img src="https://placehold.co/600x400/EEE/31343C" />
-            <img src="https://placehold.co/600x400/EEE/31343C" />
+        <div class="flex flex-col md:flex-row md:gap-8 md:items-center">
+            <img class="max-w-md w-full" src="/images/screenshot-models.png" alt="Model Deployer supports all the popular LLM and Embedding models" />
+            <div class="p-4 md:p-8 flex flex-col gap-2">
+                <h2 class="text-mod-purple text-3xl">Deploy and manage popular Large Language Models</h2>
+                <div class="prose prose-xl">
+                    <p>Model Deployer makes it easy to deploy dozens of popular AI models in production.</p>
+                    <p>Specify specific settings like <strong class="font-mono">temperature</strong>, <strong class="font-mono">max_tokens</strong>, <strong class="font-mono">rate limit</strong> and </strong>and <strong class="font-mono">schema</strong>—or override them on the client.</p>
+                </div>
+            </div>
+        </div>
+
+        <hr />
+
+        <div class="flex flex-col md:flex-row-reverse md:gap-8 md:items-center">
+            <img class="max-w-md w-full" src="/images/screenshot-events.png" alt="Model Deployer tracks event history across all of your AI models" />
+            <div class="p-4 md:p-8 flex flex-col gap-2">
+                <h2 class="text-mod-purple text-3xl">Manage history and costs</h2>
+                <div class="prose prose-xl">
+                    <p>Quickly compare cost, usage and history across all your models and API keys.</p>
+                    <p>Find problems, track opportunities and optimize costs with Model Deployer's event request history.</p>
+                </div>
+            </div>
+        </div>
+
+        <hr />
+
+        <div class="flex flex-col md:flex-row md:gap-8 md:items-center">
+            <img class="max-w-xl w-full" src="/images/screenshot-event.png" alt="Model Deployer logs every event so you can track what happened" />
+            <div class="p-4 md:p-8 flex flex-col gap-2">
+                <h2 class="text-mod-purple text-3xl">Detailed event log</h2>
+                <div class="prose prose-xl">
+                    <p>Every request to your model is tracked, including the request, response and options.</p>
+                    <p>This gives you a detailed log of everything happening with your AI models.</p>
+                </div>
+            </div>
+        </div>
+
+        <hr />
+
+        <div class="flex flex-col md:flex-row-reverse md:gap-8 md:items-center">
+            <div class="max-w-2xl">
+                <img class="w-full h-auto" src="/images/screenshot-keys.png" alt="Model Deployer tracks event history across all of your AI models" />
+            </div>
+            <div class="p-4 md:p-8 flex flex-col gap-2">
+                <h2 class="text-mod-purple text-3xl">Manage API Keys</h2>
+                <div class="prose prose-xl">
+                    <p>API Keys let you setup custom models, configs, rate limits, defaults and more.</p>
+                    <p>Easily track costs and rotate API keys for users in your app.</p>
+                </div>
+            </div>
+        </div>
+
+
+        <hr />
+
+        <div class="prose prose-xl w-full max-w-3xl mx-auto px-4">
+            <p>Whether it's setting up a new model, quickly switching between them in your app, rate limiting users, tracking history or managing costs—Model Deployer has what you need to serve AI models in production.</p>
         </div>
     </div>
-    <div class="bg-mod-purple text-mod-white p-4">
+    <div class="bg-mod-purple text-mod-white p-4 relative z-20">
         <div class="max-w-3xl mx-auto py-12">
             <h2 class="text-3xl">Get Started</h2>
             <h3 class="text-xl">Start using Model Deployer to manage AI models in your apps</h3>

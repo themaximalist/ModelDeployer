@@ -17,9 +17,10 @@
         </div>
         <div>
             <div>
-                <a href="/admin/models/<%= apikey.Model.id %>">
+                <a href="/admin/models/<%= apikey.Model.id %>" class="flex gap-1 items-center">
+                    <img src="/images/<%= apikey.Model.service %>-icon.png" class="w-4 h-4" />
                     <%= apikey.Model.service %>/<%= apikey.Model.model %>
-                    <code class="text-xs text-gray-500"><%= apikey.Model.id.split("-")[0] %></code>
+                    <div class="text-xs text-gray-500 font-mono"><%= apikey.Model.id.split("-")[0] %></div>
                 </a>
             </div>
         </div>

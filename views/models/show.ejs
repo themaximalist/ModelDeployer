@@ -7,7 +7,8 @@
 <div class="flex flex-col gap-8 justify-start w-full">
 
     <div class="flex flex-col gap-1">
-        <div class="text-xl font-bold">
+        <div class="text-xl font-bold flex gap-1 items-center">
+            <img src="/images/<%= model.service %>-icon.png" class="w-5 h-5" />
             <%= model.service %>/<%= model.model %> (<%= model.model_type %>)
         </div>
         <code class="text-sm font-mono text-mod-light-gray"><%= model.id %></code>
@@ -26,8 +27,8 @@
                 </tr>
                 <% for (const [key, value] of Object.entries(model.options)) { %>
                 <tr>
-                    <td><%= key %></td>
-                    <td class="w-full"><%= value %></td>
+                    <td class="whitespace-pre font-mono"><%= key %></td>
+                    <td class="whitespace-pre font-mono w-full"><%= value %></td>
                 </tr>
                 <% } %>
             </table>

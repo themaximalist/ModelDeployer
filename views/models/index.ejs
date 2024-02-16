@@ -13,8 +13,9 @@
         <tbody>
             <% for (let model of models) { -%>
             <tr>
-                <td class="w-full">
-                    <a href="/admin/models/<%= model.id %>" class="large">
+                <td class="">
+                    <a href="/admin/models/<%= model.id %>" class="large flex gap-1 items-center whitespace-nowrap">
+                        <img src="/images/<%= model.service %>-icon.png" class="w-4 h-4" />
                         <span class="font-medium">
                             <%= model.service %>/<%= model.model %>
                         </span>
@@ -25,7 +26,7 @@
                     <div class="text-mod-light-gray"><%= model.id.split("-")[0] %></div>
                 </td>
                 <td class="whitespace-pre-wrap text-xs"><%= model.Events.length %></td>
-                <td class="whitespace-pre-wrap text-xs"><%= Object.keys(model.options).join("\n") %></td>
+                <td class="whitespace-pre-wrap text-xs w-full"><%= Object.keys(model.options).join("\n") %></td>
                 <td class="row-buttons">
                     <a href="/admin/models/<%= model.id %>">Show</a>
                     <a href="/admin/events?model=<%= model.id %>">Events</a>
