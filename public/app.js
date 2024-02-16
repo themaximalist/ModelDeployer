@@ -39,4 +39,4 @@ function setupRecentScroll() {
     }
 }
 
-//setupRecentScroll();
+setupRecentScroll();
