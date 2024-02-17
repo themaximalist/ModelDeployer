@@ -2258,6 +2258,10 @@ select {
   max-width: 36rem;
 }
 
+.max-w-sm {
+  max-width: 24rem;
+}
+
 .grow {
   flex-grow: 1;
 }

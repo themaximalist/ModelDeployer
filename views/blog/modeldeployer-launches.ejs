@@ -1,0 +1,39 @@
+<%- include("../partials/page_header", { title: "Model Deployer Launches!", subtitle: "Model Deployer is single API you can use in production to access your AI models"}) %>
+
+<p>Model Deployer is the fastest way to use multiple LLM models in production, with history, usage, rate limiting and more.</p>
+
+<img src="/images/logo.png" alt="Model Deployer" class="max-w-sm" />
+
+<p>It was created from another project, LLM.js</p>
+
+<p><a href="https://llmjs.themaximalist.com">LLM.js</a> was created to give people control over how they use AI models in their apps.</p>
+
+<p>It’s great to use GPT-4 and Claude, but it sucks to get locked in. And it’s hard to use local models.</p>
+
+<p>LLM.js solves these problems, by creating a single simple interface that works with dozens of popular models.</p>
+
+<p>As great as it is, it doesn’t fully solve the problem.</p>
+
+<p>Bundling an app with a local model is not practical, the binaries are hundreds of MBs or even GBs.</p>
+
+<p>Downloading the model on first start also isn’t practical. Some users will patiently sit through this, but most won’t. The first 10 seconds mean everything on a new app—making users wait will not work.</p>
+
+<p>How do you offer the power of server models, with the flexibility of local open-source models?</p>
+
+<p><strong>Model Deployer is the solution.</strong> It’s an open-source server to manage models for your users. It trades a little bit of privacy for user experience.</p>
+
+<p>It supports almost all popular Large Language Models.</p>
+
+<img src="/images/screenshot-models.png" alt="Model Deployer lets you add the most popular LLM models" class="max-w-sm" />
+
+<p>And it lets you track history and monitor usage for each API call</p>
+
+<img src="/images/screenshot-events.png" alt="Model Deployer lets track API events to your AI models" class="max-w-sm" />
+
+<p>Importantly, it’s built on a 100% open stack. So for users who care, there are ways to go <a href="https://modeldeployer.themaximalist.com">fully local, and self hosted</a>. Or you can use <a href="/">ModelDeployer.com</a> to access APIs instantly.</p>
+
+<p>This accomplishes the best of both worlds. High-quality AI models, with the flexibility of privacy and local models.</p>
+
+<a href="/blog">← Back to blog</a>
+
+<%- include("../partials/page_footer") %>

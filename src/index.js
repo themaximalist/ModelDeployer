@@ -13,7 +13,8 @@ hummingbird.app.use(middleware.apiUser);
 hummingbird.app.use(middleware.helpers);
 
 hummingbird.get("/", "index");
-hummingbird.get("/about", "about");
+hummingbird.get("/blog", "blog/index");
+hummingbird.get("/blog/modeldeployer-launches", "blog/modeldeployer-launches");
 
 hummingbird.mount("/users", controllers.users);
 hummingbird.mount("/admin", controllers.models);
