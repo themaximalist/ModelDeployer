@@ -43,6 +43,22 @@
             <%= apikey.tokens %> tokens
         </div>
     </div>
+
+    <div class="flex flex-col gap-1">
+        <div class="uppercase text-xs">
+            Usage
+        </div>
+        <div class="bg-mod-lightest-gray/20 p-4">
+            <pre class="font-mono" style="background: linear-gradient(to right, black 0ch, #E68 0ch, #E68 6ch, black 6ch, black 11ch, #E68 11ch, #E68 15ch, black 15ch, black 80ch), linear-gradient(to right, black 0ch, #78dce8 0ch, #78dce8 5ch, black 5ch, black 12ch, #E68 12ch, #E68 15ch, black 15ch, black 16ch, #a6e22e 16ch, #a6e22e 19ch, black 19ch, black 80ch), linear-gradient(to right, black 0ch, black 0ch, black 80ch), linear-gradient(to right, black 0ch, black 0ch, black 80ch), linear-gradient(to right, black 0ch, black 0ch, black 80ch), linear-gradient(to right, black 0ch, black 0ch, black 80ch), linear-gradient(to right, black 0ch, #E68 0ch, #E68 5ch, black 5ch, black 6ch, #a6e22e 6ch, #a6e22e 9ch, black 9ch, black 21ch, #E68 21ch, #E68 23ch, black 23ch, black 80ch); background-repeat: no-repeat; background-size: 80ch 22px, 80ch 44px, 80ch 66px, 80ch 88px, 80ch 110px, 80ch 132px, 80ch 154px; background-clip: text; -webkit-background-clip: text; color: transparent; width: 80ch; font-family: monospace; font-size: 20px; line-height: 22px;">import LLM from "@themaximalist/llm.js"
+const llm = new LLM({
+    service: "modeldeployer",
+    model: "<%= apikey.id %>",
+});
+
+await LLM("the color of the sky is");
+</pre>
+        </div>
+    </div>
 </div>
 
 <hr class="my-4" />
