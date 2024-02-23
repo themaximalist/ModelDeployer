@@ -879,7 +879,8 @@ ul li p {
 
 p {
   margin-top: 0.25rem;
-  line-height: 1.75rem;
+  margin-bottom: 0.25rem;
+  line-height: 2rem;
 }
 
 h1 + p,
@@ -1001,6 +1002,7 @@ code {
 
 blockquote {
   margin: 0px;
+  margin-top: 0.5rem;
   border-left-width: 2px;
   --tw-border-opacity: 1;
   border-color: rgb(156 163 175 / var(--tw-border-opacity));
@@ -1011,7 +1013,11 @@ blockquote {
 }
 
 blockquote p {
-  margin: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+  line-height: 1.625;
 }
 
 video {
@@ -1031,6 +1037,7 @@ p img:not(.logo) {
 
 figure {
   margin: 0px;
+  margin-bottom: 1rem;
 }
 
 figure figcaption {
@@ -1151,4 +1158,8 @@ figure img {
   padding-top: 1.5px;
   padding-bottom: 1.5px;
   line-height: 1.25rem;
+}
+
+#TOC > ul > li > ul {
+  padding-top: 0.25rem;
 }
