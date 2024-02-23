@@ -5,7 +5,9 @@ import Database from "./database.js"
 import * as middleware from "./middleware.js"
 import "./models/index.js"
 
-const hummingbird = new Hummingbird();
+const hummingbird = new Hummingbird({
+    public: "static",
+});
 
 hummingbird.app.locals.Envtools = Envtools;
 hummingbird.app.use(middleware.loggedInUser);

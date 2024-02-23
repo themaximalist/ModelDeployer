@@ -13,13 +13,13 @@
         "start": "npm run server",
         "dev": "npm run watch",
         "test": "dotenv-extended mocha",
-        "cachebust": "echo $(( $(cat public/cachebust.txt) + 1 )) > public/cachebust.txt",
+        "cachebust": "echo $(( $(cat static/cachebust.txt) + 1 )) > static/cachebust.txt",
         "server": "node src/index.js",
         "watch": "nf -j Procfile.dev start",
         "build": "npm run build:css",
-        "build:css": "npx tailwindcss -i ./src/app.css -o ./public/app.css",
+        "build:css": "npx tailwindcss -i ./src/app.css -o ./static/app.css",
         "watch:server": "nodemon npm run server",
-        "watch:css": "npx tailwindcss -i ./src/app.css -o ./public/app.css --watch"
+        "watch:css": "npx tailwindcss -i ./src/app.css -o ./static/app.css --watch"
     },
     "keywords": [
         "ai",
@@ -35,7 +35,7 @@
         "@tailwindcss/forms": "^0.5.7",
         "@tailwindcss/typography": "^0.5.10",
         "@themaximalist/embeddings.js": "^0.0.4",
-        "@themaximalist/hummingbird.js": "^0.0.3",
+        "@themaximalist/hummingbird.js": "^0.0.4",
         "@themaximalist/llm.js": "^0.4.7",
         "bcrypt": "^5.1.1",
         "debug": "^4.3.4",
