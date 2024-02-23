@@ -1,13 +1,15 @@
-# Model Deployer
-<img src="logo.png" />
+## Model Deployer
 
-<div class="badges" style="text-align: center; margin-top: 0px;">
-<img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/themaximal1st/modeldeployer">
-<img alt="NPM Downloads" src="https://img.shields.io/npm/dt/%40themaximalist%2Fmodeldeployer">
-<img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/themaximal1st/modeldeployer">
-<img alt="GitHub License" src="https://img.shields.io/github/license/themaximal1st/modeldeployer">
+<img src="public/logo.png" alt="Model Deployer — API Proxy for AI models, rate limiting, management and more!" class="logo" style="max-width: 400px" />
+
+<div class="badges" style="text-align: center; margin-top: -20px;">
+<a href="https://github.com/themaximal1st/modeldeployer"><img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/themaximal1st/modeldeployer"></a>
+<a href="https://www.npmjs.com/package/@themaximalist/modeldeployer"><img alt="NPM Downloads" src="https://img.shields.io/npm/dt/%40themaximalist%2Fmodeldeployer"></a>
+<a href="https://github.com/themaximal1st/modeldeployer"><img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/themaximal1st/modeldeployer"></a>
+<a href="https://github.com/themaximal1st/modeldeployer"><img alt="GitHub License" src="https://img.shields.io/github/license/themaximal1st/modeldeployer"></a>
 </div>
 <br />
+
 
 [Model Deployer](https://modeldeployer.com) is the simplest way to deploy AI models for your applications.
 
@@ -23,18 +25,20 @@
 * Prevent free users from consuming your API tokens
 * Pre-pay with credits *(coming soon)*
 * Monthly subscription *(coming soon)*
-* Self-hosted or hosted [modeldeployer.com](https://modeldeployer.com)
+* Self-hosted or hosted at [Model Deployer](https://modeldeployer.com)
 * MIT License
 
 
 
-## Getting started
+## Install
 
-You'll need a Postgres DB setup. Then in your shell:
+Model Deployer requires a Postgres DB setup.
+
+Then in your shell, install from GitHub:
 
 ```bash
-npm install @themaximalist/modeldeployer
-cd modeldeployer
+git clone https://github.com/themaximal1st/ModelDeployer.git
+cd ModelDeployer
 npm install
 cp .env.template .env # edit DB connection
 npm run dev
@@ -42,34 +46,59 @@ npm run dev
 
 Visit [http://localhost:3000](http://localhost:3000) and you'll see Model Deployer.
 
+<img src="public/screenshot-models.png" alt="Model Deployer let's you manage AI models in production" />
+
 You should be able to create a user, a model, and an API key.
 
-Then you can use `LLM.js` to interact with your API:
+## LLM
+
+Then you can use [LLM.js](https://llmjs.themaximalist.com) to interact with your API:
 
 ```javascript
 import LLM from "@themaximalist/llm.js"
-await LLM("what color is the sky?", { service: "modeldeployer", model: "model-api-key-goes-here" });
+await LLM("what color is the sky?", {
+    service: "modeldeployer",
+    model: "api-key"
+});
 ```
 
-
+Your LLM request will use whatever model and settings you setup in Model Deployer.
 
 ## Embeddings
 
-Model Deployer also works with `embeddings.js`:
+Model Deployer also works with [Embeddings.js](https://embeddingsjs.themaximalist.com).
 
 ```javascript
 import Embeddings from "@themaximalist/embeddings.js"
-await Embeddings("what color is the sky?", { service: "modeldeployer", model: "embeddings-api-key-goes-here" });
+await Embeddings("what color is the sky?", {
+    service: "modeldeployer",
+    model: "api-key"
+});
 ```
 
+Just like with using Model Deployer with Large Language Models, your text embedding request will use whichever model and settings you've setup.
 
+## Vector Database
 
-More documentation coming soon!
+Model Deployer also works with [VectorDB.js](https://vectordbjs.themaximalist.com)—an in-memory text similarity database.
 
+Because `VectorDB.js` works with `Embeddings.js`—simply pass the `service` and `model` as an option.
 
+```javascript
+import VectorDB from "@themaximalist/vectordb.js"
+const db = new VectorDB({
+  embeddings: {
+    service: "modeldeployer",
+    model: "api-key",
+  }
+});
 
+await db.add("orange");
+await db.add("blue");
 
-
+const result = await db.search("light orange");
+// [ { input: 'orange', distance: 0.3109036684036255 } ]
+```
 
 ## Why does Model Deployer exist?
 
@@ -94,14 +123,12 @@ Importantly, it's built on a 100% open stack. So for users who care, (if you're 
 This accomplishes the best of both worlds. Free, open-source, MIT licensed model deployment tech that integrates into the existing remote/local AI toolchain.
 
 
-
-## Author
-
--   [The Maximalist](https://themaximalist.com/)
--   [@themaximal1st](https://twitter.com/themaximal1st)
-
-
-
 ## License
 
 MIT
+
+
+## Author
+
+Created by [The Maximalist](https://twitter.com/themaximal1st), see our [open-source projects](https://themaximalist.com/products).
+

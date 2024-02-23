@@ -88,19 +88,48 @@
   </style>
   <link rel="stylesheet" href="style.css" />
   <script defer data-domain="modeldeployer.themaximalist.com" src="https://s.cac.app/js/script.outbound-links.js"></script>
+  <meta property="og:url" content="https://modeldeployer.themaximalist.com/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Model Deployer — Deploy AI models in production">
+  <meta property="og:description" content="Model Deployer lets you easily deploy, rate limit, and manage AI models in production">
+  <meta property="og:image" content="https://modeldeployer.themaximalist.com/logo.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta property="twitter:domain" content="modeldeployer.themaximalist.com">
+  <meta property="twitter:url" content="https://modeldeployer.themaximalist.com/">
+  <meta name="twitter:title" content="Model Deployer — Deploy AI models in production">
+  <meta name="twitter:description" content="Model Deployer lets you easily deploy, rate limit, and manage AI models in production">
+  <meta name="twitter:image" content="https://modeldeployer.themaximalist.com/logo.png">
 </head>
 <body>
 <a class="fork-me" href="https://github.com/themaximal1st/modeldeployer"><img decoding="async" width="149" height="149" src="https://github.blog/wp-content/uploads/2008/12/forkme_right_darkblue_121621.png?resize=149%2C149" class="attachment-full size-full" alt="Fork me on GitHub" loading="lazy" data-recalc-dims="1"></a>
+<div id="content" class="gap-md">
 <header id="title-block-header">
 <h1 class="title">Model Deployer — Deploy AI models in production</h1>
 </header>
-<h1 id="model-deployer">Model Deployer</h1>
-<p><img src="logo.png" /></p>
-<div class="badges" style="text-align: center; margin-top: 0px;">
-<p><img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/themaximal1st/modeldeployer">
-<img alt="NPM Downloads" src="https://img.shields.io/npm/dt/%40themaximalist%2Fmodeldeployer">
-<img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/themaximal1st/modeldeployer">
-<img alt="GitHub License" src="https://img.shields.io/github/license/themaximal1st/modeldeployer"></p>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#model-deployer" id="toc-model-deployer">Model
+Deployer</a></li>
+<li><a href="#install" id="toc-install">Install</a></li>
+<li><a href="#llm" id="toc-llm">LLM</a></li>
+<li><a href="#embeddings" id="toc-embeddings">Embeddings</a></li>
+<li><a href="#vector-database" id="toc-vector-database">Vector
+Database</a></li>
+<li><a href="#why-does-model-deployer-exist"
+id="toc-why-does-model-deployer-exist">Why does Model Deployer
+exist?</a></li>
+<li><a href="#license" id="toc-license">License</a></li>
+<li><a href="#author" id="toc-author">Author</a></li>
+</ul>
+</nav>
+<h2 id="model-deployer">Model Deployer</h2>
+<p><img src="logo.png" alt="Model Deployer — API Proxy for AI models, rate limiting, management and more!" class="logo" style="max-width: 400px" /></p>
+<div class="badges" style="text-align: center; margin-top: -20px;">
+<p><a href="https://github.com/themaximal1st/modeldeployer"><img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/themaximal1st/modeldeployer"></a>
+<a href="https://www.npmjs.com/package/@themaximalist/modeldeployer"><img alt="NPM Downloads" src="https://img.shields.io/npm/dt/%40themaximalist%2Fmodeldeployer"></a>
+<a href="https://github.com/themaximal1st/modeldeployer"><img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/themaximal1st/modeldeployer"></a>
+<a href="https://github.com/themaximal1st/modeldeployer"><img alt="GitHub License" src="https://img.shields.io/github/license/themaximal1st/modeldeployer"></a></p>
 </div>
 <p><br /></p>
 <p><a href="https://modeldeployer.com">Model Deployer</a> is the
@@ -120,31 +149,67 @@ href="https://embeddingsjs.themaximalist.com">Embeddings.js</a></li>
 <li>Prevent free users from consuming your API tokens</li>
 <li>Pre-pay with credits <em>(coming soon)</em></li>
 <li>Monthly subscription <em>(coming soon)</em></li>
-<li>Self-hosted or hosted <a
-href="https://modeldeployer.com">modeldeployer.com</a></li>
+<li>Self-hosted or hosted at <a href="https://modeldeployer.com">Model
+Deployer</a></li>
 <li>MIT License</li>
 </ul>
-<h2 id="getting-started">Getting started</h2>
-<p>You’ll need a Postgres DB setup. Then in your shell:</p>
+<h2 id="install">Install</h2>
+<p>Model Deployer requires a Postgres DB setup.</p>
+<p>Then in your shell, install from GitHub:</p>
 <div class="sourceCode" id="cb1"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> install @themaximalist/modeldeployer</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> modeldeployer</span>
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/themaximal1st/ModelDeployer.git</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ModelDeployer</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> install</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> .env.template .env <span class="co"># edit DB connection</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> run dev</span></code></pre></div>
 <p>Visit <a href="http://localhost:3000">http://localhost:3000</a> and
 you’ll see Model Deployer.</p>
+<p><img src="screenshot-models.png" alt="Model Deployer let's you manage AI models in production" /></p>
 <p>You should be able to create a user, a model, and an API key.</p>
-<p>Then you can use <code>LLM.js</code> to interact with your API:</p>
+<h2 id="llm">LLM</h2>
+<p>Then you can use <a href="https://llmjs.themaximalist.com">LLM.js</a>
+to interact with your API:</p>
 <div class="sourceCode" id="cb2"><pre
 class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> LLM <span class="im">from</span> <span class="st">&quot;@themaximalist/llm.js&quot;</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="cf">await</span> <span class="fu">LLM</span>(<span class="st">&quot;what color is the sky?&quot;</span><span class="op">,</span> { <span class="dt">service</span><span class="op">:</span> <span class="st">&quot;modeldeployer&quot;</span><span class="op">,</span> <span class="dt">model</span><span class="op">:</span> <span class="st">&quot;model-api-key-goes-here&quot;</span> })<span class="op">;</span></span></code></pre></div>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="cf">await</span> <span class="fu">LLM</span>(<span class="st">&quot;what color is the sky?&quot;</span><span class="op">,</span> {</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">service</span><span class="op">:</span> <span class="st">&quot;modeldeployer&quot;</span><span class="op">,</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">model</span><span class="op">:</span> <span class="st">&quot;api-key&quot;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div>
+<p>Your LLM request will use whatever model and settings you setup in
+Model Deployer.</p>
 <h2 id="embeddings">Embeddings</h2>
-<p>Model Deployer also works with <code>embeddings.js</code>:</p>
+<p>Model Deployer also works with <a
+href="https://embeddingsjs.themaximalist.com">Embeddings.js</a>.</p>
 <div class="sourceCode" id="cb3"><pre
 class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> Embeddings <span class="im">from</span> <span class="st">&quot;@themaximalist/embeddings.js&quot;</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="cf">await</span> <span class="fu">Embeddings</span>(<span class="st">&quot;what color is the sky?&quot;</span><span class="op">,</span> { <span class="dt">service</span><span class="op">:</span> <span class="st">&quot;modeldeployer&quot;</span><span class="op">,</span> <span class="dt">model</span><span class="op">:</span> <span class="st">&quot;embeddings-api-key-goes-here&quot;</span> })<span class="op">;</span></span></code></pre></div>
-<p>More documentation coming soon!</p>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="cf">await</span> <span class="fu">Embeddings</span>(<span class="st">&quot;what color is the sky?&quot;</span><span class="op">,</span> {</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">service</span><span class="op">:</span> <span class="st">&quot;modeldeployer&quot;</span><span class="op">,</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">model</span><span class="op">:</span> <span class="st">&quot;api-key&quot;</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div>
+<p>Just like with using Model Deployer with Large Language Models, your
+text embedding request will use whichever model and settings you’ve
+setup.</p>
+<h2 id="vector-database">Vector Database</h2>
+<p>Model Deployer also works with <a
+href="https://vectordbjs.themaximalist.com">VectorDB.js</a>—an in-memory
+text similarity database.</p>
+<p>Because <code>VectorDB.js</code> works with
+<code>Embeddings.js</code>—simply pass the <code>service</code> and
+<code>model</code> as an option.</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> VectorDB <span class="im">from</span> <span class="st">&quot;@themaximalist/vectordb.js&quot;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> db <span class="op">=</span> <span class="kw">new</span> <span class="fu">VectorDB</span>({</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">embeddings</span><span class="op">:</span> {</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">service</span><span class="op">:</span> <span class="st">&quot;modeldeployer&quot;</span><span class="op">,</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">model</span><span class="op">:</span> <span class="st">&quot;api-key&quot;</span><span class="op">,</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="cf">await</span> db<span class="op">.</span><span class="fu">add</span>(<span class="st">&quot;orange&quot;</span>)<span class="op">;</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="cf">await</span> db<span class="op">.</span><span class="fu">add</span>(<span class="st">&quot;blue&quot;</span>)<span class="op">;</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> result <span class="op">=</span> <span class="cf">await</span> db<span class="op">.</span><span class="fu">search</span>(<span class="st">&quot;light orange&quot;</span>)<span class="op">;</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co">// [ { input: &#39;orange&#39;, distance: 0.3109036684036255 } ]</span></span></code></pre></div>
 <h2 id="why-does-model-deployer-exist">Why does Model Deployer
 exist?</h2>
 <p>I built <a href="https://llmjs.themaximalist.com">LLM.js</a> because
@@ -171,13 +236,13 @@ local, and self hosted.</p>
 <p>This accomplishes the best of both worlds. Free, open-source, MIT
 licensed model deployment tech that integrates into the existing
 remote/local AI toolchain.</p>
-<h2 id="author">Author</h2>
-<ul>
-<li><a href="https://themaximalist.com/">The Maximalist</a></li>
-<li><a href="https://twitter.com/themaximal1st"><span class="citation"
-data-cites="themaximal1st">@themaximal1st</span></a></li>
-</ul>
 <h2 id="license">License</h2>
 <p>MIT</p>
+<h2 id="author">Author</h2>
+<p>Created by <a href="https://twitter.com/themaximal1st">The
+Maximalist</a>, see our <a
+href="https://themaximalist.com/products">open-source projects</a>.</p>
+    <script src="/app.js"></script>
+</div>
 </body>
 </html>
