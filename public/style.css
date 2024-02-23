@@ -1114,7 +1114,7 @@ figure img {
 #TOC ul li {
   margin: 0px;
   list-style-type: none;
-  padding-top: 1px;
-  padding-bottom: 1px;
+  padding-top: 1.5px;
+  padding-bottom: 1.5px;
   line-height: 1.25rem;
 }
