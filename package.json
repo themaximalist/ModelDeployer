@@ -1,6 +1,6 @@
 {
     "name": "@themaximalist/modeldeployer",
-    "version": "0.0.8",
+    "version": "0.0.9",
     "description": "Deploy and Manage AI Models",
     "type": "module",
     "main": "src/index.js",
@@ -34,9 +34,9 @@
     "devDependencies": {
         "@tailwindcss/forms": "^0.5.7",
         "@tailwindcss/typography": "^0.5.10",
-        "@themaximalist/embeddings.js": "^0.0.4",
-        "@themaximalist/hummingbird.js": "^0.0.4",
-        "@themaximalist/llm.js": "^0.4.7",
+        "@themaximalist/embeddings.js": "latest",
+        "@themaximalist/hummingbird.js": "latest",
+        "@themaximalist/llm.js": "latest",
         "bcrypt": "^5.1.1",
         "debug": "^4.3.4",
         "dotenv-extended": "^2.9.0",
