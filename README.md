@@ -2,7 +2,7 @@
 
 <img src="public/logo.png" alt="Model Deployer — API Proxy for AI models, rate limiting, management and more!" class="logo" style="max-width: 400px" />
 
-<div class="badges" style="text-align: center; margin-top: -20px;">
+<div class="badges" style="text-align: center; margin-top: -10px;">
 <a href="https://github.com/themaximal1st/modeldeployer"><img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/themaximal1st/modeldeployer"></a>
 <a href="https://www.npmjs.com/package/@themaximalist/modeldeployer"><img alt="NPM Downloads" src="https://img.shields.io/npm/dt/%40themaximalist%2Fmodeldeployer"></a>
 <a href="https://github.com/themaximal1st/modeldeployer"><img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/themaximal1st/modeldeployer"></a>
@@ -13,7 +13,9 @@
 
 [Model Deployer](https://modeldeployer.com) is the simplest way to deploy AI models for your applications.
 
-**Features:**
+<div class="compressed-group">
+
+**Features**
 
 * Proxy to hundreds of local and remote AI models (LLM, Stable Diffusion, VectorDBs)
 * A single interface for all LLM models, built on [LLM.js](https://llmjs.themaximalist.com)
@@ -28,7 +30,7 @@
 * Self-hosted or hosted at [Model Deployer](https://modeldeployer.com)
 * MIT License
 
-
+</div>
 
 ## Install
 
@@ -46,7 +48,15 @@ npm run dev
 
 Visit [http://localhost:3000](http://localhost:3000) and you'll see Model Deployer.
 
-<img src="public/screenshot-models.png" alt="Model Deployer let's you manage AI models in production" />
+<table class="images">
+<tr>
+<td>
+  <img src="public/screenshot-models.png" alt="Model Deployer let's you manage AI models in production" />
+</td>
+<td width="50%">
+</td>
+</tr>
+</table>
 
 You should be able to create a user, a model, and an API key.
 
@@ -100,7 +110,7 @@ const result = await db.search("light orange");
 // [ { input: 'orange', distance: 0.3109036684036255 } ]
 ```
 
-## Why does Model Deployer exist?
+## Philosophy
 
 I built [LLM.js](https://llmjs.themaximalist.com) because I wanted to give people control over how they use AI models in their apps.
 

@@ -116,16 +116,14 @@ Deployer</a></li>
 <li><a href="#embeddings" id="toc-embeddings">Embeddings</a></li>
 <li><a href="#vector-database" id="toc-vector-database">Vector
 Database</a></li>
-<li><a href="#why-does-model-deployer-exist"
-id="toc-why-does-model-deployer-exist">Why does Model Deployer
-exist?</a></li>
+<li><a href="#philosophy" id="toc-philosophy">Philosophy</a></li>
 <li><a href="#license" id="toc-license">License</a></li>
 <li><a href="#author" id="toc-author">Author</a></li>
 </ul>
 </nav>
 <h2 id="model-deployer">Model Deployer</h2>
 <p><img src="logo.png" alt="Model Deployer — API Proxy for AI models, rate limiting, management and more!" class="logo" style="max-width: 400px" /></p>
-<div class="badges" style="text-align: center; margin-top: -20px;">
+<div class="badges" style="text-align: center; margin-top: -10px;">
 <p><a href="https://github.com/themaximal1st/modeldeployer"><img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/themaximal1st/modeldeployer"></a>
 <a href="https://www.npmjs.com/package/@themaximalist/modeldeployer"><img alt="NPM Downloads" src="https://img.shields.io/npm/dt/%40themaximalist%2Fmodeldeployer"></a>
 <a href="https://github.com/themaximal1st/modeldeployer"><img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/themaximal1st/modeldeployer"></a>
@@ -134,7 +132,8 @@ exist?</a></li>
 <p><br /></p>
 <p><a href="https://modeldeployer.com">Model Deployer</a> is the
 simplest way to deploy AI models for your applications.</p>
-<p><strong>Features:</strong></p>
+<div class="compressed-group">
+<p><strong>Features</strong></p>
 <ul>
 <li>Proxy to hundreds of local and remote AI models (LLM, Stable
 Diffusion, VectorDBs)</li>
@@ -153,6 +152,7 @@ href="https://embeddingsjs.themaximalist.com">Embeddings.js</a></li>
 Deployer</a></li>
 <li>MIT License</li>
 </ul>
+</div>
 <h2 id="install">Install</h2>
 <p>Model Deployer requires a Postgres DB setup.</p>
 <p>Then in your shell, install from GitHub:</p>
@@ -164,7 +164,15 @@ class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> run dev</span></code></pre></div>
 <p>Visit <a href="http://localhost:3000">http://localhost:3000</a> and
 you’ll see Model Deployer.</p>
-<p><img src="screenshot-models.png" alt="Model Deployer let's you manage AI models in production" /></p>
+<table class="images">
+<tr>
+<td>
+<img src="screenshot-models.png" alt="Model Deployer let's you manage AI models in production" />
+</td>
+<td width="50%">
+</td>
+</tr>
+</table>
 <p>You should be able to create a user, a model, and an API key.</p>
 <h2 id="llm">LLM</h2>
 <p>Then you can use <a href="https://llmjs.themaximalist.com">LLM.js</a>
@@ -210,8 +218,7 @@ class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb4-
 <span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> result <span class="op">=</span> <span class="cf">await</span> db<span class="op">.</span><span class="fu">search</span>(<span class="st">&quot;light orange&quot;</span>)<span class="op">;</span></span>
 <span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co">// [ { input: &#39;orange&#39;, distance: 0.3109036684036255 } ]</span></span></code></pre></div>
-<h2 id="why-does-model-deployer-exist">Why does Model Deployer
-exist?</h2>
+<h2 id="philosophy">Philosophy</h2>
 <p>I built <a href="https://llmjs.themaximalist.com">LLM.js</a> because
 I wanted to give people control over how they use AI models in their
 apps.</p>
